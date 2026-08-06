@@ -251,9 +251,9 @@ export default function ModulesSection() {
             {/* Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Analytics Card (Span 2) */}
-                <div className="md:col-span-2 bg-white rounded-[2.5rem] border border-slate-200 p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
+                <div className="md:col-span-2 bg-white rounded-[2.5rem] border border-slate-200 p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group flex flex-col">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
-                    <div className="relative z-10 flex flex-col h-full justify-between">
+                    <div className="relative z-10 flex flex-col flex-1 justify-between">
                         <div>
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center"><Activity className="w-5 h-5" /></div>
@@ -292,11 +292,11 @@ export default function ModulesSection() {
                 </div>
 
                 {/* Revenue Card */}
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2.5rem] border border-slate-700 p-8 sm:p-10 shadow-xl shadow-slate-900/20 relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2.5rem] border border-slate-700 p-8 sm:p-10 shadow-xl shadow-slate-900/20 relative overflow-hidden group flex flex-col">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                     <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-2xl"></div>
                     
-                    <div className="relative z-10 flex flex-col h-full justify-between">
+                    <div className="relative z-10 flex flex-col flex-1 justify-between">
                         <div>
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 text-emerald-400 flex items-center justify-center"><TrendingUp className="w-5 h-5" /></div>
@@ -321,9 +321,9 @@ export default function ModulesSection() {
                 </div>
 
                 {/* Automation Builder Card (Span 3) */}
-                <div className="md:col-span-2 lg:col-span-3 bg-white rounded-[2.5rem] border border-slate-200 p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group h-auto min-h-[300px]">
-                    <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center justify-between h-full">
-                        <div className="max-w-md">
+                <div className="md:col-span-2 lg:col-span-3 bg-white rounded-[2.5rem] border border-slate-200 p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group min-h-[300px] flex flex-col">
+                    <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center justify-between flex-1">
+                        <div className="max-w-md w-full">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center"><RefreshCw className="w-5 h-5" /></div>
                                 <h3 className="font-bold text-2xl text-slate-900">Visual Automation</h3>
@@ -333,7 +333,7 @@ export default function ModulesSection() {
                             </p>
                             <button 
                                 onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
-                                className="px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-lg shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2 w-fit"
+                                className="px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-lg shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2 w-fit md:mx-auto"
                             >
                                 <span>Explore Workflows</span>
                                 <ArrowRight className="w-4 h-4" />
