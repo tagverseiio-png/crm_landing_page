@@ -249,7 +249,7 @@ export default function ModulesSection() {
             </div>
 
             {/* Bento Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[280px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Analytics Card (Span 2) */}
                 <div className="md:col-span-2 bg-white rounded-[2.5rem] border border-slate-200 p-8 sm:p-10 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
@@ -262,7 +262,7 @@ export default function ModulesSection() {
                             <p className="text-slate-600 font-medium">Pipeline drop-off analytics update the moment a deal moves.</p>
                         </div>
                         
-                        <div className="space-y-4 mt-8">
+                        <div className="space-y-4 mt-6">
                             <div className="group/bar">
                                 <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                                     <span>Inbound Leads</span> <span className="text-indigo-600">320 (100%)</span>
@@ -281,18 +281,10 @@ export default function ModulesSection() {
                             </div>
                             <div className="group/bar">
                                 <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
-                                    <span>Quotes Delivered</span> <span className="text-indigo-600">140 (43%)</span>
+                                    <span>Closed Won</span> <span className="text-indigo-600">112 (35%)</span>
                                 </div>
                                 <div className="w-full bg-slate-100 h-4 rounded-full overflow-hidden shadow-inner">
-                                    <div className="bg-purple-500 h-full w-[43%] rounded-full transform origin-left transition-transform duration-1000 delay-200"></div>
-                                </div>
-                            </div>
-                            <div className="group/bar">
-                                <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
-                                    <span>Invoiced & Paid</span> <span className="text-indigo-600">112 (35%)</span>
-                                </div>
-                                <div className="w-full bg-slate-100 h-4 rounded-full overflow-hidden shadow-inner">
-                                    <div className="bg-emerald-500 h-full w-[35%] rounded-full transform origin-left transition-transform duration-1000 delay-300"></div>
+                                    <div className="bg-emerald-500 h-full w-[35%] rounded-full transform origin-left transition-transform duration-1000 delay-200"></div>
                                 </div>
                             </div>
                         </div>
