@@ -155,7 +155,7 @@ export default function PipelineSection() {
                 </div>
 
                 {/* Right Side: Giant Interactive Image Viewer (Sticky) */}
-                <div className="sticky top-32 h-[500px] sm:h-[700px] w-full bg-slate-100 rounded-[3rem] border border-slate-200/60 shadow-2xl shadow-slate-200/50 flex items-center justify-center p-8 sm:p-16 overflow-hidden mt-10 lg:mt-0">
+                <div className="sticky top-32 h-[500px] sm:h-[700px] w-full bg-slate-100 rounded-[3rem] border border-slate-200/60 shadow-2xl shadow-slate-200/50 flex items-center justify-center p-4 sm:p-8 md:p-16 overflow-hidden mt-10 lg:mt-0">
                     {/* Decorative background blur blobs */}
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/20 rounded-full blur-[80px]"></div>
                     <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-indigo-400/20 rounded-full blur-[80px]"></div>

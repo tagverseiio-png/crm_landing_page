@@ -23,7 +23,7 @@ export default function Home() {
         <div className="w-full">
             <section className="relative min-h-[90vh] flex flex-col justify-center items-center px-6 pt-12 pb-24 text-center overflow-hidden">
                 <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
-                    <div className="w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] orb-glow rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
+                    <div className="w-[300px] h-[300px] sm:w-[800px] sm:h-[800px] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] orb-glow rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
                 </div>
 
                 <div className={`reveal-element ${mounted ? 'active' : ''} inline-flex items-center gap-2 text-apple-accent text-xs sm:text-sm font-bold tracking-widest uppercase mb-8`}>
@@ -66,14 +66,14 @@ export default function Home() {
                     {[1, 2].map((track) => (
                         <div key={track} className="flex gap-6 shrink-0">
                             {/* Card 1: Lead Capture */}
-                            <div className="w-[600px] h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-emerald-100 group cursor-pointer">
+                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-emerald-100 group cursor-pointer">
                                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                                         <div className="overflow-hidden">
                                             <span className="block text-emerald-700 font-bold uppercase tracking-wider text-xs pb-3">01 · Lead Capture</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-emerald-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-emerald-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
                                         Instant web contacts
                                     </h4>
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
@@ -96,14 +96,14 @@ export default function Home() {
                             </div>
 
                             {/* Card 2: WhatsApp */}
-                            <div className="w-[600px] h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer">
+                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer">
                                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                                         <div className="overflow-hidden">
                                             <span className="block text-indigo-400 font-bold uppercase tracking-wider text-xs pb-3">02 · WhatsApp App</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
                                         Quote & close in chat
                                     </h4>
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
@@ -126,14 +126,14 @@ export default function Home() {
                             </div>
 
                             {/* Card 3: Quote to Cash */}
-                            <div className="w-[600px] h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-blue-100 group cursor-pointer">
+                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-blue-100 group cursor-pointer">
                                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                                         <div className="overflow-hidden">
                                             <span className="block text-blue-600 font-bold uppercase tracking-wider text-xs pb-3">03 · Quote-to-Cash</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-blue-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-blue-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
                                         Auto-gen invoices
                                     </h4>
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
@@ -156,14 +156,14 @@ export default function Home() {
                             </div>
 
                             {/* Card 4: Dossier */}
-                            <div className="w-[600px] h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-orange-100 group cursor-pointer">
+                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-orange-100 group cursor-pointer">
                                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                                         <div className="overflow-hidden">
                                             <span className="block text-orange-700 font-bold uppercase tracking-wider text-xs pb-3">04 · 360° Dossier</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-orange-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-orange-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
                                         Client history unified
                                     </h4>
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
@@ -186,14 +186,14 @@ export default function Home() {
                             </div>
 
                             {/* Card 5: Kanban */}
-                            <div className="w-[600px] h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer">
+                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer">
                                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                                         <div className="overflow-hidden">
                                             <span className="block text-cyan-400 font-bold uppercase tracking-wider text-xs pb-3">05 · Visual Drag-Drop</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
                                         Custom pipeline flow
                                     </h4>
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
@@ -216,14 +216,14 @@ export default function Home() {
                             </div>
 
                             {/* Card 6: Analytics */}
-                            <div className="w-[600px] h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-rose-100 group cursor-pointer">
+                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-rose-100 group cursor-pointer">
                                 <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
                                         <div className="overflow-hidden">
                                             <span className="block text-rose-600 font-bold uppercase tracking-wider text-xs pb-3">06 · Live Analytics</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-rose-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-rose-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
                                         Morning forecasting
                                     </h4>
                                     <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">

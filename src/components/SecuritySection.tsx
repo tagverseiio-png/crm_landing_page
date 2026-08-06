@@ -6,7 +6,7 @@ export default function SecuritySection() {
     return (
         <section id="security" className="py-24 sm:py-36 bg-apple-darkbg text-white relative overflow-hidden">
             <div className="absolute inset-0 -z-10 flex items-center justify-center opacity-30 pointer-events-none">
-                <div className="w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-3xl"></div>
+                <div className="w-[300px] h-[300px] md:w-[800px] md:h-[800px] bg-blue-600/20 rounded-full blur-3xl"></div>
             </div>
 
             <div className="max-w-7xl mx-auto px-6 w-full">

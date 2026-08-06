@@ -7,9 +7,9 @@ export default function ModulesSection() {
     <div className="bg-slate-50 relative overflow-hidden">
         {/* Abstract Background Elements */}
         <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-white to-transparent pointer-events-none"></div>
-        <div className="absolute top-40 right-[-10%] w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute top-[40%] left-[-10%] w-[600px] h-[600px] bg-emerald-100/40 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute bottom-40 right-[10%] w-[500px] h-[500px] bg-indigo-100/40 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-40 right-[-10%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-100/40 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-[40%] left-[-10%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-emerald-100/40 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-40 right-[10%] w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-indigo-100/40 rounded-full blur-[120px] pointer-events-none"></div>
 
         {/* PILLAR 2: Workspace Module */}
         <section id="workspace" className="py-16 sm:py-20 px-6 max-w-[1400px] mx-auto relative z-10">
