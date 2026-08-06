@@ -50,7 +50,6 @@ export default function Home() {
                 </div>
             </section>
 
-            <OnboardingPreview />
 
             <section className="py-14 bg-slate-50 border-y border-slate-200/80 overflow-hidden relative">
                 <div className="max-w-7xl mx-auto px-6 mb-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">

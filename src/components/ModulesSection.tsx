@@ -1,6 +1,7 @@
 "use client";
 
 import { FolderKanban, ShieldCheck, MessageSquare, Zap, Activity, Filter, MousePointerClick, RefreshCw, BarChart3, Users, Lock, CreditCard, CheckCircle, TrendingUp, ArrowRight, Building2, MapPin, UserCog, FileText, Rocket } from 'lucide-react';
+import OnboardingPreview from './OnboardingPreview';
 
 export default function ModulesSection() {
   return (
@@ -135,6 +136,8 @@ export default function ModulesSection() {
                 </button>
             </div>
         </section>
+
+        <OnboardingPreview />
 
         {/* PILLAR 3: Integration Hub */}
         <section className="py-16 sm:py-20 px-6 max-w-[1400px] mx-auto border-t border-slate-200/60 relative z-10">
