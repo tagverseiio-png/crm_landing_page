@@ -2,43 +2,103 @@ import { CheckCircle2 } from 'lucide-react';
 
 const comparisonData = [
     {
-        feature: 'CRM & Pipeline Management',
-        replaces: ['HubSpot', 'Pipedrive'],
+        feature: 'CRM & PIPELINE MANAGEMENT',
+        replaces: ['HubSpot', 'ActiveCampaign'],
         cost: '$99/mo'
     },
     {
-        feature: 'Project Kanban & Delivery',
-        replaces: ['Asana', 'Monday.com'],
-        cost: '$49/mo'
+        feature: 'UNLIMITED SALES FUNNELS',
+        replaces: ['ClickFunnels', 'Leadpages'],
+        cost: '$297/mo'
     },
     {
-        feature: 'Automated Quoting & Proposals',
-        replaces: ['PandaDoc', 'DocuSign'],
-        cost: '$49/mo'
+        feature: 'WEBSITE BUILDER',
+        replaces: ['WordPress', 'Squarespace', 'Wix'],
+        cost: '$29/mo'
     },
     {
-        feature: 'Invoicing & Payments',
-        replaces: ['QuickBooks', 'FreshBooks'],
+        feature: 'ECOMMERCE',
+        replaces: ['Shopify', 'WooCommerce'],
         cost: '$39/mo'
     },
     {
-        feature: 'WhatsApp Shared Inbox',
-        replaces: ['Intercom', 'Front'],
+        feature: 'SURVEYS & FORMS',
+        replaces: ['Jotform', 'Typeform', 'Wufoo'],
+        cost: '$79/mo'
+    },
+    {
+        feature: 'EMAIL MARKETING',
+        replaces: ['Mailchimp', 'Constant Contact', 'HubSpot'],
         cost: '$99/mo'
     },
     {
-        feature: 'Web Lead Capture Forms',
-        replaces: ['Typeform', 'Jotform'],
-        cost: '$39/mo'
+        feature: '2-WAY SMS MARKETING',
+        replaces: ['Skipio', 'Podium', 'Sendlane'],
+        cost: '$99/mo'
     },
     {
-        feature: 'Workflow Automations',
-        replaces: ['Zapier', 'Make'],
+        feature: 'BOOKING & APPOINTMENTS',
+        replaces: ['Calendly', 'Acuity Scheduling'],
+        cost: '$29/mo'
+    },
+    {
+        feature: 'WORKFLOW AUTOMATIONS',
+        replaces: ['Keap', 'ActiveCampaign', 'HubSpot'],
+        cost: '$169/mo'
+    },
+    {
+        feature: 'AI VOICE AGENT',
+        replaces: ['Air', 'Synthflow'],
+        cost: '$199/mo'
+    },
+    {
+        feature: 'AI CONTENT & CHAT',
+        replaces: ['Jasper', 'Drift'],
+        cost: '$99/mo'
+    },
+    {
+        feature: 'AD MANAGEMENT',
+        replaces: ['AdEspresso', 'Madgicx'],
         cost: '$49/mo'
     },
     {
-        feature: 'Real-time Analytics',
-        replaces: ['AgencyAnalytics', 'Databox'],
+        feature: 'SEO & LOCAL LISTINGS',
+        replaces: ['Yext', 'Brightlocal'],
+        cost: '$99/mo'
+    },
+    {
+        feature: 'COURSES & PRODUCTS',
+        replaces: ['Kajabi', 'Teachable'],
+        cost: '$99/mo'
+    },
+    {
+        feature: 'COMMUNITIES',
+        replaces: ['Skool', 'Mighty Networks', 'Circle'],
+        cost: '$89/mo'
+    },
+    {
+        feature: 'CALL TRACKING',
+        replaces: ['CallRail', 'CallTrackingMetrics'],
+        cost: '$49/mo'
+    },
+    {
+        feature: 'REPUTATION MANAGEMENT',
+        replaces: ['Birdeye', 'Podium'],
+        cost: '$159/mo'
+    },
+    {
+        feature: 'TRACKING & ANALYTICS',
+        replaces: ['AgencyAnalytics'],
+        cost: '$49/mo'
+    },
+    {
+        feature: 'DOCUMENT SIGNING',
+        replaces: ['DocuSign', 'PandaDoc'],
+        cost: '$47/mo'
+    },
+    {
+        feature: 'GRAY-LABELED MOBILE APP',
+        replaces: ['Unique to BridgeBreak'],
         cost: '$49/mo'
     }
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { Database, KeyRound, ShieldAlert, Clock } from 'lucide-react';
+import { Database, KeyRound, ShieldAlert, Clock, ArrowRight } from 'lucide-react';
 
 export default function SecuritySection() {
     return (
@@ -60,6 +60,16 @@ export default function SecuritySection() {
                             Automatic session revocation and encrypted token rotation keep unauthorized devices out.
                         </p>
                     </div>
+                </div>
+
+                <div className="flex justify-center mt-16">
+                    <button 
+                        onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                        className="px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-xl shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2"
+                    >
+                        <span>Read security specs</span>
+                        <ArrowRight className="w-4 h-4" />
+                    </button>
                 </div>
             </div>
         </section>
