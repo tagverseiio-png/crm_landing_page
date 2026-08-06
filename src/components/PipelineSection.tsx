@@ -100,9 +100,18 @@ export default function PipelineSection() {
                     Stop copy-pasting between tools. <br className="hidden sm:block" />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Let the pipeline do it.</span>
                 </h2>
-                <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8">
                     Most CRMs stop at "deal won." BridgeBreak keeps going straight into quoting, invoicing, cash collection, and team delivery.
                 </p>
+                <div className="flex justify-center">
+                    <button 
+                        onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                        className="px-8 py-3.5 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-xl shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2"
+                    >
+                        <span>See how it works</span>
+                        <ArrowRight className="w-4 h-4" />
+                    </button>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-20 items-start relative">
