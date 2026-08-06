@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridgeBreak CRM — Run your client business from leads to cash</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        apple: {
+                            bg: '#fbfbfd',
+                            darkbg: '#000000',
+                            cardDark: '#121215',
+                            accent: '#0071e3',
+                            accentHover: '#0077ed',
+                            accentLight: '#e8f2ff',
+                            text: '#1d1d1f',
+                            textMuted: '#6e6e73',
+                            border: '#e5e5ea',
+                            darkBorder: '#232328'
+                        }
+                    },
+                    boxShadow: {
+                        'apple-card': '0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                        'apple-hover': '0 20px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                        'glow': '0 0 50px -10px rgba(0, 113, 227, 0.3)',
+                    },
+                    letterSpacing: {
+                        'tightest': '-0.035em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #fbfbfd;
+            color: #1d1d1f;
+            overflow-x: hidden;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .glass-dark {
+            background: rgba(18, 18, 21, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pulse gradient orb */
+        .orb-glow {
+            background: radial-gradient(circle, rgba(0,113,227,0.15) 0%, rgba(255,255,255,0) 70%);
+        }
+
+        /* Continuous Right-to-Left Infinite Banner Marquee */
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee-slow {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 32s linear infinite;
+        }
+        .animate-marquee-slow:hover {
+            animation-play-state: paused;
+        }
+
+        /* Hide scrollbars for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-apple-accent selection:text-white">
+
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-nav border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-8 h-8 rounded-xl bg-apple-accent text-white flex items-center justify-center font-bold text-lg shadow-sm transition-transform group-hover:scale-105">
+                    B
+                </div>
+                <span class="font-semibold text-lg tracking-tight text-apple-text">BridgeBreak</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-apple-textMuted">
+                <a href="#pipeline" class="hover:text-apple-accent transition-colors">Pipeline</a>
+                <a href="#pillars" class="hover:text-apple-accent transition-colors">Modules</a>
+                <a href="#view360" class="hover:text-apple-accent transition-colors">360° CRM</a>
+                <a href="#security" class="hover:text-apple-accent transition-colors">Security</a>
+                <a href="#pricing" class="hover:text-apple-accent transition-colors">Pricing</a>
+                <a href="#faq" class="hover:text-apple-accent transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="hidden sm:flex items-center space-x-4">
+                <button onclick="openDemoModal('Sign In')" class="text-sm font-medium text-apple-text hover:text-apple-accent transition-colors px-3 py-2">
+                    Sign In
+                </button>
+                <button onclick="openDemoModal('Start Free Trial')" class="text-sm font-medium bg-apple-accent hover:bg-apple-accentHover text-white px-4 py-2 rounded-full transition-all duration-200 shadow-sm hover:shadow hover:scale-[1.02]">
+                    Start Free
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-apple-text hover:text-apple-accent">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-nav border-b border-black/10 px-6 py-6 space-y-4">
+            <a href="#pipeline" class="block text-base font-medium text-apple-text hover:text-apple-accent">Pipeline</a>
+            <a href="#pillars" class="block text-base font-medium text-apple-text hover:text-apple-accent">Modules</a>
+            <a href="#view360" class="block text-base font-medium text-apple-text hover:text-apple-accent">360° View</a>
+            <a href="#security" class="block text-base font-medium text-apple-text hover:text-apple-accent">Security</a>
+            <a href="#pricing" class="block text-base font-medium text-apple-text hover:text-apple-accent">Pricing</a>
+            <a href="#faq" class="block text-base font-medium text-apple-text hover:text-apple-accent">FAQ</a>
+            <div class="pt-4 border-t border-gray-200 flex flex-col gap-3">
+                <button onclick="openDemoModal('Sign In')" class="w-full text-center py-2.5 font-medium text-apple-text border border-gray-300 rounded-full">Sign In</button>
+                <button onclick="openDemoModal('Start Free Trial')" class="w-full text-center py-2.5 font-medium bg-apple-accent text-white rounded-full">Start Free</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section class="relative min-h-[90vh] flex flex-col justify-center items-center px-6 pt-12 pb-24 text-center overflow-hidden">
+            <!-- Background Subtle Radial Glow -->
+            <div class="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
+                <div class="w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] orb-glow rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
+            </div>
+
+            <!-- Positioning Tagline Badge -->
+            <div class="reveal-element inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-apple-accent/10 border border-apple-accent/20 text-apple-accent text-xs sm:text-sm font-semibold tracking-wide uppercase mb-8">
+                <span class="w-2 h-2 rounded-full bg-apple-accent animate-ping"></span>
+                Built for Agencies & Service Businesses
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="reveal-element max-w-5xl text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-apple-text leading-[1.08] mb-8">
+                Run your entire client business — <span class="text-transparent bg-clip-text bg-gradient-to-r from-apple-accent via-indigo-600 to-purple-600">leads to cash</span> — from one workspace.
+            </h1>
+
+            <!-- Supporting Paragraph -->
+            <p class="reveal-element max-w-2xl text-lg sm:text-xl text-apple-textMuted font-normal leading-relaxed mb-10">
+                BridgeBreak brings your leads, deals, quotes, invoices, projects, and marketing into a single real-time workspace. No spreadsheets. No disconnected tools.
+            </p>
+
+            <!-- Call to Action Buttons -->
+            <div class="reveal-element flex flex-col sm:flex-row items-center gap-4 mb-16 w-full sm:w-auto">
+                <button onclick="openDemoModal('Start Free Trial')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-lg shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2">
+                    <span>Start Free Trial</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+                <button onclick="openDemoModal('Watch Demo')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-apple-text font-medium text-base transition-all duration-200 shadow-sm hover:scale-[1.02] flex items-center justify-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5 text-apple-accent"></i>
+                    <span>Watch Demo</span>
+                </button>
+            </div>
+
+            <div class="reveal-element w-full max-w-6xl mx-auto mt-4 relative">
+                <div class="relative rounded-2xl sm:rounded-3xl bg-white border border-gray-200/80 shadow-2xl shadow-gray-200/50 p-3 sm:p-6 overflow-hidden">
+                    <!-- Fake Mac Window Controls Header -->
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <div class="text-xs font-medium text-gray-400 bg-gray-100 px-3 py-1 rounded-full flex items-center gap-1">
+                            <i data-lucide="lock" class="w-3 h-3"></i> app.bridgebreakcrm.com/workspace
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-apple-accent font-medium">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span> Live Workspace
+                        </div>
+                    </div>
+
+                    <!-- Simulated Workspace Header Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-slate-50/80 p-4 rounded-xl border border-gray-100 text-left">
+                            <span class="text-xs font-medium text-apple-textMuted uppercase tracking-wider">Active Pipeline</span>
+                            <div class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">$142,500</div>
+                            <span class="text-xs font-medium text-emerald-600 flex items-center gap-0.5 mt-1">
+                                <i data-lucide="trending-up" class="w-3 h-3"></i> +14.2% this week
+                            </span>
+                        </div>
+                        <div class="bg-slate-50/80 p-4 rounded-xl border border-gray-100 text-left">
+                            <span class="text-xs font-medium text-apple-textMuted uppercase tracking-wider">Quote to Cash</span>
+                            <div class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">1.8 Days</div>
+                            <span class="text-xs font-medium text-emerald-600 flex items-center gap-0.5 mt-1">
+                                <i data-lucide="zap" class="w-3 h-3"></i> Auto-invoice enabled
+                            </span>
+                        </div>
+                        <div class="bg-slate-50/80 p-4 rounded-xl border border-gray-100 text-left">
+                            <span class="text-xs font-medium text-apple-textMuted uppercase tracking-wider">Invoices Paid</span>
+                            <div class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">98.4%</div>
+                            <span class="text-xs font-medium text-blue-600 flex items-center gap-0.5 mt-1">
+                                <i data-lucide="check-circle-2" class="w-3 h-3"></i> $38k collected today
+                            </span>
+                        </div>
+                        <div class="bg-slate-50/80 p-4 rounded-xl border border-gray-100 text-left">
+                            <span class="text-xs font-medium text-apple-textMuted uppercase tracking-wider">Active Projects</span>
+                            <div class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">12 Client Hubs</div>
+                            <span class="text-xs font-medium text-purple-600 flex items-center gap-0.5 mt-1">
+                                <i data-lucide="users" class="w-3 h-3"></i> Zero handoff delay
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Live Pipeline Mini Canvas -->
+                    <div class="bg-slate-900 rounded-xl p-5 text-white text-left relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-semibold tracking-wider text-slate-400 uppercase">Live Lead Conversion Flow</span>
+                            <span class="text-xs text-apple-accent bg-apple-accent/20 px-2.5 py-1 rounded-full">Automated Trigger active</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
+                            <div class="p-2.5 rounded-lg bg-slate-800/90 border border-slate-700">
+                                <div class="text-slate-400 mb-1">1. Lead</div>
+                                <div class="font-semibold text-white">Acme Corp</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-800/90 border border-slate-700">
+                                <div class="text-slate-400 mb-1">2. Contact</div>
+                                <div class="font-semibold text-white">Sarah M.</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-800/90 border border-slate-700">
+                                <div class="text-slate-400 mb-1">3. Deal</div>
+                                <div class="font-semibold text-amber-400">$24,000</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-800/90 border border-slate-700">
+                                <div class="text-slate-400 mb-1">4. Quote</div>
+                                <div class="font-semibold text-blue-400">#Q-8821</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300">
+                                <div class="text-emerald-400 mb-1">5. Invoice</div>
+                                <div class="font-semibold">Auto-Generated</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-emerald-600 text-white font-semibold flex items-center justify-center gap-1 shadow-md">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i> Paid ($24k)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CRM Feature Banner Carousel (Right to Left Infinite Scroll) -->
+        <section id="crm-showcase-ticker" class="py-14 bg-slate-950 border-y border-slate-800/80 overflow-hidden relative">
+            <div class="max-w-7xl mx-auto px-6 mb-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-apple-accent bg-apple-accent/10 px-3 py-1 rounded-full border border-apple-accent/20">Live Feature Showcase</span>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-2">Built for speed, clarity, and rapid deal closing</h3>
+                </div>
+                <div class="text-xs text-slate-400 flex items-center gap-2 bg-slate-900/80 px-3.5 py-2 rounded-full border border-slate-800">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>Hover banner to pause scroll</span>
+                </div>
+            </div>
+
+            <!-- Gradient edge overlays for seamless fade effect -->
+            <div class="absolute left-0 top-16 bottom-0 w-24 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-16 bottom-0 w-24 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+
+            <!-- Continuous Infinite Scroll Track -->
+            <div class="animate-marquee-slow flex gap-6 px-4">
+                <!-- Track 1 (6 CRM Cards) -->
+                
+                <!-- Card 1: Lead Capture Banner -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-800 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-44 h-44 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">01 · Lead Capture</span>
+                            <span class="text-xs bg-emerald-400/30 text-emerald-100 px-2 py-0.5 rounded-full font-medium">+142% Leads</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Turn web visitors into instant contacts</h4>
+                        <p class="text-xs text-emerald-100/90 mt-2 leading-relaxed max-w-[280px]">Automated webforms and WhatsApp lead router assign sales representatives in real-time.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/15">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <div class="w-7 h-7 rounded-lg bg-white text-emerald-700 flex items-center justify-center font-bold">L</div>
+                            <span>Auto-Lead Sync</span>
+                        </div>
+                        <button onclick="openDemoModal('Lead Capture')" class="px-4 py-1.5 rounded-full bg-white text-emerald-900 font-bold text-xs hover:bg-emerald-50 transition-all shadow-sm">Explore Forms</button>
+                    </div>
+                </div>
+
+                <!-- Card 2: WhatsApp CRM Banner -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-900 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-8 -top-8 w-40 h-40 bg-purple-400/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">02 · WhatsApp Integration</span>
+                            <span class="text-xs bg-purple-300/30 text-purple-100 px-2 py-0.5 rounded-full font-medium">Instant Reply</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Chat, quote, & close right inside WhatsApp</h4>
+                        <p class="text-xs text-indigo-100/90 mt-2 leading-relaxed max-w-[280px]">Official Cloud API syncs conversations directly to client timelines with smart templates.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/15">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="message-square" class="w-4 h-4 text-purple-200"></i>
+                            <span>WhatsApp Cloud API</span>
+                        </div>
+                        <button onclick="openDemoModal('WhatsApp')" class="px-4 py-1.5 rounded-full bg-white text-indigo-950 font-bold text-xs hover:bg-indigo-50 transition-all shadow-sm">Connect Chat</button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Quote to Cash Banner -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 p-6 text-white border border-slate-700/80 flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute right-2 top-2 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-md">03 · Quote-to-Cash</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-semibold">$48,200 Paid</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Auto-generate invoices on quote acceptance</h4>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed max-w-[280px]">Tax rates, line items, and payment links get dispatched instantly without manual admin.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-700">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-blue-400">
+                            <i data-lucide="receipt" class="w-4 h-4"></i>
+                            <span>GST & Tax Native</span>
+                        </div>
+                        <button onclick="openDemoModal('Invoicing')" class="px-4 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-sm">View Billing</button>
+                    </div>
+                </div>
+
+                <!-- Card 4: 360 Client Profile Banner -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-amber-500 to-orange-700 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 w-36 h-36 bg-yellow-300/20 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">04 · 360° Dossier</span>
+                            <span class="text-xs bg-amber-200/30 text-amber-50 px-2 py-0.5 rounded-full font-medium">HOT Lead 98/100</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Complete client history on a single screen</h4>
+                        <p class="text-xs text-amber-100 mt-2 leading-relaxed max-w-[280px]">View deal status, conversation archives, invoices, and assigned tasks in one place.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="user-check" class="w-4 h-4"></i>
+                            <span>Unified CRM Dossier</span>
+                        </div>
+                        <button onclick="openDemoModal('360 Profile')" class="px-4 py-1.5 rounded-full bg-white text-orange-950 font-bold text-xs hover:bg-orange-50 transition-all shadow-sm">See Profile</button>
+                    </div>
+                </div>
+
+                <!-- Card 5: Pipeline & Kanban Banner -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-800 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">05 · Visual Drag-and-Drop</span>
+                            <span class="text-xs bg-cyan-300/30 text-cyan-100 px-2 py-0.5 rounded-full font-medium">0 Delay</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Drag deal cards to update stage probabilities</h4>
+                        <p class="text-xs text-cyan-100 mt-2 leading-relaxed max-w-[280px]">Visual Kanban boards customize seamlessly to match your agency's exact sales flow.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="kanban" class="w-4 h-4"></i>
+                            <span>Custom Pipelines</span>
+                        </div>
+                        <button onclick="openDemoModal('Kanban')" class="px-4 py-1.5 rounded-full bg-white text-cyan-950 font-bold text-xs hover:bg-cyan-50 transition-all shadow-sm">View Pipeline</button>
+                    </div>
+                </div>
+
+                <!-- Card 6: AI Analytics & Forecast Banner -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-rose-600 to-pink-800 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute right-0 bottom-0 w-36 h-36 bg-white/10 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">06 · Real-Time Analytics</span>
+                            <span class="text-xs bg-rose-300/30 text-rose-100 px-2 py-0.5 rounded-full font-medium">↑ 18.4% Win Rate</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Accurate revenue forecasting every morning</h4>
+                        <p class="text-xs text-rose-100 mt-2 leading-relaxed max-w-[280px]">Live revenue velocity charts, drop-off analysis, and conversion reporting built in.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            <span>Live Intelligence</span>
+                        </div>
+                        <button onclick="openDemoModal('Analytics')" class="px-4 py-1.5 rounded-full bg-white text-rose-950 font-bold text-xs hover:bg-rose-50 transition-all shadow-sm">Open Reports</button>
+                    </div>
+                </div>
+
+                <!-- Track 2 (Exact DUPLICATE for seamless infinite right-to-left loop) -->
+                
+                <!-- Card 1 Duplicate -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-800 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-44 h-44 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">01 · Lead Capture</span>
+                            <span class="text-xs bg-emerald-400/30 text-emerald-100 px-2 py-0.5 rounded-full font-medium">+142% Leads</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Turn web visitors into instant contacts</h4>
+                        <p class="text-xs text-emerald-100/90 mt-2 leading-relaxed max-w-[280px]">Automated webforms and WhatsApp lead router assign sales representatives in real-time.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/15">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <div class="w-7 h-7 rounded-lg bg-white text-emerald-700 flex items-center justify-center font-bold">L</div>
+                            <span>Auto-Lead Sync</span>
+                        </div>
+                        <button onclick="openDemoModal('Lead Capture')" class="px-4 py-1.5 rounded-full bg-white text-emerald-900 font-bold text-xs hover:bg-emerald-50 transition-all shadow-sm">Explore Forms</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 Duplicate -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-900 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-8 -top-8 w-40 h-40 bg-purple-400/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">02 · WhatsApp Integration</span>
+                            <span class="text-xs bg-purple-300/30 text-purple-100 px-2 py-0.5 rounded-full font-medium">Instant Reply</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Chat, quote, & close right inside WhatsApp</h4>
+                        <p class="text-xs text-indigo-100/90 mt-2 leading-relaxed max-w-[280px]">Official Cloud API syncs conversations directly to client timelines with smart templates.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/15">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="message-square" class="w-4 h-4 text-purple-200"></i>
+                            <span>WhatsApp Cloud API</span>
+                        </div>
+                        <button onclick="openDemoModal('WhatsApp')" class="px-4 py-1.5 rounded-full bg-white text-indigo-950 font-bold text-xs hover:bg-indigo-50 transition-all shadow-sm">Connect Chat</button>
+                    </div>
+                </div>
+
+                <!-- Card 3 Duplicate -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 p-6 text-white border border-slate-700/80 flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute right-2 top-2 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-md">03 · Quote-to-Cash</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-semibold">$48,200 Paid</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Auto-generate invoices on quote acceptance</h4>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed max-w-[280px]">Tax rates, line items, and payment links get dispatched instantly without manual admin.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-700">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-blue-400">
+                            <i data-lucide="receipt" class="w-4 h-4"></i>
+                            <span>GST & Tax Native</span>
+                        </div>
+                        <button onclick="openDemoModal('Invoicing')" class="px-4 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-sm">View Billing</button>
+                    </div>
+                </div>
+
+                <!-- Card 4 Duplicate -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-amber-500 to-orange-700 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 w-36 h-36 bg-yellow-300/20 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">04 · 360° Dossier</span>
+                            <span class="text-xs bg-amber-200/30 text-amber-50 px-2 py-0.5 rounded-full font-medium">HOT Lead 98/100</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Complete client history on a single screen</h4>
+                        <p class="text-xs text-amber-100 mt-2 leading-relaxed max-w-[280px]">View deal status, conversation archives, invoices, and assigned tasks in one place.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="user-check" class="w-4 h-4"></i>
+                            <span>Unified CRM Dossier</span>
+                        </div>
+                        <button onclick="openDemoModal('360 Profile')" class="px-4 py-1.5 rounded-full bg-white text-orange-950 font-bold text-xs hover:bg-orange-50 transition-all shadow-sm">See Profile</button>
+                    </div>
+                </div>
+
+                <!-- Card 5 Duplicate -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-800 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">05 · Visual Drag-and-Drop</span>
+                            <span class="text-xs bg-cyan-300/30 text-cyan-100 px-2 py-0.5 rounded-full font-medium">0 Delay</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Drag deal cards to update stage probabilities</h4>
+                        <p class="text-xs text-cyan-100 mt-2 leading-relaxed max-w-[280px]">Visual Kanban boards customize seamlessly to match your agency's exact sales flow.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="kanban" class="w-4 h-4"></i>
+                            <span>Custom Pipelines</span>
+                        </div>
+                        <button onclick="openDemoModal('Kanban')" class="px-4 py-1.5 rounded-full bg-white text-cyan-950 font-bold text-xs hover:bg-cyan-50 transition-all shadow-sm">View Pipeline</button>
+                    </div>
+                </div>
+
+                <!-- Card 6 Duplicate -->
+                <div class="w-[420px] shrink-0 h-[260px] rounded-2xl bg-gradient-to-br from-rose-600 to-pink-800 p-6 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                    <div class="absolute right-0 bottom-0 w-36 h-36 bg-white/10 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-md">06 · Real-Time Analytics</span>
+                            <span class="text-xs bg-rose-300/30 text-rose-100 px-2 py-0.5 rounded-full font-medium">↑ 18.4% Win Rate</span>
+                        </div>
+                        <h4 class="text-2xl font-extrabold tracking-tight leading-tight">Accurate revenue forecasting every morning</h4>
+                        <p class="text-xs text-rose-100 mt-2 leading-relaxed max-w-[280px]">Live revenue velocity charts, drop-off analysis, and conversion reporting built in.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                        <div class="flex items-center gap-2 text-xs font-semibold">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                            <span>Live Intelligence</span>
+                        </div>
+                        <button onclick="openDemoModal('Analytics')" class="px-4 py-1.5 rounded-full bg-white text-rose-950 font-bold text-xs hover:bg-rose-50 transition-all shadow-sm">Open Reports</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="pipeline" class="py-24 sm:py-36 px-6 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="reveal-element text-sm font-semibold tracking-wide uppercase text-apple-accent">Pillar 1 — Conversion Pipeline</span>
+                <h2 class="reveal-element text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
+                    Stop copy-pasting between tools. Let the pipeline do it.
+                </h2>
+                <p class="reveal-element text-lg text-apple-textMuted">
+                    Most CRMs stop at "deal won." BridgeBreak keeps going straight into invoicing, cash collection, and team delivery.
+                </p>
+            </div>
+
+            <!-- Interactive Conversion Pipeline Stage Runner -->
+            <div class="reveal-element bg-white border border-gray-200/80 rounded-3xl p-6 sm:p-12 shadow-apple-card">
+                <!-- Navigation Steps Header -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-10">
+                    <button onclick="setPipelineStep(0)" id="pipe-btn-0" class="pipe-step-btn active p-3 rounded-xl border text-left transition-all bg-apple-accent text-white border-apple-accent shadow-sm">
+                        <span class="text-[10px] font-bold uppercase tracking-wider opacity-80">Step 01</span>
+                        <div class="font-semibold text-sm">Lead</div>
+                    </button>
+                    <button onclick="setPipelineStep(1)" id="pipe-btn-1" class="pipe-step-btn p-3 rounded-xl border text-left transition-all border-gray-200 text-apple-text hover:bg-gray-50">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-apple-textMuted">Step 02</span>
+                        <div class="font-semibold text-sm">Contact</div>
+                    </button>
+                    <button onclick="setPipelineStep(2)" id="pipe-btn-2" class="pipe-step-btn p-3 rounded-xl border text-left transition-all border-gray-200 text-apple-text hover:bg-gray-50">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-apple-textMuted">Step 03</span>
+                        <div class="font-semibold text-sm">Deal</div>
+                    </button>
+                    <button onclick="setPipelineStep(3)" id="pipe-btn-3" class="pipe-step-btn p-3 rounded-xl border text-left transition-all border-gray-200 text-apple-text hover:bg-gray-50">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-apple-textMuted">Step 04</span>
+                        <div class="font-semibold text-sm">Quote</div>
+                    </button>
+                    <button onclick="setPipelineStep(4)" id="pipe-btn-4" class="pipe-step-btn p-3 rounded-xl border text-left transition-all border-gray-200 text-apple-text hover:bg-gray-50">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-apple-textMuted">Step 05</span>
+                        <div class="font-semibold text-sm">Invoice</div>
+                    </button>
+                    <button onclick="setPipelineStep(5)" id="pipe-btn-5" class="pipe-step-btn p-3 rounded-xl border text-left transition-all border-gray-200 text-apple-text hover:bg-gray-50">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-apple-textMuted">Step 06</span>
+                        <div class="font-semibold text-sm">Payment</div>
+                    </button>
+                </div>
+
+                <!-- Step Display Content Area -->
+                <div class="grid md:grid-cols-2 gap-8 items-center bg-slate-50/70 p-6 sm:p-8 rounded-2xl border border-gray-100">
+                    <div id="pipeline-info-box" class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-apple-accent font-semibold text-xs uppercase">
+                            <i data-lucide="zap" class="w-3.5 h-3.5"></i> Step Spotlight
+                        </div>
+                        <h3 id="pipeline-title" class="text-2xl font-bold text-apple-text">1. Web Lead Capture</h3>
+                        <p id="pipeline-desc" class="text-apple-textMuted text-base leading-relaxed">
+                            Enquiry comes directly from your website or WhatsApp into the lead inbox. No retyping name, phone, or budget details.
+                        </p>
+                        <ul id="pipeline-bullets" class="space-y-2 text-sm text-apple-text font-medium pt-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i> Auto-assigned based on service type</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i> Automatic lead scoring assigned</li>
+                        </ul>
+                    </div>
+
+                    <!-- Simulated Visual Container -->
+                    <div id="pipeline-visual-card" class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                        <!-- Dynamic content injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Simulation Controls Bar -->
+                <div class="mt-8 flex items-center justify-between pt-4 border-t border-gray-100">
+                    <button onclick="playPipelineSimulation()" class="px-5 py-2.5 rounded-full bg-apple-text text-white text-sm font-medium hover:bg-black transition-all flex items-center gap-2 shadow-sm">
+                        <i data-lucide="play" class="w-4 h-4 fill-white"></i> Play Full Sequence Demo
+                    </button>
+                    <span class="text-xs text-apple-textMuted hidden sm:inline">Click any step above to inspect specific logic</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="pillars" class="py-20 bg-gray-50/50 border-t border-gray-200/60">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Pillar 2: Teams Working Together -->
+                <div class="py-16 grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="reveal-element space-y-6">
+                        <span class="text-sm font-semibold tracking-wide uppercase text-apple-accent">Pillar 2 — Workspace Module</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-apple-text">
+                            Sales closes it. Your team delivers it. One workspace, no handoff gaps.
+                        </h2>
+                        <p class="text-apple-textMuted text-lg leading-relaxed">
+                            Stop switching to external project management apps once a deal closes. BridgeBreak transfers the scope directly to team tasks, client hubs, and budget trackers.
+                        </p>
+
+                        <div class="space-y-3 pt-2">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-blue-100 text-apple-accent flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="folder-kanban" class="w-3.5 h-3.5"></i></div>
+                                <div><strong class="text-apple-text font-semibold">Project Tracking:</strong> Track status, budget vs actual cost, and share client-visible updates in one place.</div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-blue-100 text-apple-accent flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i></div>
+                                <div><strong class="text-apple-text font-semibold">Granular Role Permissions:</strong> 5 role tiers (Owner, Admin, Manager, Employee, Viewer) keep confidential financials safe.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kanban & Role Card Mockup -->
+                    <div class="reveal-element bg-white p-6 rounded-3xl border border-gray-200/80 shadow-apple-card space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Project Kanban & Role Isolation</span>
+                            <span class="text-xs font-medium text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Role: Employee (Scoped)</span>
+                        </div>
+                        
+                        <!-- Kanban columns sample -->
+                        <div class="grid grid-cols-3 gap-3 text-xs">
+                            <div class="bg-slate-50 p-3 rounded-xl border border-gray-100 space-y-2">
+                                <div class="font-bold text-gray-500 uppercase text-[10px]">To Do (2)</div>
+                                <div class="bg-white p-2.5 rounded-lg border border-gray-200 shadow-2xs font-medium text-slate-800">
+                                    Setup Meta Pixels
+                                    <div class="text-[10px] text-gray-400 mt-1">Due Tomorrow</div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100 space-y-2">
+                                <div class="font-bold text-blue-600 uppercase text-[10px]">In Progress (1)</div>
+                                <div class="bg-white p-2.5 rounded-lg border border-blue-200 shadow-2xs font-medium text-slate-800">
+                                    UI Design Mockups
+                                    <div class="text-[10px] text-apple-accent mt-1">Assigned: Alex M.</div>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100 space-y-2">
+                                <div class="font-bold text-emerald-600 uppercase text-[10px]">Done (4)</div>
+                                <div class="bg-white p-2.5 rounded-lg border border-emerald-200 shadow-2xs font-medium text-slate-800">
+                                    Kickoff Meeting
+                                    <div class="text-[10px] text-emerald-600 mt-1">Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="py-16 grid lg:grid-cols-2 gap-12 items-center border-t border-gray-200/60">
+                    <!-- WhatsApp & Ads Preview -->
+                    <div class="reveal-element order-2 lg:order-1 bg-white p-6 rounded-3xl border border-gray-200/80 shadow-apple-card space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="message-square" class="w-4 h-4 text-emerald-600"></i>
+                                <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">WhatsApp & Ad Leads Inbox</span>
+                            </div>
+                            <span class="text-xs text-slate-400">Synced live</span>
+                        </div>
+
+                        <!-- Chat bubble preview -->
+                        <div class="bg-emerald-50/40 p-4 rounded-2xl border border-emerald-100 space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center shrink-0">WA</div>
+                                <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-2xs text-xs text-slate-800 space-y-1">
+                                    <div class="font-bold text-emerald-700">Client (WhatsApp Cloud API)</div>
+                                    <p>"Hi! Can you send over the updated proposal for the quarterly campaign?"</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-end">
+                                <div class="bg-apple-accent text-white p-3 rounded-xl shadow-2xs text-xs space-y-1 max-w-[80%]">
+                                    <p>Proposal #Q-8821 attached automatically via BridgeBreak CRM.</p>
+                                    <span class="text-[9px] opacity-80 block text-right">Sent from CRM Inbox</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal-element order-1 lg:order-2 space-y-6">
+                        <span class="text-sm font-semibold tracking-wide uppercase text-apple-accent">Pillar 3 — Integration Hub</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-apple-text">
+                            Talk to leads and customers without leaving the CRM.
+                        </h2>
+                        <p class="text-apple-textMuted text-lg leading-relaxed">
+                            No separate tabs required. Send WhatsApp template messages, capture website webform entries, and monitor ad campaign returns right from your deal view.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-semibold text-slate-700">WhatsApp API</span>
+                            <span class="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-semibold text-slate-700">Website Forms</span>
+                            <span class="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-semibold text-slate-700">Meta Ads</span>
+                            <span class="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-semibold text-slate-700">Google Ads</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 sm:py-36 px-6 max-w-7xl mx-auto space-y-24">
+            <!-- Pillar 4: Insight & Forecasting -->
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal-element space-y-6">
+                    <span class="text-sm font-semibold tracking-wide uppercase text-apple-accent">Pillar 4 — Real-time Analytics</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-apple-text">
+                        Know exactly where the business stands, every morning.
+                    </h2>
+                    <p class="text-apple-textMuted text-lg leading-relaxed">
+                        Out-of-the-box revenue reports, pipeline velocity tracking, lead source effectiveness, and conversion funnel drop-off analytics update the moment a deal moves.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 bg-white rounded-2xl border border-gray-200/80 shadow-sm">
+                            <div class="text-xs text-apple-textMuted uppercase font-medium">Monthly Revenue</div>
+                            <div class="text-2xl font-extrabold text-apple-text mt-1">$84,200</div>
+                            <div class="text-xs font-medium text-emerald-600 mt-1">↑ 18.4% vs last month</div>
+                        </div>
+                        <div class="p-4 bg-white rounded-2xl border border-gray-200/80 shadow-sm">
+                            <div class="text-xs text-apple-textMuted uppercase font-medium">Deal Win Rate</div>
+                            <div class="text-2xl font-extrabold text-apple-text mt-1">64.2%</div>
+                            <div class="text-xs font-medium text-emerald-600 mt-1">↑ 5.1% avg conversion</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulated Funnel Visual -->
+                <div class="reveal-element bg-white p-6 rounded-3xl border border-gray-200/80 shadow-apple-card space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                        <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Live Conversion Funnel</span>
+                        <span class="text-xs text-emerald-600 font-semibold bg-emerald-50 px-2.5 py-1 rounded-full">Real-time update</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Inbound Leads</span> <span>320 leads</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div class="bg-apple-accent h-full w-full rounded-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Qualified Deals</span> <span>180 deals (56%)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div class="bg-indigo-500 h-full w-[56%] rounded-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Quotes Delivered</span> <span>140 quotes (43%)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div class="bg-purple-500 h-full w-[43%] rounded-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Invoiced & Paid</span> <span>112 closed (35%)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full w-[35%] rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pillar 5: Event System & Automations -->
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Automation Rule Card Mockup -->
+                <div class="reveal-element bg-white p-6 sm:p-8 rounded-3xl border border-gray-200/80 shadow-apple-card space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                        <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Trigger → Condition → Action Builder</span>
+                        <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">Automation Active</span>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-amber-50/60 rounded-xl border border-amber-200/80 flex items-center gap-3">
+                            <span class="font-bold text-amber-700 uppercase tracking-wider">Trigger</span>
+                            <span class="text-slate-800 font-medium">When a Deal is marked "Won"</span>
+                        </div>
+                        <div class="p-3 bg-blue-50/60 rounded-xl border border-blue-200/80 flex items-center gap-3">
+                            <span class="font-bold text-blue-700 uppercase tracking-wider">Condition</span>
+                            <span class="text-slate-800 font-medium">Contract Value > $5,000</span>
+                        </div>
+                        <div class="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/80 space-y-2">
+                            <div class="font-bold text-emerald-700 uppercase tracking-wider">Automated Actions</div>
+                            <ul class="space-y-1 text-slate-800 font-medium list-disc list-inside">
+                                <li>Auto-generate Invoice with Tax Defaults</li>
+                                <li>Notify Workspace Owner on Mobile</li>
+                                <li>Create Delivery Task in Kanban</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-element space-y-6">
+                    <span class="text-sm font-semibold tracking-wide uppercase text-apple-accent">Pillar 5 — Scale & Automation</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-apple-text">
+                        The busywork happens on its own.
+                    </h2>
+                    <p class="text-apple-textMuted text-lg leading-relaxed">
+                        Configure trigger-based automation rules and let recurring billing generate month-after-month automatically. All activity is logged live in an audit feed.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="view360" class="py-24 bg-white border-y border-gray-200/80">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="reveal-element text-sm font-semibold tracking-wide uppercase text-apple-accent">Module 8 — 360° Client Profile</span>
+                    <h2 class="reveal-element text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
+                        Every customer, one complete picture.
+                    </h2>
+                    <p class="reveal-element text-lg text-apple-textMuted">
+                        Open any contact to inspect every connected deal, quote, invoice, communication log, and AI lead score in a single view.
+                    </p>
+                </div>
+
+                <!-- Interactive Dossier Card -->
+                <div class="reveal-element bg-slate-50 rounded-3xl p-6 sm:p-10 border border-gray-200 max-w-5xl mx-auto shadow-apple-card">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-apple-accent text-white font-bold text-xl flex items-center justify-center shadow-md">
+                                AC
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900">Acme Corporation</h3>
+                                <p class="text-sm text-apple-textMuted">Contact: Sarah Jenkins (VP Growth) · Tech Industry</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 font-bold text-xs flex items-center gap-1">
+                                <i data-lucide="flame" class="w-3.5 h-3.5"></i> Lead Score: HOT (92/100)
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs">
+                                Active Client
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Details grid -->
+                    <div class="grid md:grid-cols-3 gap-6 pt-6">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                            <div class="text-xs font-bold text-slate-400 uppercase">Linked Deals</div>
+                            <div class="font-bold text-slate-800 text-base">Annual Retainer 2026</div>
+                            <div class="text-xs text-emerald-600 font-semibold">$48,000 / year · Probability: 95%</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                            <div class="text-xs font-bold text-slate-400 uppercase">Latest Invoices</div>
+                            <div class="font-bold text-slate-800 text-base">#INV-9902 ($4,000)</div>
+                            <div class="text-xs text-blue-600 font-semibold">Status: Paid via Stripe</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                            <div class="text-xs font-bold text-slate-400 uppercase">Activity History</div>
+                            <div class="text-xs text-slate-700"><strong>Today:</strong> Quote #Q-8821 accepted</div>
+                            <div class="text-xs text-slate-500"><strong>Yesterday:</strong> WhatsApp chat reply sent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="security" class="py-24 sm:py-36 bg-apple-darkbg text-white relative overflow-hidden">
+            <!-- Background Glow in Dark Section -->
+            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-30 pointer-events-none">
+                <div class="w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-20">
+                    <span class="reveal-element text-sm font-semibold tracking-wide uppercase text-blue-400">Spec Sheet — Security & Privacy</span>
+                    <h2 class="reveal-element text-3xl sm:text-5xl font-bold tracking-tight text-white mt-3 mb-6">
+                        Your data, scoped and protected by default.
+                    </h2>
+                    <p class="reveal-element text-lg text-gray-400">
+                        Enterprise-grade isolation architecture designed for client service organizations holding strict NDAs.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="reveal-element glass-dark p-8 rounded-3xl border border-apple-darkBorder space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i data-lucide="database" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Tenant Isolation</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Every workspace data model is strictly scoped. No cross-tenant data leakage by design.
+                        </p>
+                    </div>
+
+                    <div class="reveal-element glass-dark p-8 rounded-3xl border border-apple-darkBorder space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
+                            <i data-lucide="key-round" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Role-Based Access</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            5 hierarchical roles ensure employees and external contractors see only their assigned projects.
+                        </p>
+                    </div>
+
+                    <div class="reveal-element glass-dark p-8 rounded-3xl border border-apple-darkBorder space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Security Headers</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Strict CSP, clickjacking prevention, and MIME-sniffing protection enforced on every endpoint.
+                        </p>
+                    </div>
+
+                    <div class="reveal-element glass-dark p-8 rounded-3xl border border-apple-darkBorder space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Session Expiry</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Automatic session revocation and encrypted token rotation keep unauthorized devices out.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-24 sm:py-36 px-6 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="reveal-element text-sm font-semibold tracking-wide uppercase text-apple-accent">Simple, Transparent Pricing</span>
+                <h2 class="reveal-element text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
+                    Pick the plan that matches how far you want to take it.
+                </h2>
+                <p class="reveal-element text-lg text-apple-textMuted">
+                    Start free today. Scale as your agency team and revenue pipeline grow.
+                </p>
+
+                <!-- Billing Toggle -->
+                <div class="reveal-element inline-flex items-center gap-3 p-1.5 rounded-full bg-slate-100 border border-gray-200 mt-6">
+                    <button id="btn-monthly" onclick="setBilling('monthly')" class="px-5 py-2 rounded-full text-xs font-semibold bg-white text-apple-text shadow-xs transition-all">Monthly</button>
+                    <button id="btn-yearly" onclick="setBilling('yearly')" class="px-5 py-2 rounded-full text-xs font-semibold text-apple-textMuted hover:text-apple-text transition-all">
+                        Annual <span class="text-emerald-600 font-bold">(Save 20%)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pricing Cards Grid -->
+            <div class="grid md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+                <!-- Starter Tier -->
+                <div class="reveal-element bg-white rounded-3xl p-8 border border-gray-200 shadow-apple-card flex flex-col justify-between hover:shadow-apple-hover transition-all">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-apple-text">Starter</h3>
+                            <p class="text-xs text-apple-textMuted mt-1">Solo founders & small teams</p>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">$29</span>
+                            <span class="text-sm text-apple-textMuted">/ month</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Leads, Contacts & Deals</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Quotes & Invoicing</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Basic KPI Dashboard</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Up to 3 Team Members</li>
+                        </ul>
+                    </div>
+                    <button onclick="openDemoModal()" class="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all">
+                        Start Starter Trial
+                    </button>
+                </div>
+
+                <!-- Growth Tier (Recommended) -->
+                <div class="reveal-element bg-white rounded-3xl p-8 border-2 border-apple-accent shadow-2xl relative flex flex-col justify-between transform md:-translate-y-2">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-apple-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                        Most Popular
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-apple-text">Growth</h3>
+                            <p class="text-xs text-apple-textMuted mt-1">Agencies actively selling</p>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">$79</span>
+                            <span class="text-sm text-apple-textMuted">/ month</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
+                            <li class="flex items-center gap-2 font-semibold"><i data-lucide="check" class="w-4 h-4 text-apple-accent"></i> Everything in Starter</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Pipeline Automation</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> WhatsApp Cloud API</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Full Workspace & Tasks</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Up to 10 Team Members</li>
+                        </ul>
+                    </div>
+                    <button onclick="openDemoModal()" class="w-full mt-8 py-3 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-semibold text-sm transition-all shadow-md">
+                        Start Growth Free
+                    </button>
+                </div>
+
+                <!-- Scale Tier -->
+                <div class="reveal-element bg-white rounded-3xl p-8 border border-gray-200 shadow-apple-card flex flex-col justify-between hover:shadow-apple-hover transition-all">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-apple-text">Scale</h3>
+                            <p class="text-xs text-apple-textMuted mt-1">Multi-team operations</p>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">$199</span>
+                            <span class="text-sm text-apple-textMuted">/ month</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
+                            <li class="flex items-center gap-2 font-semibold"><i data-lucide="check" class="w-4 h-4 text-apple-accent"></i> Everything in Growth</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Ads Connectors (Meta & Google)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Advanced Event Automations</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> AI Lead Scoring Assistant</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Unlimited Team Seats</li>
+                        </ul>
+                    </div>
+                    <button onclick="openDemoModal()" class="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all">
+                        Contact Enterprise
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-50/50 border-y border-gray-200/60 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="reveal-element text-sm font-semibold tracking-wide uppercase text-apple-accent">Setup Wizard</span>
+                    <h2 class="reveal-element text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
+                        Live in five steps, not five days.
+                    </h2>
+                    <p class="reveal-element text-lg text-apple-textMuted">
+                        No complex data migration required to get started — just the essentials, everything else fills in as you work.
+                    </p>
+                </div>
+
+                <!-- Connected 5-Step Horizontal Wizard Visual -->
+                <div class="reveal-element grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 space-y-3 relative shadow-xs">
+                        <div class="w-8 h-8 rounded-full bg-apple-accent text-white font-bold text-xs flex items-center justify-center">1</div>
+                        <h4 class="font-bold text-slate-900 text-base">Company Info</h4>
+                        <p class="text-xs text-apple-textMuted">Name, industry sector, and website URL.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 space-y-3 relative shadow-xs">
+                        <div class="w-8 h-8 rounded-full bg-apple-accent text-white font-bold text-xs flex items-center justify-center">2</div>
+                        <h4 class="font-bold text-slate-900 text-base">Location</h4>
+                        <p class="text-xs text-apple-textMuted">Address, default currency, and timezone.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 space-y-3 relative shadow-xs">
+                        <div class="w-8 h-8 rounded-full bg-apple-accent text-white font-bold text-xs flex items-center justify-center">3</div>
+                        <h4 class="font-bold text-slate-900 text-base">Admin Profile</h4>
+                        <p class="text-xs text-apple-textMuted">Your name, direct email, and owner role.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 space-y-3 relative shadow-xs">
+                        <div class="w-8 h-8 rounded-full bg-apple-accent text-white font-bold text-xs flex items-center justify-center">4</div>
+                        <h4 class="font-bold text-slate-900 text-base">Tax Documents</h4>
+                        <p class="text-xs text-apple-textMuted">GST / PAN or local tax IDs for invoices.</p>
+                    </div>
+
+                    <div class="bg-emerald-600 p-6 rounded-2xl text-white space-y-3 relative shadow-md">
+                        <div class="w-8 h-8 rounded-full bg-white text-emerald-700 font-bold text-xs flex items-center justify-center">5</div>
+                        <h4 class="font-bold text-white text-base">Workspace Ready</h4>
+                        <p class="text-xs text-emerald-100">Start adding leads & closing cash immediately!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-24 sm:py-36 px-6 max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal-element text-sm font-semibold tracking-wide uppercase text-apple-accent">Frequently Asked Questions</span>
+                <h2 class="reveal-element text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3">
+                    Everything you need to know.
+                </h2>
+            </div>
+
+            <!-- FAQ Accordion Container -->
+            <div class="reveal-element space-y-4">
+                <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-apple-accent transition-colors">
+                        <span>Can I connect the tools I already use?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-apple-textMuted text-base leading-relaxed border-t border-gray-100 pt-4">
+                        Yes — WhatsApp, Meta Ads, and Google Ads are ready today, with Slack, Zapier, and Stripe on the roadmap.
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-apple-accent transition-colors">
+                        <span>Do I need a developer to set this up?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-apple-textMuted text-base leading-relaxed border-t border-gray-100 pt-4">
+                        No — the 5-step setup wizard gets a new company live without any technical setup.
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-apple-accent transition-colors">
+                        <span>What happens when a quote is accepted?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-apple-textMuted text-base leading-relaxed border-t border-gray-100 pt-4">
+                        The invoice is generated automatically and your deal's win probability updates — no manual step needed.
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-apple-accent transition-colors">
+                        <span>Can different team members see different things?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-apple-textMuted text-base leading-relaxed border-t border-gray-100 pt-4">
+                        Yes — five role levels (Owner, Admin, Manager, Employee, Viewer) control exactly what each person can access.
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-apple-accent transition-colors">
+                        <span>Is my company's data separated from other companies using the platform?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-apple-textMuted text-base leading-relaxed border-t border-gray-100 pt-4">
+                        Yes — every workspace is fully isolated by design; there's no shared or cross-visible data between tenants.
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button onclick="toggleFaq(this)" class="w-full p-6 text-left font-bold text-lg text-slate-900 flex justify-between items-center gap-4 hover:text-apple-accent transition-colors">
+                        <span>Does it handle GST/tax details for Indian businesses?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-apple-textMuted text-base leading-relaxed border-t border-gray-100 pt-4">
+                        Yes — GST, PAN, CGST/SGST/IGST are built into company and invoice settings, alongside VAT and general sales tax for other regions.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 sm:py-36 px-6 max-w-7xl mx-auto">
+            <div class="reveal-element bg-gradient-to-br from-slate-900 via-black to-slate-900 text-white rounded-3xl p-10 sm:p-20 text-center relative overflow-hidden shadow-2xl">
+                <div class="max-w-3xl mx-auto space-y-8 relative z-10">
+                    <h2 class="text-3xl sm:text-6xl font-bold tracking-tight leading-tight">
+                        Ready to run your client business from one workspace?
+                    </h2>
+                    <p class="text-lg text-gray-400">
+                        Join hundreds of agency owners who stopped wrestling disconnected tools.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+                        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-lg hover:scale-105">
+                            Start Your Free Trial
+                        </a>
+                        <button onclick="openDemoModal()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-base transition-all duration-200">
+                            Book Live Walkthrough
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-16 px-6 text-xs text-apple-textMuted">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+            <div class="col-span-2 space-y-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-lg bg-apple-accent text-white flex items-center justify-center font-bold text-xs">B</div>
+                    <span class="font-bold text-sm text-apple-text">BridgeBreak CRM</span>
+                </div>
+                <p class="max-w-sm text-gray-500 leading-relaxed">
+                    The all-in-one workspace for agency leads, deals, quotes, invoices, projects, and automated cash conversion.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold text-apple-text mb-3 uppercase tracking-wider">Product</h4>
+                <ul class="space-y-2">
+                    <li><a href="#pipeline" class="hover:text-apple-text">Pipeline</a></li>
+                    <li><a href="#pillars" class="hover:text-apple-text">Modules</a></li>
+                    <li><a href="#pricing" class="hover:text-apple-text">Pricing</a></li>
+                    <li><a href="#security" class="hover:text-apple-text">Security</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-apple-text mb-3 uppercase tracking-wider">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-apple-text">About Us</a></li>
+                    <li><a href="#" class="hover:text-apple-text">Customers</a></li>
+                    <li><a href="#" class="hover:text-apple-text">Careers</a></li>
+                    <li><a href="#" class="hover:text-apple-text">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-apple-text mb-3 uppercase tracking-wider">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-apple-text">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-apple-text">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-apple-text">GDPR Compliance</a></li>
+                    <li><a href="#" class="hover:text-apple-text">Security Headers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>© 2026 BridgeBreak Inc. All rights reserved.</p>
+            <div class="flex items-center gap-2 text-emerald-600 font-medium">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> All Systems Operational
+            </div>
+        </div>
+    </footer>
+
+    <!-- 14-Day Free Trial Modal (Matching Form Design) -->
+    <div id="demo-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 sm:p-10 relative shadow-2xl space-y-6 border border-gray-100">
+            <!-- Modal Close Button -->
+            <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-700 transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Active Form Content -->
+            <div id="trial-form-container">
+                <div class="mb-6">
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Start your free 14-day trial</h3>
+                    <p class="text-xs text-apple-textMuted mt-1">Instant setup · No credit card required · Full feature access</p>
+                </div>
+
+                <form onsubmit="handleDemoSubmit(event)" class="space-y-4">
+                    <!-- Name Input -->
+                    <div>
+                        <input type="text" id="trial-name" required placeholder="Name *" class="w-full px-4 py-3.5 rounded-xl border border-gray-300 text-slate-900 placeholder:text-gray-400 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 text-sm font-normal">
+                    </div>
+
+                    <!-- Email Input -->
+                    <div>
+                        <input type="email" id="trial-email" required placeholder="Email *" class="w-full px-4 py-3.5 rounded-xl border border-gray-300 text-slate-900 placeholder:text-gray-400 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 text-sm font-normal">
+                    </div>
+
+                    <!-- Password Input with Toggle -->
+                    <div class="relative">
+                        <input type="password" id="trial-password" required placeholder="Password *" class="w-full px-4 py-3.5 pr-12 rounded-xl border border-gray-300 text-slate-900 placeholder:text-gray-400 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 text-sm font-normal">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none">
+                            <i id="password-toggle-icon" data-lucide="eye-off" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Phone Input with Country Code -->
+                    <div class="flex gap-0 rounded-xl border border-gray-300 overflow-hidden focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500">
+                        <select id="trial-country-code" class="bg-gray-50 text-slate-700 text-sm font-medium px-3 py-3.5 border-r border-gray-300 focus:outline-none cursor-pointer">
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+61">+61</option>
+                            <option value="+971">+971</option>
+                            <option value="+65">+65</option>
+                        </select>
+                        <input type="tel" id="trial-phone" required placeholder="Phone Number *" class="w-full px-4 py-3.5 text-slate-900 placeholder:text-gray-400 focus:outline-none text-sm font-normal">
+                    </div>
+
+                    <!-- Terms Agreement Checkbox -->
+                    <div class="flex items-start gap-2.5 pt-1">
+                        <input type="checkbox" id="trial-terms" required class="mt-1 w-4 h-4 rounded border-gray-300 text-red-600 focus:ring-red-500 cursor-pointer">
+                        <label for="trial-terms" class="text-xs text-slate-700 leading-snug">
+                            I agree to the <a href="#" class="font-bold underline text-slate-900 hover:text-red-600">Terms of Service</a> and <a href="#" class="font-bold underline text-slate-900 hover:text-red-600">Privacy Policy</a>.
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="trial-submit-btn" class="w-full py-4 rounded-xl bg-[#e62e2e] hover:bg-[#cc2424] text-white font-bold text-sm tracking-wider uppercase transition-all shadow-md active:scale-[0.99] mt-2">
+                        SIGN UP FOR FREE
+                    </button>
+                </form>
+            </div>
+
+            <!-- Provisioning Success Feedback State -->
+            <div id="trial-success-container" class="hidden text-center py-6 space-y-5">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                    <i data-lucide="check" class="w-8 h-8 stroke-[3]"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-extrabold text-slate-900">Your Trial Is Ready!</h3>
+                    <p id="success-user-email" class="text-xs text-apple-textMuted mt-1">We've provisioned your isolated workspace.</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-gray-200 text-left space-y-2 text-xs">
+                    <div class="flex justify-between text-slate-600">
+                        <span>Workspace Status:</span>
+                        <span class="font-bold text-emerald-600">Active (14 Days)</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>CRM Modules:</span>
+                        <span class="font-bold text-slate-800">Pipeline, Invoices, Tasks</span>
+                    </div>
+                </div>
+                <button onclick="closeDemoModal()" class="w-full py-3.5 rounded-full bg-slate-900 hover:bg-black text-white font-semibold text-sm transition-all shadow-md">
+                    Go To Workspace Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Password visibility toggle
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('trial-password');
+            const toggleIcon = document.getElementById('password-toggle-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.setAttribute('data-lucide', 'eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.setAttribute('data-lucide', 'eye-off');
+            }
+            lucide.createIcons();
+        }
+
+        // Pipeline Stages Data
+        const pipelineData = [
+            {
+                title: "1. Web & Ad Lead Capture",
+                desc: "Enquiry comes directly from your website or WhatsApp into the lead inbox. No retyping name, phone, or budget details.",
+                bullets: ["Auto-assigned based on service type", "Automatic lead scoring assigned"],
+                cardHtml: `
+                    <div class="space-y-3 text-xs">
+                        <div class="font-bold text-slate-800 uppercase">Incoming Lead #L-4091</div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-gray-200">
+                            <span class="font-semibold text-slate-800">Source: Web Inquiry Form</span>
+                            <div class="text-slate-500 mt-1">Name: Apex Design Ltd · Budget: $15,000</div>
+                        </div>
+                        <div class="text-emerald-600 font-semibold flex items-center gap-1">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Lead converted to Contact in 1-click
+                        </div>
+                    </div>`
+            },
+            {
+                title: "2. Contact & Profile Creation",
+                desc: "Lead is converted into a verified Contact record with linked company defaults, tax details, and notes history.",
+                bullets: ["Company GST / Tax details saved", "Activity history timeline initiated"],
+                cardHtml: `
+                    <div class="space-y-3 text-xs">
+                        <div class="font-bold text-slate-800 uppercase">Contact Dossier Created</div>
+                        <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+                            <span class="font-semibold text-apple-accent">Sarah Jenkins (VP Growth)</span>
+                            <div class="text-slate-500 mt-1">Tax ID: GSTIN29ABCDE1234F · Timezone: EST</div>
+                        </div>
+                    </div>`
+            },
+            {
+                title: "3. Deal Pipeline Placement",
+                desc: "Deal is added to the active sales board with custom stages and probability weighting.",
+                bullets: ["Stage probability updated automatically", "Assigned account owner notified"],
+                cardHtml: `
+                    <div class="space-y-3 text-xs">
+                        <div class="font-bold text-slate-800 uppercase">Deal Board: Negotiation</div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                            <span class="font-semibold text-amber-900 font-sans">$24,000 Q3 Redesign</span>
+                            <div class="text-amber-700 mt-1">Probability: 60% → 80%</div>
+                        </div>
+                    </div>`
+            },
+            {
+                title: "4. Smart Quote Generation",
+                desc: "Generate a polished quote with one click using company tax defaults, scope items, and payment terms.",
+                bullets: ["Auto-fills tax rates & footers", "Client accepts via instant link"],
+                cardHtml: `
+                    <div class="space-y-3 text-xs">
+                        <div class="font-bold text-slate-800 uppercase">Quote #Q-8821 Sent</div>
+                        <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-200">
+                            <span class="font-semibold text-indigo-900">Total: $24,000 (Incl. VAT/GST)</span>
+                            <div class="text-indigo-700 mt-1">Client status: Accepted online</div>
+                        </div>
+                    </div>`
+            },
+            {
+                title: "5. Automated Invoice Creation",
+                desc: "Quote acceptance triggers automatic invoice creation. Zero manual retyping of line items or bank details.",
+                bullets: ["Invoice generated instantly", "Deal probability jumps to 80%+"],
+                cardHtml: `
+                    <div class="space-y-3 text-xs">
+                        <div class="font-bold text-slate-800 uppercase">Automated Trigger Executed</div>
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-900">
+                            <span class="font-bold">#INV-9902 Created automatically</span>
+                            <div class="mt-1">Due Date: Net 15 · Auto-sent to billing contact</div>
+                        </div>
+                    </div>`
+            },
+            {
+                title: "6. Payment & Deal Auto-Won",
+                desc: "When invoice payment settles via Stripe or bank transfer, the deal is automatically marked 'Won' and project delivery begins.",
+                bullets: ["Deal auto-marked Won", "Project Kanban board auto-created"],
+                cardHtml: `
+                    <div class="space-y-3 text-xs">
+                        <div class="font-bold text-slate-800 uppercase">Payment Settled ($24,000)</div>
+                        <div class="p-3 bg-emerald-600 text-white rounded-xl shadow-md font-bold">
+                            Deal Marked: CLOSED / WON 🎉
+                        </div>
+                    </div>`
+            }
+        ];
+
+        let currentPipelineIdx = 0;
+
+        function setPipelineStep(idx) {
+            currentPipelineIdx = idx;
+            document.querySelectorAll('.pipe-step-btn').forEach((btn, i) => {
+                if (i === idx) {
+                    btn.className = "pipe-step-btn active p-3 rounded-xl border text-left transition-all bg-apple-accent text-white border-apple-accent shadow-sm";
+                    btn.querySelector('span').className = "text-[10px] font-bold uppercase tracking-wider text-white/80";
+                } else {
+                    btn.className = "pipe-step-btn p-3 rounded-xl border text-left transition-all border-gray-200 text-apple-text hover:bg-gray-50";
+                    btn.querySelector('span').className = "text-[10px] font-bold uppercase tracking-wider text-apple-textMuted";
+                }
+            });
+
+            const data = pipelineData[idx];
+            document.getElementById('pipeline-title').innerText = data.title;
+            document.getElementById('pipeline-desc').innerText = data.desc;
+            document.getElementById('pipeline-bullets').innerHTML = data.bullets.map(b => 
+                `<li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i> ${b}</li>`
+            ).join('');
+            document.getElementById('pipeline-visual-card').innerHTML = data.cardHtml;
+            lucide.createIcons();
+        }
+
+        function playPipelineSimulation() {
+            let step = 0;
+            const interval = setInterval(() => {
+                setPipelineStep(step);
+                step++;
+                if (step >= pipelineData.length) clearInterval(interval);
+            }, 1200);
+        }
+
+        // Initialize default step
+        setPipelineStep(0);
+
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger counter if present inside
+                    const counters = entry.target.querySelectorAll('.count-up');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        let count = 0;
+                        const step = Math.ceil(target / 40);
+                        const timer = setInterval(() => {
+                            count += step;
+                            if (count >= target) {
+                                count = target;
+                                clearInterval(timer);
+                            }
+                            counter.innerText = count + suffix;
+                        }, 30);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+        // FAQ Toggle Logic
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            const isHidden = answer.classList.contains('hidden');
+
+            document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.add('hidden'));
+            document.querySelectorAll('.faq-item i').forEach(ic => ic.style.transform = 'rotate(0deg)');
+
+            if (isHidden) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Pricing Toggle Logic
+        function setBilling(type) {
+            const monthlyBtn = document.getElementById('btn-monthly');
+            const yearlyBtn = document.getElementById('btn-yearly');
+            const prices = document.querySelectorAll('.price-val');
+
+            if (type === 'yearly') {
+                yearlyBtn.className = "px-5 py-2 rounded-full text-xs font-semibold bg-white text-apple-text shadow-xs transition-all";
+                monthlyBtn.className = "px-5 py-2 rounded-full text-xs font-semibold text-apple-textMuted hover:text-apple-text transition-all";
+                prices[0].innerText = "$23";
+                prices[1].innerText = "$63";
+                prices[2].innerText = "$159";
+            } else {
+                monthlyBtn.className = "px-5 py-2 rounded-full text-xs font-semibold bg-white text-apple-text shadow-xs transition-all";
+                yearlyBtn.className = "px-5 py-2 rounded-full text-xs font-semibold text-apple-textMuted hover:text-apple-text transition-all";
+                prices[0].innerText = "$29";
+                prices[1].innerText = "$79";
+                prices[2].innerText = "$199";
+            }
+        }
+
+        // Modal triggers
+        function openDemoModal(actionSource) {
+            document.getElementById('trial-form-container').classList.remove('hidden');
+            document.getElementById('trial-success-container').classList.add('hidden');
+            document.getElementById('demo-modal').classList.remove('hidden');
+        }
+        function closeDemoModal() {
+            document.getElementById('demo-modal').classList.add('hidden');
+        }
+        function handleDemoSubmit(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('trial-submit-btn');
+            const userEmail = document.getElementById('trial-email').value;
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "PROVISIONING WORKSPACE...";
+
+            setTimeout(() => {
+                document.getElementById('trial-form-container').classList.add('hidden');
+                document.getElementById('trial-success-container').classList.remove('hidden');
+                document.getElementById('success-user-email').innerText = `Workspace login link sent to ${userEmail}`;
+                submitBtn.disabled = false;
+                submitBtn.innerText = "SIGN UP FOR FREE";
+                lucide.createIcons();
+            }, 1000);
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
