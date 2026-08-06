@@ -1,6 +1,6 @@
 "use client";
 
-import { Flame } from 'lucide-react';
+import { Flame, ArrowRight } from 'lucide-react';
 
 export default function CRM360Section() {
     return (
@@ -54,6 +54,16 @@ export default function CRM360Section() {
                             <div className="text-xs text-slate-500"><strong>Yesterday:</strong> WhatsApp chat reply sent</div>
                         </div>
                     </div>
+                </div>
+
+                <div className="flex justify-center mt-12">
+                    <button 
+                        onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                        className="px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-xl shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2"
+                    >
+                        <span>Explore 360° profiles</span>
+                        <ArrowRight className="w-4 h-4" />
+                    </button>
                 </div>
             </div>
         </section>
