@@ -24,23 +24,24 @@ export default function FreeTrialModal() {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-            <div 
-                className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
-                onClick={() => setIsOpen(false)}
-            ></div>
-            
-            <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all">
-                <div className="absolute top-4 right-4">
-                    <button 
-                        onClick={() => setIsOpen(false)}
-                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
-                    >
-                        <X className="w-5 h-5" />
-                    </button>
-                </div>
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
+                <div 
+                    className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+                    onClick={() => setIsOpen(false)}
+                ></div>
+                
+                <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl transform transition-all my-8 text-left">
+                    <div className="absolute top-4 right-4 z-10">
+                        <button 
+                            onClick={() => setIsOpen(false)}
+                            className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
 
-                <div className="p-8 sm:p-10">
+                    <div className="p-6 sm:p-10">
                     <h3 className="text-2xl font-bold text-slate-900 mb-2">Let's set up your workspace</h3>
                     <p className="text-slate-500 mb-8 text-sm">Tell us a bit about your business so we can tailor your workspace.</p>
 
@@ -99,6 +100,7 @@ export default function FreeTrialModal() {
                     </form>
                 </div>
             </div>
+        </div>
         </div>
     );
 }
