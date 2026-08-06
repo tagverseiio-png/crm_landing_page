@@ -64,10 +64,10 @@ export default function ModulesSection() {
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {/* To Do Column */}
-                            <div className="bg-slate-50/50 p-4 rounded-2xl border border-slate-100 space-y-3 relative overflow-hidden">
+                            <div className="bg-slate-100/50 p-4 rounded-2xl border border-slate-200 space-y-3 relative overflow-hidden">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="font-black text-slate-800 uppercase tracking-widest text-[11px]">To Do</span>
-                                    <span className="bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full">2</span>
+                                    <span className="font-black text-slate-600 uppercase tracking-widest text-[11px]">To Do</span>
+                                    <span className="bg-slate-300 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">2</span>
                                 </div>
                                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-grab group/card">
                                     <div className="flex gap-1.5 mb-2">
@@ -86,14 +86,14 @@ export default function ModulesSection() {
                             </div>
 
                             {/* In Progress Column */}
-                            <div className="bg-blue-50/30 p-4 rounded-2xl border border-blue-100 space-y-3">
+                            <div className="bg-amber-50/40 p-4 rounded-2xl border border-amber-200/60 space-y-3">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="font-black text-blue-700 uppercase tracking-widest text-[11px]">In Progress</span>
-                                    <span className="bg-blue-200 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full">1</span>
+                                    <span className="font-black text-amber-700 uppercase tracking-widest text-[11px]">In Progress</span>
+                                    <span className="bg-amber-200 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded-full">1</span>
                                 </div>
-                                <div className="bg-white p-4 rounded-xl border border-blue-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all cursor-grab transform -rotate-1 scale-[1.02] relative z-10 shadow-blue-900/10">
+                                <div className="bg-white p-4 rounded-xl border border-amber-200 shadow-sm hover:shadow-md hover:border-amber-300 transition-all cursor-grab transform -rotate-1 scale-[1.02] relative z-10 shadow-amber-900/10">
                                     <div className="flex gap-1.5 mb-2">
-                                        <span className="w-10 h-2 rounded-full bg-blue-400"></span>
+                                        <span className="w-10 h-2 rounded-full bg-amber-400"></span>
                                     </div>
                                     <h4 className="font-bold text-slate-800 text-sm mb-3">UI Design Mockups</h4>
                                     <div className="flex items-center justify-between">
