@@ -108,7 +108,7 @@ export default function PipelineSection() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-20 items-start relative">
 
                 {/* Right Side: Giant Interactive Image Viewer (Sticky - Background on mobile) */}
-                <div className="col-start-1 row-start-1 lg:col-start-2 sticky top-24 lg:top-32 h-[70vh] min-h-[500px] lg:h-[700px] w-full bg-transparent lg:bg-slate-100 lg:rounded-[3rem] border-transparent lg:border-slate-200/60 shadow-none lg:shadow-2xl lg:shadow-slate-200/50 flex items-center justify-center p-4 sm:p-8 md:p-16 overflow-hidden z-0 mt-8 lg:mt-0">
+                <div className="col-start-1 row-start-1 lg:col-start-2 sticky top-24 lg:top-32 h-[70vh] min-h-[500px] lg:h-[calc(100vh-10rem)] lg:max-h-[750px] w-full bg-transparent lg:bg-slate-100 lg:rounded-[3rem] border-transparent lg:border-slate-200/60 shadow-none lg:shadow-2xl lg:shadow-slate-200/50 flex items-center justify-center p-4 sm:p-8 md:p-16 overflow-hidden z-0 mt-8 lg:mt-0">
                     {/* Decorative background blur blobs */}
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/20 rounded-full blur-[80px]"></div>
                     <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-indigo-400/20 rounded-full blur-[80px]"></div>
@@ -116,7 +116,7 @@ export default function PipelineSection() {
                     {steps.map(step => (
                         <div
                             key={step.id}
-                            className={`absolute inset-6 sm:inset-16 sm:bottom-24 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center ${activeStep === step.id
+                            className={`absolute inset-0 sm:inset-16 sm:bottom-24 lg:inset-8 lg:bottom-24 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center ${activeStep === step.id
                                     ? 'opacity-100 translate-y-0 scale-100 blur-0 z-10'
                                     : 'opacity-0 translate-y-12 scale-95 blur-md pointer-events-none z-0'
                                 }`}

@@ -50,7 +50,7 @@ export default function ModulesSection() {
 
                 <div className="relative group perspective-[2000px]">
                     <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-indigo-500/20 rounded-[3rem] blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
-                    <div className="bg-white/90 backdrop-blur-xl p-8 rounded-[3rem] border border-white shadow-2xl shadow-slate-200/50 space-y-6 relative transform transition-transform duration-700 hover:rotate-y-2 hover:rotate-x-2">
+                    <div className="bg-white/90 backdrop-blur-xl p-5 sm:p-8 rounded-3xl sm:rounded-[3rem] border border-white shadow-2xl shadow-slate-200/50 space-y-6 relative transform transition-transform duration-700 hover:rotate-y-2 hover:rotate-x-2">
                         <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                             <div className="flex items-center gap-3">
                                 <div className="w-3 h-3 rounded-full bg-rose-400"></div>
@@ -62,7 +62,7 @@ export default function ModulesSection() {
                             </span>
                         </div>
                         
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             {/* To Do Column */}
                             <div className="bg-slate-50/50 p-4 rounded-2xl border border-slate-100 space-y-3 relative overflow-hidden">
                                 <div className="flex items-center justify-between mb-4">
