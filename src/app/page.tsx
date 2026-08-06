@@ -14,10 +14,22 @@ import IntegrationsMarquee from '@/components/IntegrationsMarquee';
 
 export default function Home() {
     const [mounted, setMounted] = useState(false);
+    const [activeMobileCard, setActiveMobileCard] = useState<string | null>(null);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    const handleCardClick = (id: string, e: React.MouseEvent<HTMLDivElement>) => {
+        if (window.innerWidth < 768) {
+            if (activeMobileCard === id) {
+                setActiveMobileCard(null);
+                e.currentTarget.blur();
+            } else {
+                setActiveMobileCard(id);
+            }
+        }
+    };
 
     return (
         <div className="w-full">
@@ -61,21 +73,26 @@ export default function Home() {
 
 
 
-                <div className="animate-marquee-slow flex gap-6 px-4 py-8">
+                <div className={`animate-marquee-slow flex gap-6 px-4 py-8 ${activeMobileCard ? 'animation-paused' : ''}`}>
                     {[1, 2].map((track) => (
                         <div key={track} className="flex gap-6 shrink-0">
                             {/* Card 1: Lead Capture */}
-                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-emerald-100 group cursor-pointer">
-                                <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
+                            <div 
+                                className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-emerald-100 group cursor-pointer"
+                                onClick={(e) => handleCardClick(`card-1-${track}`, e)}
+                                data-active={activeMobileCard === `card-1-${track}`}
+                                tabIndex={0}
+                            >
+                                <div className="absolute inset-0 z-20 p-6 md:p-10 flex flex-col justify-end w-full md:w-[85%] md:group-hover:w-[60%] transition-all duration-700 ease-out pointer-events-none">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <span className="block text-emerald-700 font-bold uppercase tracking-wider text-xs pb-3">01 · Lead Capture</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-emerald-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-data-[active=true]:text-emerald-950 md:group-hover:text-emerald-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-data-[active=true]:drop-shadow-none md:group-hover:drop-shadow-none pointer-events-auto">
                                         Instant web contacts
                                     </h4>
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 delay-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <div className="pt-5">
                                                 <p className="text-emerald-900/90 font-semibold leading-relaxed mb-6">Automated webforms and WhatsApp router assign reps in real-time.</p>
@@ -86,8 +103,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 group-hover:top-[40px] group-hover:right-[-20px] group-hover:bottom-[40px] group-hover:left-[45%]">
-                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none group-hover:rounded-2xl group-hover:border-[6px] group-hover:border-white/60 group-hover:shadow-2xl group-hover:shadow-emerald-900/20 group-hover:-rotate-3">
+                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 md:group-hover:top-[40px] md:group-hover:right-[-20px] md:group-hover:bottom-[40px] md:group-hover:left-[45%] group-data-[active=true]:opacity-10 md:group-hover:opacity-100">
+                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none md:group-hover:rounded-2xl md:group-hover:border-[6px] md:group-hover:border-white/60 md:group-hover:shadow-2xl md:group-hover:shadow-emerald-900/20 md:group-hover:-rotate-3">
 
                                         <img src="/feature_lead.png" alt="Lead Capture" className="w-full h-full object-cover" />
                                     </div>
@@ -95,17 +112,22 @@ export default function Home() {
                             </div>
 
                             {/* Card 2: WhatsApp */}
-                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer">
-                                <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
+                            <div 
+                                className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer"
+                                onClick={(e) => handleCardClick(`card-2-${track}`, e)}
+                                data-active={activeMobileCard === `card-2-${track}`}
+                                tabIndex={0}
+                            >
+                                <div className="absolute inset-0 z-20 p-6 md:p-10 flex flex-col justify-end w-full md:w-[85%] md:group-hover:w-[60%] transition-all duration-700 ease-out pointer-events-none">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <span className="block text-indigo-400 font-bold uppercase tracking-wider text-xs pb-3">02 · WhatsApp App</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-data-[active=true]:drop-shadow-none md:group-hover:drop-shadow-none pointer-events-auto">
                                         Quote & close in chat
                                     </h4>
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 delay-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <div className="pt-5">
                                                 <p className="text-slate-300 font-semibold leading-relaxed mb-6">Official Cloud API syncs conversations directly to client timelines.</p>
@@ -116,8 +138,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 group-hover:top-[40px] group-hover:right-[-20px] group-hover:bottom-[40px] group-hover:left-[45%]">
-                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none group-hover:rounded-2xl group-hover:border group-hover:border-slate-700 group-hover:shadow-2xl group-hover:shadow-black/50 group-hover:rotate-2">
+                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 md:group-hover:top-[40px] md:group-hover:right-[-20px] md:group-hover:bottom-[40px] md:group-hover:left-[45%] group-data-[active=true]:opacity-10 md:group-hover:opacity-100">
+                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none md:group-hover:rounded-2xl md:group-hover:border md:group-hover:border-slate-700 md:group-hover:shadow-2xl md:group-hover:shadow-black/50 md:group-hover:rotate-2">
 
                                         <img src="/feature_whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover" />
                                     </div>
@@ -125,17 +147,22 @@ export default function Home() {
                             </div>
 
                             {/* Card 3: Quote to Cash */}
-                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-blue-100 group cursor-pointer">
-                                <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
+                            <div 
+                                className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-blue-100 group cursor-pointer"
+                                onClick={(e) => handleCardClick(`card-3-${track}`, e)}
+                                data-active={activeMobileCard === `card-3-${track}`}
+                                tabIndex={0}
+                            >
+                                <div className="absolute inset-0 z-20 p-6 md:p-10 flex flex-col justify-end w-full md:w-[85%] md:group-hover:w-[60%] transition-all duration-700 ease-out pointer-events-none">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <span className="block text-blue-600 font-bold uppercase tracking-wider text-xs pb-3">03 · Quote-to-Cash</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-blue-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
-                                        Auto-gen invoices
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-data-[active=true]:text-blue-950 md:group-hover:text-blue-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-data-[active=true]:drop-shadow-none md:group-hover:drop-shadow-none pointer-events-auto">
+                                        One-click payments
                                     </h4>
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 delay-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <div className="pt-5">
                                                 <p className="text-blue-900/90 font-semibold leading-relaxed mb-6">Tax rates, items, and payment links get dispatched instantly.</p>
@@ -146,8 +173,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 group-hover:top-[40px] group-hover:right-[-20px] group-hover:bottom-[40px] group-hover:left-[45%]">
-                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none group-hover:rounded-2xl group-hover:border-[6px] group-hover:border-white/80 group-hover:shadow-2xl group-hover:shadow-blue-900/10 group-hover:-rotate-2">
+                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 md:group-hover:top-[40px] md:group-hover:right-[-20px] md:group-hover:bottom-[40px] md:group-hover:left-[45%] group-data-[active=true]:opacity-10 md:group-hover:opacity-100">
+                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none md:group-hover:rounded-2xl md:group-hover:border-[6px] md:group-hover:border-white/80 md:group-hover:shadow-2xl md:group-hover:shadow-blue-900/10 md:group-hover:-rotate-2">
 
                                         <img src="/feature_invoice.png" alt="Invoice" className="w-full h-full object-cover" />
                                     </div>
@@ -155,17 +182,22 @@ export default function Home() {
                             </div>
 
                             {/* Card 4: Dossier */}
-                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-orange-100 group cursor-pointer">
-                                <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
+                            <div 
+                                className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-orange-100 group cursor-pointer"
+                                onClick={(e) => handleCardClick(`card-4-${track}`, e)}
+                                data-active={activeMobileCard === `card-4-${track}`}
+                                tabIndex={0}
+                            >
+                                <div className="absolute inset-0 z-20 p-6 md:p-10 flex flex-col justify-end w-full md:w-[85%] md:group-hover:w-[60%] transition-all duration-700 ease-out pointer-events-none">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <span className="block text-orange-700 font-bold uppercase tracking-wider text-xs pb-3">04 · 360° Dossier</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-orange-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-data-[active=true]:text-orange-950 md:group-hover:text-orange-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-data-[active=true]:drop-shadow-none md:group-hover:drop-shadow-none pointer-events-auto">
                                         Client history unified
                                     </h4>
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 delay-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <div className="pt-5">
                                                 <p className="text-orange-900/90 font-semibold leading-relaxed mb-6">View deal status, archives, invoices, and tasks on one screen.</p>
@@ -176,8 +208,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 group-hover:top-[40px] group-hover:right-[-20px] group-hover:bottom-[40px] group-hover:left-[45%]">
-                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none group-hover:rounded-2xl group-hover:border-[6px] group-hover:border-white/60 group-hover:shadow-2xl group-hover:shadow-orange-900/20 group-hover:rotate-3">
+                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 md:group-hover:top-[40px] md:group-hover:right-[-20px] md:group-hover:bottom-[40px] md:group-hover:left-[45%] group-data-[active=true]:opacity-10 md:group-hover:opacity-100">
+                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none md:group-hover:rounded-2xl md:group-hover:border-[6px] md:group-hover:border-white/60 md:group-hover:shadow-2xl md:group-hover:shadow-orange-900/20 md:group-hover:rotate-3">
 
                                         <img src="/feature_dossier.png" alt="Dossier" className="w-full h-full object-cover" />
                                     </div>
@@ -185,17 +217,22 @@ export default function Home() {
                             </div>
 
                             {/* Card 5: Kanban */}
-                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer">
-                                <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
+                            <div 
+                                className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-slate-900 group cursor-pointer"
+                                onClick={(e) => handleCardClick(`card-5-${track}`, e)}
+                                data-active={activeMobileCard === `card-5-${track}`}
+                                tabIndex={0}
+                            >
+                                <div className="absolute inset-0 z-20 p-6 md:p-10 flex flex-col justify-end w-full md:w-[85%] md:group-hover:w-[60%] transition-all duration-700 ease-out pointer-events-none">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <span className="block text-cyan-400 font-bold uppercase tracking-wider text-xs pb-3">05 · Visual Drag-Drop</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-data-[active=true]:drop-shadow-none md:group-hover:drop-shadow-none pointer-events-auto">
                                         Custom pipeline flow
                                     </h4>
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 delay-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <div className="pt-5">
                                                 <p className="text-slate-300 font-semibold leading-relaxed mb-6">Drag deal cards to instantly update automated stage probabilities.</p>
@@ -206,8 +243,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 group-hover:top-[40px] group-hover:right-[-20px] group-hover:bottom-[40px] group-hover:left-[45%]">
-                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none group-hover:rounded-2xl group-hover:border group-hover:border-slate-700 group-hover:shadow-2xl group-hover:shadow-black/50 group-hover:-rotate-2">
+                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 md:group-hover:top-[40px] md:group-hover:right-[-20px] md:group-hover:bottom-[40px] md:group-hover:left-[45%] group-data-[active=true]:opacity-10 md:group-hover:opacity-100">
+                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none md:group-hover:rounded-2xl md:group-hover:border md:group-hover:border-slate-700 md:group-hover:shadow-2xl md:group-hover:shadow-black/50 md:group-hover:-rotate-2">
 
                                         <img src="/feature_kanban.png" alt="Kanban" className="w-full h-full object-cover" />
                                     </div>
@@ -215,20 +252,25 @@ export default function Home() {
                             </div>
 
                             {/* Card 6: Analytics */}
-                            <div className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-rose-100 group cursor-pointer">
-                                <div className="absolute inset-0 z-20 p-10 flex flex-col justify-end w-[85%] group-hover:w-[60%] transition-all duration-700 ease-out">
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100">
+                            <div 
+                                className="w-[85vw] sm:w-[450px] md:w-[600px] h-[350px] md:h-[400px] rounded-md overflow-hidden shadow-xl shrink-0 relative bg-rose-100 group cursor-pointer"
+                                onClick={(e) => handleCardClick(`card-6-${track}`, e)}
+                                data-active={activeMobileCard === `card-6-${track}`}
+                                tabIndex={0}
+                            >
+                                <div className="absolute inset-0 z-20 p-6 md:p-10 flex flex-col justify-end w-full md:w-[85%] md:group-hover:w-[60%] transition-all duration-700 ease-out pointer-events-none">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <span className="block text-rose-600 font-bold uppercase tracking-wider text-xs pb-3">06 · Live Analytics</span>
                                         </div>
                                     </div>
-                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-hover:text-rose-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-hover:drop-shadow-none">
-                                        Morning forecasting
+                                    <h4 className="text-3xl md:text-4xl font-black tracking-tight leading-[1.1] text-white group-data-[active=true]:text-rose-950 md:group-hover:text-rose-950 transition-colors duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] group-data-[active=true]:drop-shadow-none md:group-hover:drop-shadow-none pointer-events-auto">
+                                        Revenue forecasting
                                     </h4>
-                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 delay-100">
+                                    <div className="grid transition-all duration-500 ease-out grid-rows-[0fr] group-data-[active=true]:grid-rows-[1fr] md:group-hover:grid-rows-[1fr] opacity-0 group-data-[active=true]:opacity-100 md:group-hover:opacity-100 delay-100 pointer-events-auto">
                                         <div className="overflow-hidden">
                                             <div className="pt-5">
-                                                <p className="text-rose-900/90 font-semibold leading-relaxed mb-6">Live velocity charts, drop-off analysis, and conversion reporting.</p>
+                                                <p className="text-rose-900/90 font-semibold leading-relaxed mb-6">Track conversion rates and predict Q3 revenue based on active deals.</p>
                                                 <button className="px-8 py-3 rounded-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-md transition-transform hover:scale-105">
                                                     Open Reports
                                                 </button>
@@ -236,8 +278,8 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 group-hover:top-[40px] group-hover:right-[-20px] group-hover:bottom-[40px] group-hover:left-[45%]">
-                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none group-hover:rounded-2xl group-hover:border-[6px] group-hover:border-white/80 group-hover:shadow-2xl group-hover:shadow-rose-900/10 group-hover:rotate-2">
+                                <div className="absolute z-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] top-0 right-0 bottom-0 left-0 md:group-hover:top-[40px] md:group-hover:right-[-20px] md:group-hover:bottom-[40px] md:group-hover:left-[45%] group-data-[active=true]:opacity-10 md:group-hover:opacity-100">
+                                    <div className="w-full h-full relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-none md:group-hover:rounded-2xl md:group-hover:border-[6px] md:group-hover:border-white/80 md:group-hover:shadow-2xl md:group-hover:shadow-rose-900/10 md:group-hover:rotate-2">
 
                                         <img src="/feature_analytics.png" alt="Analytics" className="w-full h-full object-cover" />
                                     </div>

@@ -42,8 +42,14 @@
       animation: marquee-scroll 32s linear infinite;
   }
   
-  .animate-marquee-slow:hover {
-      animation-play-state: paused;
+  @media (hover: hover) {
+    .animate-marquee-slow:hover {
+        animation-play-state: paused;
+    }
+  }
+
+  .animation-paused {
+      animation-play-state: paused !important;
   }
 
   /* Hide scrollbars for clean UI */
