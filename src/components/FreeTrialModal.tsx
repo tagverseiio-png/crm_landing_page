@@ -2,10 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function FreeTrialModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [companyType, setCompanyType] = useState('Startup (< 5 Years)');
+    const router = useRouter();
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsOpen(false);
+        router.push('/thank-you');
+    };
 
     useEffect(() => {
         const handleOpen = () => setIsOpen(true);
@@ -36,7 +44,7 @@ export default function FreeTrialModal() {
                     <h3 className="text-2xl font-bold text-slate-900 mb-2">Let's set up your workspace</h3>
                     <p className="text-slate-500 mb-8 text-sm">Tell us a bit about your business so we can tailor your workspace.</p>
 
-                    <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                    <form className="space-y-5" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div className="space-y-1.5">
                                 <label className="text-sm font-semibold text-slate-700">Name</label>
@@ -46,6 +54,11 @@ export default function FreeTrialModal() {
                                 <label className="text-sm font-semibold text-slate-700">Job Position</label>
                                 <input type="text" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="CEO" required />
                             </div>
+                        </div>
+
+                        <div className="space-y-1.5">
+                            <label className="text-sm font-semibold text-slate-700">Email Address</label>
+                            <input type="email" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="you@company.com" required />
                         </div>
 
                         <div className="space-y-1.5">
@@ -73,12 +86,7 @@ export default function FreeTrialModal() {
                             </div>
                         </div>
 
-                        {companyType !== 'Startup (< 5 Years)' && (
-                            <div className="space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-300">
-                                <label className="text-sm font-semibold text-slate-700">Official Company Email</label>
-                                <input type="email" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="you@company.com" required />
-                            </div>
-                        )}
+
 
                         <div className="space-y-1.5">
                             <label className="text-sm font-semibold text-slate-700">Description</label>
