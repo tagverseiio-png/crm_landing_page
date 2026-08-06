@@ -11,15 +11,35 @@ export default function FreeTrialModal() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsOpen(false);
+        handleClose();
         router.push('/thank-you');
     };
 
     useEffect(() => {
-        const handleOpen = () => setIsOpen(true);
+        const handleOpen = () => {
+            setIsOpen(true);
+            window.history.pushState({ modal: true }, '');
+        };
         window.addEventListener('open-free-trial', handleOpen);
         return () => window.removeEventListener('open-free-trial', handleOpen);
     }, []);
+
+    useEffect(() => {
+        const handlePopState = () => {
+            if (isOpen) {
+                setIsOpen(false);
+            }
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, [isOpen]);
+
+    const handleClose = () => {
+        setIsOpen(false);
+        if (window.history.state?.modal) {
+            window.history.back();
+        }
+    };
 
     if (!isOpen) return null;
 
@@ -28,13 +48,13 @@ export default function FreeTrialModal() {
             <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
                 <div 
                     className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleClose}
                 ></div>
                 
                 <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl transform transition-all my-8 text-left">
                     <div className="absolute top-4 right-4 z-10">
                         <button 
-                            onClick={() => setIsOpen(false)}
+                            onClick={handleClose}
                             className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
                         >
                             <X className="w-5 h-5" />
