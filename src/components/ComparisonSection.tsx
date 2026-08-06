@@ -172,7 +172,7 @@ export default function ComparisonSection() {
                             onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
                             className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors shadow-lg shadow-blue-600/30"
                         >
-                            Start Free Trial
+                            Start your journey
                         </button>
                     </div>
                 </div>

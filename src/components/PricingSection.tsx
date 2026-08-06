@@ -53,8 +53,11 @@ export default function PricingSection() {
                         <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Up to 3 Team Members</li>
                     </ul>
                 </div>
-                <button className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all">
-                    Start Starter Trial
+                <button 
+                    onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                    className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all"
+                >
+                    Start Starter Pack
                 </button>
             </div>
 
@@ -81,8 +84,11 @@ export default function PricingSection() {
                         <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Up to 10 Team Members</li>
                     </ul>
                 </div>
-                <button className="w-full mt-8 py-3 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-semibold text-sm transition-all shadow-md">
-                    Start Growth Free
+                <button 
+                    onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                    className="w-full mt-8 py-3 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-semibold text-sm transition-all shadow-md"
+                >
+                    Start your growth journey
                 </button>
             </div>
 
@@ -106,7 +112,10 @@ export default function PricingSection() {
                         <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Unlimited Team Seats</li>
                     </ul>
                 </div>
-                <button className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all">
+                <button 
+                    onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                    className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all"
+                >
                     Contact Enterprise
                 </button>
             </div>
