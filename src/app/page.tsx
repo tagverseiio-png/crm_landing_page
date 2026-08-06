@@ -278,14 +278,11 @@ export default function Home() {
                         <p className="text-lg text-gray-400">
                             Join hundreds of agency owners who stopped wrestling disconnected tools.
                         </p>
-                        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+                        <div className="flex justify-center items-center pt-4">
                             <button 
                                 onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
                                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-lg hover:scale-105"
                             >
-                                Start Your Free Trial
-                            </button>
-                            <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-base transition-all duration-200">
                                 Book Live Walkthrough
                             </button>
                         </div>

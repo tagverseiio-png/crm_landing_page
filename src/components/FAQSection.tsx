@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 
 export default function FAQSection() {
@@ -63,6 +63,15 @@ export default function FAQSection() {
                     )}
                 </div>
             ))}
+        </div>
+        <div className="flex justify-center mt-12">
+            <button 
+                onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                className="px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-xl shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2"
+            >
+                <span>Get started now</span>
+                <ArrowRight className="w-4 h-4" />
+            </button>
         </div>
     </section>
   );
