@@ -13,7 +13,7 @@ export default function ModulesSection() {
         <div className="absolute bottom-40 right-[10%] w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-indigo-100/40 rounded-full blur-[120px] pointer-events-none"></div>
 
         {/* PILLAR 2: Workspace Module */}
-        <section id="workspace" className="py-16 sm:py-20 px-6 max-w-[1400px] mx-auto relative z-10">
+        <section id="workspace" className="py-10 sm:py-20 px-6 max-w-[1400px] mx-auto relative z-10">
             <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 lg:gap-24 items-center">
                 <div className="space-y-8">
                     <span className="inline-flex items-center gap-2 text-blue-600 font-bold text-xs uppercase tracking-widest">
@@ -140,7 +140,7 @@ export default function ModulesSection() {
         <OnboardingPreview />
 
         {/* PILLAR 3: Integration Hub */}
-        <section className="py-16 sm:py-20 px-6 max-w-[1400px] mx-auto border-t border-slate-200/60 relative z-10">
+        <section className="py-10 sm:py-20 px-6 max-w-[1400px] mx-auto border-t border-slate-200/60 relative z-10">
             <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-24 items-center">
                 <div className="order-2 lg:order-1 relative group">
                     <div className="absolute inset-0 bg-gradient-to-bl from-emerald-500/20 to-teal-500/20 rounded-[3rem] blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
@@ -237,7 +237,7 @@ export default function ModulesSection() {
         </section>
 
         {/* PILLAR 4 & 5: Analytics & Automation (Bento Grid) */}
-        <section className="py-16 sm:py-20 px-6 max-w-[1400px] mx-auto border-t border-slate-200/60 relative z-10">
+        <section className="py-10 sm:py-20 px-6 max-w-[1400px] mx-auto border-t border-slate-200/60 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
                 <span className="inline-flex items-center gap-2 text-purple-600 font-bold text-xs uppercase tracking-widest mb-4">
                     <BarChart3 className="w-4 h-4 text-purple-600" /> Scale & Automation

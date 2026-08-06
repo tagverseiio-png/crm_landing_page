@@ -19,7 +19,7 @@ export default function OnboardingPreview() {
     ];
 
     return (
-        <section className="py-16 sm:py-24 bg-slate-900 text-white px-6 relative overflow-hidden border-t border-slate-800">
+        <section className="py-10 sm:py-24 bg-slate-900 text-white px-6 relative overflow-hidden border-t border-slate-800">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
             <div className="max-w-[1400px] mx-auto relative z-10">
                 <div className={`reveal-element ${mounted ? 'active' : ''} text-center max-w-3xl mx-auto mb-16`}>

@@ -51,7 +51,7 @@ export default function Home() {
             </section>
 
 
-            <section className="py-14 bg-slate-50 border-y border-slate-200/80 overflow-hidden relative">
+            <section className="py-10 sm:py-14 bg-slate-50 border-y border-slate-200/80 overflow-hidden relative">
                 <div className="max-w-7xl mx-auto px-6 mb-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
                         <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Live Feature Showcase</span>
@@ -268,7 +268,7 @@ export default function Home() {
             <FAQSection />
             <IntegrationsMarquee />
 
-            <section className="py-24 sm:py-36 px-6 max-w-7xl mx-auto">
+            <section className="py-12 sm:py-36 px-6 max-w-7xl mx-auto">
                 <div className="reveal-element bg-gradient-to-br from-slate-900 via-black to-slate-900 text-white rounded-3xl p-10 sm:p-20 text-center relative overflow-hidden shadow-2xl">
                     <div className="max-w-3xl mx-auto space-y-8 relative z-10">
                         <h2 className="text-3xl sm:text-6xl font-bold tracking-tight leading-tight">

@@ -109,7 +109,7 @@ export default function ComparisonSection() {
     }, 0);
 
     return (
-        <section className="py-24 sm:py-36 px-6 max-w-5xl mx-auto">
+        <section className="py-12 sm:py-36 px-6 max-w-5xl mx-auto">
             <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 mb-6">
                     Replace your fragmented tech stack.

@@ -71,7 +71,7 @@ export default function IntegrationsMarquee() {
     const marqueeItems = [...tools, ...tools, ...tools, ...tools, ...tools];
 
     return (
-        <section className="py-16 overflow-hidden bg-white border-y border-gray-200">
+        <section className="py-10 sm:py-16 overflow-hidden bg-white border-y border-gray-200">
             <div className="max-w-7xl mx-auto px-6 mb-10 text-center">
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900">Integrates With Your Favorite Tools</h3>
             </div>

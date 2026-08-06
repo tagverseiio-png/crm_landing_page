@@ -91,7 +91,7 @@ export default function PipelineSection() {
     }, [activeStep]);
 
     return (
-        <section id="pipeline" className="py-24 sm:py-36 px-6 max-w-[1400px] mx-auto overflow-visible relative">
+        <section id="pipeline" className="py-12 sm:py-36 px-6 max-w-[1400px] mx-auto overflow-visible relative">
             <div className="text-center max-w-3xl mx-auto mb-20 relative z-30 bg-white/80 backdrop-blur-md rounded-3xl p-6">
                 <span className="inline-flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-widest mb-6">
                     <Zap className="w-4 h-4 text-amber-500" /> Conversion Pipeline

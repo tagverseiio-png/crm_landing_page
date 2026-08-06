@@ -4,7 +4,7 @@ import { Flame, ArrowRight } from 'lucide-react';
 
 export default function CRM360Section() {
     return (
-        <section id="view360" className="py-24 bg-white border-y border-gray-200/80 px-6">
+        <section id="view360" className="py-12 sm:py-24 bg-white border-y border-gray-200/80 px-6">
             <div className="max-w-7xl mx-auto w-full">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">Module 8 — 360° Client Profile</span>

@@ -38,7 +38,7 @@ export default function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-24 sm:py-36 px-6 max-w-4xl mx-auto">
+    <section id="faq" className="py-12 sm:py-36 px-6 max-w-4xl mx-auto">
         <div className="text-center mb-16">
             <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">Frequently Asked Questions</span>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3">
