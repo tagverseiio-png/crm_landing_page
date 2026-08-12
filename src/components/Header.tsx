@@ -11,9 +11,9 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="#" className="flex items-center gap-2.5 group">
                 <div className="w-8 h-8 rounded-xl bg-apple-accent text-white flex items-center justify-center font-bold text-lg shadow-sm transition-transform group-hover:scale-105">
-                    B
+                    V
                 </div>
-                <span className="font-semibold text-lg tracking-tight text-apple-text">BridgeBreak</span>
+                <span className="font-semibold text-lg tracking-tight text-apple-text">Velora</span>
             </a>
 
             <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-apple-textMuted">

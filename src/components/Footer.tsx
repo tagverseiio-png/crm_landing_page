@@ -6,8 +6,8 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
             <div className="col-span-2 space-y-4">
                 <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-apple-accent text-white flex items-center justify-center font-bold text-xs">B</div>
-                    <span className="font-bold text-sm text-apple-text">BridgeBreak CRM</span>
+                    <div className="w-6 h-6 rounded-lg bg-apple-accent text-white flex items-center justify-center font-bold text-xs">V</div>
+                    <span className="font-bold text-sm text-apple-text">Velora CRM</span>
                 </div>
                 <p className="max-w-sm text-gray-500 leading-relaxed">
                     The all-in-one workspace for agency leads, deals, quotes, invoices, projects, and automated cash conversion.
@@ -40,7 +40,7 @@ export default function Footer() {
             </div>
         </div>
         <div className="max-w-7xl mx-auto border-t border-gray-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; {new Date().getFullYear()} BridgeBreak CRM. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Velora CRM. All rights reserved.</p>
             <div className="flex gap-4">
                 <a href="#" className="hover:text-apple-text">Twitter</a>
                 <a href="#" className="hover:text-apple-text">LinkedIn</a>

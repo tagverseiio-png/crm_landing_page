@@ -19,7 +19,7 @@ export default function PipelineSection() {
             id: 1,
             label: 'Contact Enrichment',
             title: '2. Contact Enrichment',
-            desc: 'BridgeBreak automatically enriches the contact with company data, social profiles, and historical interactions if they are a returning client.',
+            desc: 'Velora automatically enriches the contact with company data, social profiles, and historical interactions if they are a returning client.',
             bullets: ['Clearbit data integration', 'Deduplication engine active'],
             image: '/feature_dossier.png'
         },
@@ -101,7 +101,7 @@ export default function PipelineSection() {
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Let the pipeline do it.</span>
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8">
-                    Most CRMs stop at "deal won." BridgeBreak keeps going straight into quoting, invoicing, cash collection, and team delivery.
+                    Most CRMs stop at "deal won." Velora keeps going straight into quoting, invoicing, cash collection, and team delivery.
                 </p>
                 <div className="flex justify-center">
                     <button 

@@ -24,7 +24,7 @@ export default function ModulesSection() {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Your team delivers it.</span>
                     </h2>
                     <p className="text-xl text-slate-600 leading-relaxed font-medium">
-                        Stop switching to external project management apps once a deal closes. BridgeBreak transfers the scope directly to team tasks, client hubs, and budget trackers.
+                        Stop switching to external project management apps once a deal closes. Velora transfers the scope directly to team tasks, client hubs, and budget trackers.
                     </p>
 
                     <div className="space-y-5 pt-4">
@@ -193,7 +193,7 @@ export default function ModulesSection() {
                                             <span className="text-xs text-slate-500">2.4 MB • Auto-generated</span>
                                         </div>
                                     </div>
-                                    <p className="text-sm font-medium">Absolutely! Proposal #Q-8821 is attached above. Generated automatically via BridgeBreak CRM. Let me know if you need anything else!</p>
+                                    <p className="text-sm font-medium">Absolutely! Proposal #Q-8821 is attached above. Generated automatically via Velora CRM. Let me know if you need anything else!</p>
                                     <div className="flex items-center justify-end gap-1 text-[10px] text-emerald-700 font-medium opacity-80">
                                         10:43 AM <CheckCircle className="w-3 h-3 text-blue-500" />
                                     </div>
