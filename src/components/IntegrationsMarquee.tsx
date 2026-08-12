@@ -15,6 +15,7 @@ export default function IntegrationsMarquee() {
                 </svg>
             )
         },
+        /*
         { 
             name: 'Instagram', 
             icon: (
@@ -56,6 +57,7 @@ export default function IntegrationsMarquee() {
                 </svg>
             )
         },
+        */
         { 
             name: 'Meta', 
             icon: (
