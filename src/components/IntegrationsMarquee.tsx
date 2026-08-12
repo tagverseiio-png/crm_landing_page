@@ -57,12 +57,15 @@ export default function IntegrationsMarquee() {
             )
         },
         { 
-            name: 'X (Twitter)', 
+            name: 'Meta', 
             icon: (
-                <svg className="w-16 h-16 drop-shadow-md" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" rx="4" fill="#000000" />
-                    <path d="M18.244 3.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 3.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 5.126H5.117z" fill="#fff"/>
-                </svg>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" className="w-28 h-16 drop-shadow-md object-contain scale-125" />
+            )
+        },
+        { 
+            name: 'Google Ads', 
+            icon: (
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" className="w-20 h-20 drop-shadow-md object-contain scale-110" />
             )
         },
     ];
