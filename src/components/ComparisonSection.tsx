@@ -91,7 +91,7 @@ export default function ComparisonSection() {
                                 {item.feature}
                             </div>
                             <div className="col-span-12 sm:col-span-4 hidden sm:flex justify-center gap-2 flex-wrap">
-                                {item.replaces.map((tool, i) => (
+                                {item.replaces.map((tool: string, i: number) => (
                                     <span key={i} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600 shadow-sm">
                                         {tool}
                                     </span>
