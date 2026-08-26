@@ -2,8 +2,16 @@
 
 import { FolderKanban, ShieldCheck, MessageSquare, Zap, Activity, Filter, MousePointerClick, RefreshCw, BarChart3, Users, Lock, CreditCard, CheckCircle, TrendingUp, ArrowRight, Building2, MapPin, UserCog, FileText, Rocket } from 'lucide-react';
 import OnboardingPreview from './OnboardingPreview';
+import SectionSkeleton from '@/components/SectionSkeleton';
+import { useFirebaseData } from '@/lib/useFirebaseData';
 
 export default function ModulesSection() {
+    const { data: workspaceData, loading: wLoad } = useFirebaseData<any>('landing/workspace');
+    const { data: integrationData, loading: iLoad } = useFirebaseData<any>('landing/integrationHub');
+    const { data: analyticsData, loading: aLoad } = useFirebaseData<any>('landing/analytics');
+
+    if (wLoad || iLoad || aLoad) return <SectionSkeleton />;
+
   return (
     <div className="bg-slate-50 relative overflow-hidden">
         {/* Abstract Background Elements */}
@@ -17,14 +25,14 @@ export default function ModulesSection() {
             <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 lg:gap-24 items-center">
                 <div className="space-y-8">
                     <span className="inline-flex items-center gap-2 text-blue-600 font-bold text-xs uppercase tracking-widest">
-                        <FolderKanban className="w-4 h-4 text-blue-600" /> Workspace Module
+                        <FolderKanban className="w-4 h-4 text-blue-600" /> {workspaceData?.header?.eyebrow || 'Loading...'}
                     </span>
                     <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                        Sales closes it. <br className="hidden sm:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Your team delivers it.</span>
+                        {workspaceData?.header?.titlePre || 'Loading...'} <br className="hidden sm:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">{workspaceData?.header?.titleHighlight || ''}</span>
                     </h2>
                     <p className="text-xl text-slate-600 leading-relaxed font-medium">
-                        Stop switching to external project management apps once a deal closes. Velora transfers the scope directly to team tasks, client hubs, and budget trackers.
+                        {workspaceData?.header?.subtitle || 'Loading...'}
                     </p>
 
                     <div className="space-y-5 pt-4">
@@ -33,8 +41,8 @@ export default function ModulesSection() {
                                 <MousePointerClick className="w-6 h-6" />
                             </div>
                             <div>
-                                <strong className="block text-slate-900 font-bold text-lg mb-1">Project Tracking</strong>
-                                <span className="text-slate-600 leading-relaxed">Track status, budget vs actual cost, and share client-visible updates in one unified place.</span>
+                                <strong className="block text-slate-900 font-bold text-lg mb-1">{workspaceData?.features?.[0]?.title || 'Loading...'}</strong>
+                                <span className="text-slate-600 leading-relaxed">{workspaceData?.features?.[0]?.description || 'Loading...'}</span>
                             </div>
                         </div>
                         <div className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 border border-transparent hover:border-emerald-100">
@@ -42,8 +50,8 @@ export default function ModulesSection() {
                                 <ShieldCheck className="w-6 h-6" />
                             </div>
                             <div>
-                                <strong className="block text-slate-900 font-bold text-lg mb-1">Granular Role Permissions</strong>
-                                <span className="text-slate-600 leading-relaxed">5 role tiers (Owner, Admin, Manager, Employee, Viewer) keep confidential financials safe.</span>
+                                <strong className="block text-slate-900 font-bold text-lg mb-1">{workspaceData?.features?.[1]?.title || 'Loading...'}</strong>
+                                <span className="text-slate-600 leading-relaxed">{workspaceData?.features?.[1]?.description || 'Loading...'}</span>
                             </div>
                         </div>
                     </div>
@@ -205,18 +213,18 @@ export default function ModulesSection() {
 
                 <div className="order-1 lg:order-2 space-y-8">
                     <span className="inline-flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase tracking-widest">
-                        <MessageSquare className="w-4 h-4 text-emerald-600" /> Integration Hub
+                        <MessageSquare className="w-4 h-4 text-emerald-600" /> {integrationData?.header?.eyebrow || 'Loading...'}
                     </span>
                     <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                        Talk to leads <br className="hidden sm:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">without leaving the CRM.</span>
+                        {integrationData?.header?.titlePre || 'Loading...'} <br className="hidden sm:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">{integrationData?.header?.titleHighlight || ''}</span>
                     </h2>
                     <p className="text-xl text-slate-600 leading-relaxed font-medium">
-                        No separate tabs required. Send WhatsApp template messages, capture website webform entries, and monitor ad campaign returns right from your deal view.
+                        {integrationData?.header?.subtitle || 'Loading...'}
                     </p>
                     
                     <div className="flex flex-wrap gap-3 pt-4">
-                        {['WhatsApp Cloud API', 'Website Webhooks', 'Meta Ads Lead Gen', 'Google Analytics', 'Stripe Payments', 'Clearbit Data'].map((tag, i) => (
+                        {(integrationData?.tags || ['WhatsApp Cloud API', 'Website Webhooks', 'Meta Ads Lead Gen', 'Google Analytics', 'Stripe Payments', 'Clearbit Data']).map((tag: string, i: number) => (
                             <span key={i} className="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm font-bold text-slate-700 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all cursor-default hover:-translate-y-0.5">
                                 {tag}
                             </span>
@@ -240,14 +248,14 @@ export default function ModulesSection() {
         <section className="py-10 sm:py-20 px-6 max-w-[1400px] mx-auto border-t border-slate-200/60 relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-12">
                 <span className="inline-flex items-center gap-2 text-purple-600 font-bold text-xs uppercase tracking-widest mb-4">
-                    <BarChart3 className="w-4 h-4 text-purple-600" /> Scale & Automation
+                    <BarChart3 className="w-4 h-4 text-purple-600" /> {analyticsData?.header?.eyebrow || 'Loading...'}
                 </span>
                 <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 leading-[1.1] mb-4">
-                    The busywork happens <br className="hidden sm:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">on its own.</span>
+                    {analyticsData?.header?.titlePre || 'Loading...'} <br className="hidden sm:block" />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">{analyticsData?.header?.titleHighlight || ''}</span>
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
-                    Out-of-the-box revenue reports, pipeline velocity tracking, and trigger-based automation rules. All activity is logged live.
+                    {analyticsData?.header?.subtitle || 'Loading...'}
                 </p>
             </div>
 
@@ -268,7 +276,7 @@ export default function ModulesSection() {
                         <div className="space-y-4 mt-6">
                             <div className="group/bar">
                                 <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
-                                    <span>Inbound Leads</span> <span className="text-indigo-600">320 (100%)</span>
+                                    <span>{analyticsData?.funnel?.[0]?.label || 'Loading...'}</span> <span className="text-indigo-600">{analyticsData?.funnel?.[0]?.count || 'Loading...'}</span>
                                 </div>
                                 <div className="w-full bg-slate-100 h-4 rounded-full overflow-hidden shadow-inner">
                                     <div className="bg-slate-800 h-full w-full rounded-full transform origin-left transition-transform duration-1000"></div>
@@ -276,18 +284,18 @@ export default function ModulesSection() {
                             </div>
                             <div className="group/bar">
                                 <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
-                                    <span>Qualified Deals</span> <span className="text-indigo-600">180 (56%)</span>
+                                    <span>{analyticsData?.funnel?.[1]?.label || 'Loading...'}</span> <span className="text-indigo-600">{analyticsData?.funnel?.[1]?.count || 'Loading...'}</span>
                                 </div>
                                 <div className="w-full bg-slate-100 h-4 rounded-full overflow-hidden shadow-inner">
-                                    <div className="bg-indigo-500 h-full w-[56%] rounded-full transform origin-left transition-transform duration-1000 delay-100"></div>
+                                    <div className="bg-indigo-500 h-full rounded-full transform origin-left transition-transform duration-1000 delay-100" style={{ width: `${analyticsData?.funnel?.[1]?.percentage || 56}%` }}></div>
                                 </div>
                             </div>
                             <div className="group/bar">
                                 <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
-                                    <span>Closed Won</span> <span className="text-indigo-600">112 (35%)</span>
+                                    <span>{analyticsData?.funnel?.[2]?.label || 'Loading...'}</span> <span className="text-indigo-600">{analyticsData?.funnel?.[2]?.count || 'Loading...'}</span>
                                 </div>
                                 <div className="w-full bg-slate-100 h-4 rounded-full overflow-hidden shadow-inner">
-                                    <div className="bg-emerald-500 h-full w-[35%] rounded-full transform origin-left transition-transform duration-1000 delay-200"></div>
+                                    <div className="bg-emerald-500 h-full rounded-full transform origin-left transition-transform duration-1000 delay-200" style={{ width: `${analyticsData?.funnel?.[2]?.percentage || 35}%` }}></div>
                                 </div>
                             </div>
                         </div>
@@ -307,9 +315,9 @@ export default function ModulesSection() {
                             </div>
                             
                             <div className="mt-4">
-                                <div className="text-5xl font-black text-white tracking-tighter mb-2">$84.2k</div>
+                                <div className="text-5xl font-black text-white tracking-tighter mb-2">${analyticsData?.mrr?.value || 84.2}k</div>
                                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-sm font-bold">
-                                    <TrendingUp className="w-4 h-4" /> +18.4% this month
+                                    <TrendingUp className="w-4 h-4" /> {analyticsData?.mrr?.change || '+18.4%'} this month
                                 </div>
                             </div>
                         </div>

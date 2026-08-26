@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FreeTrialModal from '@/components/FreeTrialModal';
+import ConditionalLayout from '@/components/ConditionalLayout';
 
 import fs from 'fs';
 import path from 'path';
@@ -50,11 +51,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${plusJakarta.className} antialiased selection:bg-apple-accent selection:text-white flex flex-col min-h-screen`}>
-        <Header />
-        <main className="pt-24 flex-grow">
+        <ConditionalLayout>
           {children}
-        </main>
-        <Footer />
+        </ConditionalLayout>
         <FreeTrialModal />
       </body>
     </html>

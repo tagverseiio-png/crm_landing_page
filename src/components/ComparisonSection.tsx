@@ -2,111 +2,13 @@
 
 import { CheckCircle2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
-
-const comparisonData = [
-    {
-        feature: 'CRM & PIPELINE MANAGEMENT',
-        replaces: ['HubSpot', 'ActiveCampaign'],
-        cost: 99
-    },
-    {
-        feature: 'UNLIMITED SALES FUNNELS',
-        replaces: ['ClickFunnels', 'Leadpages'],
-        cost: 297
-    },
-    {
-        feature: 'WEBSITE BUILDER',
-        replaces: ['WordPress', 'Squarespace', 'Wix'],
-        cost: 29
-    },
-    {
-        feature: 'ECOMMERCE',
-        replaces: ['Shopify', 'WooCommerce'],
-        cost: 39
-    },
-    {
-        feature: 'SURVEYS & FORMS',
-        replaces: ['Jotform', 'Typeform', 'Wufoo'],
-        cost: 79
-    },
-    {
-        feature: 'EMAIL MARKETING',
-        replaces: ['Mailchimp', 'Constant Contact', 'HubSpot'],
-        cost: 99
-    },
-    {
-        feature: '2-WAY SMS MARKETING',
-        replaces: ['Skipio', 'Podium', 'Sendlane'],
-        cost: 99
-    },
-    {
-        feature: 'BOOKING & APPOINTMENTS',
-        replaces: ['Calendly', 'Acuity Scheduling'],
-        cost: 29
-    },
-    {
-        feature: 'WORKFLOW AUTOMATIONS',
-        replaces: ['Keap', 'ActiveCampaign', 'HubSpot'],
-        cost: 169
-    },
-    {
-        feature: 'AI VOICE AGENT',
-        replaces: ['Air', 'Synthflow'],
-        cost: 199
-    },
-    {
-        feature: 'AI CONTENT & CHAT',
-        replaces: ['Jasper', 'Drift'],
-        cost: 99
-    },
-    {
-        feature: 'AD MANAGEMENT',
-        replaces: ['AdEspresso', 'Madgicx'],
-        cost: 49
-    },
-    {
-        feature: 'SEO & LOCAL LISTINGS',
-        replaces: ['Yext', 'Brightlocal'],
-        cost: 99
-    },
-    {
-        feature: 'COURSES & PRODUCTS',
-        replaces: ['Kajabi', 'Teachable'],
-        cost: 99
-    },
-    {
-        feature: 'COMMUNITIES',
-        replaces: ['Skool', 'Mighty Networks', 'Circle'],
-        cost: 89
-    },
-    {
-        feature: 'CALL TRACKING',
-        replaces: ['CallRail', 'CallTrackingMetrics'],
-        cost: 49
-    },
-    {
-        feature: 'REPUTATION MANAGEMENT',
-        replaces: ['Birdeye', 'Podium'],
-        cost: 159
-    },
-    {
-        feature: 'TRACKING & ANALYTICS',
-        replaces: ['AgencyAnalytics'],
-        cost: 49
-    },
-    {
-        feature: 'DOCUMENT SIGNING',
-        replaces: ['DocuSign', 'PandaDoc'],
-        cost: 47
-    },
-    {
-        feature: 'GRAY-LABELED MOBILE APP',
-        replaces: ['Unique to Velora'],
-        cost: 49
-    }
-];
+import { useFirebaseData } from '@/lib/useFirebaseData';
+import SectionSkeleton from '@/components/SectionSkeleton';
 
 export default function ComparisonSection() {
+    const { data: comparisonData, loading } = useFirebaseData<any[]>('landing/comparison');
+    const safeData = comparisonData || [];
+
     const [currencyOptions, setCurrencyOptions] = useState<Intl.NumberFormatOptions>({
         style: 'currency',
         currency: 'USD',
@@ -157,7 +59,9 @@ export default function ComparisonSection() {
         }
     };
 
-    const totalCost = comparisonData.reduce((acc, curr) => acc + curr.cost, 0);
+    const totalCost = safeData.reduce((acc, curr) => acc + curr.cost, 0);
+
+    if (loading) return <SectionSkeleton />;
 
     return (
         <section className="py-12 sm:py-36 px-6 max-w-5xl mx-auto">
@@ -181,7 +85,7 @@ export default function ComparisonSection() {
 
                 {/* Rows */}
                 <div className="divide-y divide-slate-100">
-                    {comparisonData.map((item, index) => (
+                    {safeData.map((item, index) => (
                         <div key={index} className="grid grid-cols-12 gap-4 p-4 sm:p-6 items-center hover:bg-white transition-colors duration-200">
                             <div className="col-span-12 sm:col-span-5 font-bold text-slate-800 text-sm sm:text-base">
                                 {item.feature}

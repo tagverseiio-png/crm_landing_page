@@ -1,18 +1,45 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { database } from '@/lib/firebase';
+import { ref, push } from 'firebase/database';
 
 export default function FreeTrialModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [companyType, setCompanyType] = useState('Startup (< 5 Years)');
+    const [name, setName] = useState('');
+    const [position, setPosition] = useState('');
+    const [email, setEmail] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [description, setDescription] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsOpen(false);
-        router.push('/thank-you');
+        setIsSubmitting(true);
+        try {
+            const submissionsRef = ref(database, 'submissions');
+            await push(submissionsRef, {
+                name,
+                position,
+                email,
+                companyName,
+                companyType,
+                description,
+                timestamp: new Date().toISOString()
+            });
+            setIsOpen(false);
+            router.push('/thank-you');
+        } catch (error) {
+            console.error("Error saving submission:", error);
+            alert("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     useEffect(() => {
@@ -69,22 +96,22 @@ export default function FreeTrialModal() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div className="space-y-1.5">
                                 <label className="text-sm font-semibold text-slate-700">Name</label>
-                                <input type="text" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="John Doe" required />
+                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="John Doe" required />
                             </div>
                             <div className="space-y-1.5">
                                 <label className="text-sm font-semibold text-slate-700">Job Position</label>
-                                <input type="text" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="CEO" required />
+                                <input type="text" value={position} onChange={(e) => setPosition(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="CEO" required />
                             </div>
                         </div>
 
                         <div className="space-y-1.5">
                             <label className="text-sm font-semibold text-slate-700">Email Address</label>
-                            <input type="email" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="you@company.com" required />
+                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="you@company.com" required />
                         </div>
 
                         <div className="space-y-1.5">
                             <label className="text-sm font-semibold text-slate-700">Company Name</label>
-                            <input type="text" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="Acme Inc." required />
+                            <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900" placeholder="Acme Inc." required />
                         </div>
 
                         <div className="space-y-1.5">
@@ -111,11 +138,12 @@ export default function FreeTrialModal() {
 
                         <div className="space-y-1.5">
                             <label className="text-sm font-semibold text-slate-700">Description</label>
-                            <textarea className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900 resize-none h-24" placeholder="Briefly describe what your business does..." required></textarea>
+                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-slate-900 resize-none h-24" placeholder="Briefly describe what your business does..." required></textarea>
                         </div>
 
-                        <button type="submit" className="w-full py-3.5 mt-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors shadow-lg shadow-blue-600/30">
-                            Submit Registration
+                        <button type="submit" disabled={isSubmitting} className="w-full py-3.5 mt-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors shadow-lg shadow-blue-600/30 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                            {isSubmitting && <Loader2 className="w-5 h-5 animate-spin" />}
+                            {isSubmitting ? 'Submitting...' : 'Submit Registration'}
                         </button>
                     </form>
                 </div>

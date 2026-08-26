@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useFirebaseData } from '@/lib/useFirebaseData';
+import SectionSkeleton from '@/components/SectionSkeleton';
 
 export default function CRM360Section() {
+    const { data: crmData, loading } = useFirebaseData<any>('landing/crm360');
     const [currencyOptions, setCurrencyOptions] = useState<Intl.NumberFormatOptions>({
         style: 'currency',
         currency: 'USD',
@@ -56,6 +59,8 @@ export default function CRM360Section() {
             return "$" + amount.toLocaleString();
         }
     };
+
+    if (loading) return <SectionSkeleton />;
 
     return (
         <section id="view360" className="bg-[#F6F7FA] font-['Inter',sans-serif] text-[#0B1220] antialiased relative overflow-hidden border-y border-gray-200/80">
@@ -349,20 +354,19 @@ export default function CRM360Section() {
                 <div className="c360-grid-bg"></div>
 
                 <div className="c360-eyebrow-row">
-                    <span className="c360-eyebrow-num">08</span>
-                    <span className="c360-eyebrow">No more &quot;let me check and get back to you&quot;</span>
+                    <span className="c360-eyebrow-num">{crmData?.eyebrowNum || '08'}</span>
+                    <span className="c360-eyebrow">{crmData?.eyebrow || 'Loading...'}</span>
                 </div>
 
-                <h1 className="c360-h1">Walk into any client call already <span className="c360-accent-word">knowing everything.</span></h1>
+                <h1 className="c360-h1">{crmData?.titlePre || 'Loading...'} <span className="c360-accent-word">{crmData?.titleHighlight || ''}</span></h1>
 
-                <p className="c360-subhead">The deal history, the unpaid invoice, the WhatsApp thread from last night — <b>they&apos;re already on the profile before you open it.</b> Nobody digs through four tools to answer one question.</p>
+                <p className="c360-subhead">{crmData?.subtitlePre || 'Loading...'} <b>{crmData?.subtitleBold || ''}</b> {crmData?.subtitlePost || ''}</p>
 
                 <div className="c360-stage">
                     <div className="c360-sources">
-                        <div className="c360-source-tag"><span className="c360-dot"></span>Pipeline</div>
-                        <div className="c360-source-tag"><span className="c360-dot"></span>Billing</div>
-                        <div className="c360-source-tag"><span className="c360-dot"></span>Inbox</div>
-                        <div className="c360-source-tag"><span className="c360-dot"></span>Call Notes</div>
+                        {(crmData?.sources || ['Pipeline', 'Billing', 'Inbox', 'Call Notes']).map((source: string, idx: number) => (
+                            <div key={idx} className="c360-source-tag"><span className="c360-dot"></span>{source}</div>
+                        ))}
                     </div>
 
                     <div className="c360-converge-lines">
@@ -377,10 +381,10 @@ export default function CRM360Section() {
                     <div className="c360-card">
                         <div className="c360-card-top">
                             <div className="c360-who">
-                                <div className="c360-avatar">NR</div>
+                                <div className="c360-avatar">{crmData?.client?.initials || 'NR'}</div>
                                 <div>
-                                    <div className="c360-who-name">Northridge Retail Group</div>
-                                    <div className="c360-who-sub">Handled by <b>Devon Cole</b> · 3 years on the books</div>
+                                    <div className="c360-who-name">{crmData?.client?.name || 'Loading...'}</div>
+                                    <div className="c360-who-sub">Handled by <b>{crmData?.client?.handledBy || '...'}</b> · {crmData?.client?.tenure || '...'}</div>
                                 </div>
                             </div>
                             <div className="c360-badges">
@@ -391,25 +395,26 @@ export default function CRM360Section() {
 
                         <div className="c360-grid">
                             <div className="c360-cell">
-                                <div className="c360-cell-label">Where the deal stands</div>
-                                <div className="c360-cell-main">Contract renewal — stage: Negotiation</div>
-                                <div className="c360-cell-sub c360-green">{formatCurrency(62000)}/yr · sitting 11 days</div>
+                                <div className="c360-cell-label">{crmData?.cells?.[0]?.label || 'Loading...'}</div>
+                                <div className="c360-cell-main">{crmData?.cells?.[0]?.main || 'Loading...'}</div>
+                                <div className="c360-cell-sub c360-green">{formatCurrency(crmData?.cells?.[0]?.amount || 62000)}{crmData?.cells?.[0]?.sub || ''}</div>
                             </div>
                             <div className="c360-cell">
-                                <div className="c360-cell-label">Money owed</div>
-                                <div className="c360-cell-main">Invoice #INV-1187 · {formatCurrency(6200)}</div>
-                                <div className="c360-cell-sub" style={{ color: '#E0432C', fontWeight: 600 }}>9 days overdue</div>
+                                <div className="c360-cell-label">{crmData?.cells?.[1]?.label || 'Loading...'}</div>
+                                <div className="c360-cell-main">{crmData?.cells?.[1]?.main || 'Loading...'} · {formatCurrency(crmData?.cells?.[1]?.amount || 6200)}</div>
+                                <div className="c360-cell-sub" style={{ color: '#E0432C', fontWeight: 600 }}>{crmData?.cells?.[1]?.sub || 'Loading...'}</div>
                             </div>
                             <div className="c360-cell">
                                 <div className="c360-cell-label">What actually happened</div>
-                                <div className="c360-activity-line"><b>Mon</b> — Asked for a payment extension over email</div>
-                                <div className="c360-activity-line"><b>Fri</b> — Missed the scheduled renewal call</div>
+                                {(crmData?.activity || []).map((act: any, idx: number) => (
+                                    <div key={idx} className="c360-activity-line"><b>{act.day}</b> — {act.desc}</div>
+                                ))}
                             </div>
                         </div>
 
                         <div className="c360-insight">
                             <span className="c360-spark">✦</span>
-                            <span><b>Why this matters:</b> An overdue invoice and a skipped call on a renewing account is a pattern worth a phone call today, not another automated reminder.</span>
+                            <span><b>Why this matters:</b> {crmData?.insight || 'Loading...'}</span>
                         </div>
                     </div>
                 </div>

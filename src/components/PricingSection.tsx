@@ -2,8 +2,11 @@
 
 import { Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useFirebaseData } from '@/lib/useFirebaseData';
+import SectionSkeleton from '@/components/SectionSkeleton';
 
 export default function PricingSection() {
+  const { data: pricingData, loading } = useFirebaseData<any>('landing/pricing');
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
   const [currencyOptions, setCurrencyOptions] = useState<Intl.NumberFormatOptions>({
       style: 'currency',
@@ -55,15 +58,17 @@ export default function PricingSection() {
       }
   };
 
+  if (loading) return <SectionSkeleton />;
+
   return (
     <section id="pricing" className="py-12 sm:py-36 px-6 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">Simple, Transparent Pricing</span>
+            <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">{pricingData?.header?.eyebrow || 'Loading...'}</span>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
-                Pick the plan that matches how far you want to take it.
+                {pricingData?.header?.title || 'Loading...'}
             </h2>
             <p className="text-lg text-apple-textMuted">
-                Start free today. Scale as your agency team and revenue pipeline grow.
+                {pricingData?.header?.subtitle || 'Loading...'}
             </p>
 
             <div className="inline-flex items-center gap-3 p-1.5 rounded-full bg-slate-100 border border-gray-200 mt-6">
@@ -83,89 +88,91 @@ export default function PricingSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+            {/* Starter Plan */}
             <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-apple-card flex flex-col justify-between hover:shadow-apple-hover transition-all">
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-2xl font-bold text-apple-text">Starter</h3>
-                        <p className="text-xs text-apple-textMuted mt-1">Solo founders & small teams</p>
+                        <h3 className="text-2xl font-bold text-apple-text">{pricingData?.plans?.[0]?.name || 'Loading...'}</h3>
+                        <p className="text-xs text-apple-textMuted mt-1">{pricingData?.plans?.[0]?.description || 'Loading...'}</p>
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(billing === 'monthly' ? 29 : 23)}
+                            {formatCurrency(billing === 'monthly' ? (pricingData?.plans?.[0]?.monthlyPrice || 29) : (pricingData?.plans?.[0]?.yearlyPrice || 23))}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
                     <ul className="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Leads, Contacts & Deals</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Quotes & Invoicing</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Basic KPI Dashboard</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Up to 3 Team Members</li>
+                        {(pricingData?.plans?.[0]?.features || []).map((feature: string, idx: number) => (
+                            <li key={idx} className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> {feature}</li>
+                        ))}
                     </ul>
                 </div>
                 <button 
                     onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
                     className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all"
                 >
-                    Start Starter Pack
+                    {pricingData?.plans?.[0]?.ctaText || 'Start'}
                 </button>
             </div>
 
+            {/* Growth Plan */}
             <div className="bg-white rounded-3xl p-8 border-2 border-apple-accent shadow-2xl relative flex flex-col justify-between transform md:-translate-y-2">
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-apple-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-                    Most Popular
+                    {pricingData?.plans?.[1]?.badge || 'Most Popular'}
                 </div>
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-2xl font-bold text-apple-text">Growth</h3>
-                        <p className="text-xs text-apple-textMuted mt-1">Agencies actively selling</p>
+                        <h3 className="text-2xl font-bold text-apple-text">{pricingData?.plans?.[1]?.name || 'Loading...'}</h3>
+                        <p className="text-xs text-apple-textMuted mt-1">{pricingData?.plans?.[1]?.description || 'Loading...'}</p>
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(billing === 'monthly' ? 79 : 63)}
+                            {formatCurrency(billing === 'monthly' ? (pricingData?.plans?.[1]?.monthlyPrice || 79) : (pricingData?.plans?.[1]?.yearlyPrice || 63))}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
                     <ul className="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
-                        <li className="flex items-center gap-2 font-semibold"><Check className="w-4 h-4 text-apple-accent" /> Everything in Starter</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Pipeline Automation</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> WhatsApp Cloud API</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Full Workspace & Tasks</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Up to 10 Team Members</li>
+                        {(pricingData?.plans?.[1]?.features || []).map((feature: string, idx: number) => (
+                            <li key={idx} className={`flex items-center gap-2 ${idx === 0 ? 'font-semibold' : ''}`}>
+                                <Check className={`w-4 h-4 ${idx === 0 ? 'text-apple-accent' : 'text-emerald-500'}`} /> {feature}
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <button 
                     onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
                     className="w-full mt-8 py-3 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-semibold text-sm transition-all shadow-md"
                 >
-                    Start your growth journey
+                    {pricingData?.plans?.[1]?.ctaText || 'Start'}
                 </button>
             </div>
 
+            {/* Scale Plan */}
             <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-apple-card flex flex-col justify-between hover:shadow-apple-hover transition-all">
                 <div className="space-y-6">
                     <div>
-                        <h3 className="text-2xl font-bold text-apple-text">Scale</h3>
-                        <p className="text-xs text-apple-textMuted mt-1">Multi-team operations</p>
+                        <h3 className="text-2xl font-bold text-apple-text">{pricingData?.plans?.[2]?.name || 'Loading...'}</h3>
+                        <p className="text-xs text-apple-textMuted mt-1">{pricingData?.plans?.[2]?.description || 'Loading...'}</p>
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(billing === 'monthly' ? 199 : 159)}
+                            {formatCurrency(billing === 'monthly' ? (pricingData?.plans?.[2]?.monthlyPrice || 199) : (pricingData?.plans?.[2]?.yearlyPrice || 159))}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
                     <ul className="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
-                        <li className="flex items-center gap-2 font-semibold"><Check className="w-4 h-4 text-apple-accent" /> Everything in Growth</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Ads Connectors (Meta & Google)</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Advanced Event Automations</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> AI Lead Scoring Assistant</li>
-                        <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Unlimited Team Seats</li>
+                        {(pricingData?.plans?.[2]?.features || []).map((feature: string, idx: number) => (
+                            <li key={idx} className={`flex items-center gap-2 ${idx === 0 ? 'font-semibold' : ''}`}>
+                                <Check className={`w-4 h-4 ${idx === 0 ? 'text-apple-accent' : 'text-emerald-500'}`} /> {feature}
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <button 
                     onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
                     className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all"
                 >
-                    Contact Enterprise
+                    {pricingData?.plans?.[2]?.ctaText || 'Start'}
                 </button>
             </div>
         </div>

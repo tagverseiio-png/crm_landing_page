@@ -1,8 +1,14 @@
 "use client";
 
 import { Database, KeyRound, ShieldAlert, Clock, ArrowRight } from 'lucide-react';
+import { useFirebaseData } from '@/lib/useFirebaseData';
+import SectionSkeleton from '@/components/SectionSkeleton';
 
 export default function SecuritySection() {
+    const { data: securityData, loading } = useFirebaseData<any>('landing/security');
+
+    if (loading) return <SectionSkeleton />;
+
     return (
         <section id="security" className="py-24 sm:py-36 bg-apple-darkbg text-white relative overflow-hidden">
             <div className="absolute inset-0 -z-10 flex items-center justify-center opacity-30 pointer-events-none">
@@ -11,12 +17,12 @@ export default function SecuritySection() {
 
             <div className="max-w-7xl mx-auto px-6 w-full">
                 <div className="text-center max-w-3xl mx-auto mb-20">
-                    <span className="text-sm font-semibold tracking-wide uppercase text-blue-400">Spec Sheet — Security & Privacy</span>
+                    <span className="text-sm font-semibold tracking-wide uppercase text-blue-400">{securityData?.header?.eyebrow || 'Loading...'}</span>
                     <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mt-3 mb-6">
-                        Your data, scoped and protected by default.
+                        {securityData?.header?.title || 'Loading...'}
                     </h2>
                     <p className="text-lg text-gray-400">
-                        Enterprise-grade isolation architecture designed for client service organizations holding strict NDAs.
+                        {securityData?.header?.subtitle || 'Loading...'}
                     </p>
                 </div>
 
@@ -25,9 +31,9 @@ export default function SecuritySection() {
                         <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
                             <Database className="w-5 h-5" />
                         </div>
-                        <h3 className="text-xl font-semibold text-white">Tenant Isolation</h3>
+                        <h3 className="text-xl font-semibold text-white">{securityData?.cards?.[0]?.title || 'Loading...'}</h3>
                         <p className="text-sm text-gray-400 leading-relaxed">
-                            Every workspace data model is strictly scoped. No cross-tenant data leakage by design.
+                            {securityData?.cards?.[0]?.description || 'Loading...'}
                         </p>
                     </div>
 
@@ -35,9 +41,9 @@ export default function SecuritySection() {
                         <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
                             <KeyRound className="w-5 h-5" />
                         </div>
-                        <h3 className="text-xl font-semibold text-white">Role-Based Access</h3>
+                        <h3 className="text-xl font-semibold text-white">{securityData?.cards?.[1]?.title || 'Loading...'}</h3>
                         <p className="text-sm text-gray-400 leading-relaxed">
-                            5 hierarchical roles ensure employees and external contractors see only their assigned projects.
+                            {securityData?.cards?.[1]?.description || 'Loading...'}
                         </p>
                     </div>
 
@@ -45,9 +51,9 @@ export default function SecuritySection() {
                         <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                             <ShieldAlert className="w-5 h-5" />
                         </div>
-                        <h3 className="text-xl font-semibold text-white">Security Headers</h3>
+                        <h3 className="text-xl font-semibold text-white">{securityData?.cards?.[2]?.title || 'Loading...'}</h3>
                         <p className="text-sm text-gray-400 leading-relaxed">
-                            Strict CSP, clickjacking prevention, and MIME-sniffing protection enforced on every endpoint.
+                            {securityData?.cards?.[2]?.description || 'Loading...'}
                         </p>
                     </div>
 
@@ -55,9 +61,9 @@ export default function SecuritySection() {
                         <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
                             <Clock className="w-5 h-5" />
                         </div>
-                        <h3 className="text-xl font-semibold text-white">Session Expiry</h3>
+                        <h3 className="text-xl font-semibold text-white">{securityData?.cards?.[3]?.title || 'Loading...'}</h3>
                         <p className="text-sm text-gray-400 leading-relaxed">
-                            Automatic session revocation and encrypted token rotation keep unauthorized devices out.
+                            {securityData?.cards?.[3]?.description || 'Loading...'}
                         </p>
                     </div>
                 </div>

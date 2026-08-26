@@ -2,8 +2,11 @@
 
 import { Building2, MapPin, UserCog, FileText, Rocket, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useFirebaseData } from '@/lib/useFirebaseData';
+import SectionSkeleton from '@/components/SectionSkeleton';
 
 export default function OnboardingPreview() {
+    const { data: onboardingData, loading } = useFirebaseData<any>('landing/onboarding');
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -11,12 +14,14 @@ export default function OnboardingPreview() {
     }, []);
 
     const steps = [
-        { title: 'Company Info', desc: 'Company name, industry, website', active: true, icon: Building2 },
-        { title: 'Location', desc: 'Address & timezone', active: true, icon: MapPin },
-        { title: 'Admin Profile', desc: 'Full name, role', active: true, icon: UserCog },
-        { title: 'Documents', desc: 'Currency, GST / PAN', active: false, icon: FileText },
-        { title: 'Finish', desc: 'Ready to work', active: false, icon: Rocket }
+        { title: onboardingData?.steps?.[0]?.title || 'Company Info', desc: onboardingData?.steps?.[0]?.desc || 'Company name, industry, website', active: true, icon: Building2 },
+        { title: onboardingData?.steps?.[1]?.title || 'Location', desc: onboardingData?.steps?.[1]?.desc || 'Address & timezone', active: true, icon: MapPin },
+        { title: onboardingData?.steps?.[2]?.title || 'Admin Profile', desc: onboardingData?.steps?.[2]?.desc || 'Full name, role', active: true, icon: UserCog },
+        { title: onboardingData?.steps?.[3]?.title || 'Documents', desc: onboardingData?.steps?.[3]?.desc || 'Currency, GST / PAN', active: false, icon: FileText },
+        { title: onboardingData?.steps?.[4]?.title || 'Finish', desc: onboardingData?.steps?.[4]?.desc || 'Ready to work', active: false, icon: Rocket }
     ];
+
+    if (loading) return <SectionSkeleton />;
 
     return (
         <section className="py-10 sm:py-24 bg-slate-900 text-white px-6 relative overflow-hidden border-t border-slate-800">
@@ -24,10 +29,10 @@ export default function OnboardingPreview() {
             <div className="max-w-[1400px] mx-auto relative z-10">
                 <div className={`reveal-element ${mounted ? 'active' : ''} text-center max-w-3xl mx-auto mb-16`}>
                     <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-6">
-                        Live in five steps, not five days.
+                        {onboardingData?.header?.title || 'Loading...'}
                     </h2>
                     <p className="text-xl text-slate-400 font-medium">
-                        No complex data migration required to get started — just the essentials.
+                        {onboardingData?.header?.subtitle || 'Loading...'}
                     </p>
                 </div>
 
