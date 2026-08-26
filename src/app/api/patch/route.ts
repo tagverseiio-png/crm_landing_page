@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { ref, get, set } from 'firebase/database';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const snapshot = await get(ref(db, 'landing/cards'));
