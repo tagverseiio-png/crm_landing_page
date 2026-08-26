@@ -1,10 +1,59 @@
 "use client";
 
 import { Check } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function PricingSection() {
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
+  const [currencyOptions, setCurrencyOptions] = useState<Intl.NumberFormatOptions>({
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0
+  });
+
+  useEffect(() => {
+      try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          let currencyCode = 'USD';
+          
+          if (tz.includes('Kolkata') || tz.includes('Calcutta') || tz.includes('India')) currencyCode = 'INR';
+          else if (tz.includes('Europe') || tz.includes('Berlin') || tz.includes('Paris') || tz.includes('Madrid') || tz.includes('Rome')) currencyCode = 'EUR';
+          else if (tz.includes('London')) currencyCode = 'GBP';
+          else if (tz.includes('Australia')) currencyCode = 'AUD';
+          else if (tz.includes('Toronto') || tz.includes('Vancouver')) currencyCode = 'CAD';
+          else if (tz.includes('Dubai')) currencyCode = 'AED';
+          else if (tz.includes('Singapore')) currencyCode = 'SGD';
+          else if (tz.includes('Tokyo')) currencyCode = 'JPY';
+          else if (tz.includes('Auckland')) currencyCode = 'NZD';
+          else if (tz.includes('Johannesburg')) currencyCode = 'ZAR';
+          else {
+              const locale = navigator.language || 'en-US';
+              const countryMatch = locale.match(/-([A-Z]{2})/i);
+              const country = countryMatch ? countryMatch[1].toUpperCase() : '';
+              const currencyMap: Record<string, string> = {
+                  'US': 'USD', 'GB': 'GBP', 'DE': 'EUR', 'FR': 'EUR', 'IT': 'EUR', 'ES': 'EUR',
+                  'IN': 'INR', 'JP': 'JPY', 'AU': 'AUD', 'CA': 'CAD', 'BR': 'BRL', 'ZA': 'ZAR'
+              };
+              if (country && currencyMap[country]) currencyCode = currencyMap[country];
+          }
+          
+          setCurrencyOptions({
+              style: 'currency',
+              currency: currencyCode,
+              maximumFractionDigits: 0
+          });
+      } catch (e) {
+          // fallback
+      }
+  }, []);
+
+  const formatCurrency = (amount: number) => {
+      try {
+          return new Intl.NumberFormat(undefined, currencyOptions).format(amount);
+      } catch (e) {
+          return "$" + amount.toLocaleString();
+      }
+  };
 
   return (
     <section id="pricing" className="py-12 sm:py-36 px-6 max-w-7xl mx-auto">
@@ -42,7 +91,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            ${billing === 'monthly' ? '29' : '23'}
+                            {formatCurrency(billing === 'monthly' ? 29 : 23)}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
@@ -72,7 +121,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            ${billing === 'monthly' ? '79' : '63'}
+                            {formatCurrency(billing === 'monthly' ? 79 : 63)}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
@@ -100,7 +149,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            ${billing === 'monthly' ? '199' : '159'}
+                            {formatCurrency(billing === 'monthly' ? 199 : 159)}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>

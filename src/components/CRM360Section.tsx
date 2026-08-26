@@ -1,8 +1,62 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function CRM360Section() {
+    const [currencyOptions, setCurrencyOptions] = useState<Intl.NumberFormatOptions>({
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+    });
+
+    useEffect(() => {
+        try {
+            // First try timezone, which is often more accurate for location
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+            let currencyCode = 'USD';
+            
+            if (tz.includes('Kolkata') || tz.includes('Calcutta') || tz.includes('India')) currencyCode = 'INR';
+            else if (tz.includes('Europe') || tz.includes('Berlin') || tz.includes('Paris') || tz.includes('Madrid') || tz.includes('Rome')) currencyCode = 'EUR';
+            else if (tz.includes('London')) currencyCode = 'GBP';
+            else if (tz.includes('Australia')) currencyCode = 'AUD';
+            else if (tz.includes('Toronto') || tz.includes('Vancouver')) currencyCode = 'CAD';
+            else if (tz.includes('Dubai')) currencyCode = 'AED';
+            else if (tz.includes('Singapore')) currencyCode = 'SGD';
+            else if (tz.includes('Tokyo')) currencyCode = 'JPY';
+            else if (tz.includes('Auckland')) currencyCode = 'NZD';
+            else if (tz.includes('Johannesburg')) currencyCode = 'ZAR';
+            else {
+                // Fallback to navigator.language mapping
+                const locale = navigator.language || 'en-US';
+                const countryMatch = locale.match(/-([A-Z]{2})/i);
+                const country = countryMatch ? countryMatch[1].toUpperCase() : '';
+                const currencyMap: Record<string, string> = {
+                    'US': 'USD', 'GB': 'GBP', 'DE': 'EUR', 'FR': 'EUR', 'IT': 'EUR', 'ES': 'EUR',
+                    'IN': 'INR', 'JP': 'JPY', 'AU': 'AUD', 'CA': 'CAD', 'BR': 'BRL', 'ZA': 'ZAR'
+                };
+                if (country && currencyMap[country]) {
+                    currencyCode = currencyMap[country];
+                }
+            }
+            
+            setCurrencyOptions({
+                style: 'currency',
+                currency: currencyCode,
+                maximumFractionDigits: 0
+            });
+        } catch (e) {
+            // fallback defaults to initial state
+        }
+    }, []);
+
+    const formatCurrency = (amount: number) => {
+        try {
+            return new Intl.NumberFormat(undefined, currencyOptions).format(amount);
+        } catch (e) {
+            return "$" + amount.toLocaleString();
+        }
+    };
+
     return (
         <section id="view360" className="bg-[#F6F7FA] font-['Inter',sans-serif] text-[#0B1220] antialiased relative overflow-hidden border-y border-gray-200/80">
             <style dangerouslySetInnerHTML={{__html: `
@@ -339,11 +393,11 @@ export default function CRM360Section() {
                             <div className="c360-cell">
                                 <div className="c360-cell-label">Where the deal stands</div>
                                 <div className="c360-cell-main">Contract renewal — stage: Negotiation</div>
-                                <div className="c360-cell-sub c360-green">$62,000/yr · sitting 11 days</div>
+                                <div className="c360-cell-sub c360-green">{formatCurrency(62000)}/yr · sitting 11 days</div>
                             </div>
                             <div className="c360-cell">
                                 <div className="c360-cell-label">Money owed</div>
-                                <div className="c360-cell-main">Invoice #INV-1187 · $6,200</div>
+                                <div className="c360-cell-main">Invoice #INV-1187 · {formatCurrency(6200)}</div>
                                 <div className="c360-cell-sub" style={{ color: '#E0432C', fontWeight: 600 }}>9 days overdue</div>
                             </div>
                             <div className="c360-cell">

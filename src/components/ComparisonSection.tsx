@@ -1,112 +1,163 @@
+"use client";
+
 import { CheckCircle2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const comparisonData = [
     {
         feature: 'CRM & PIPELINE MANAGEMENT',
         replaces: ['HubSpot', 'ActiveCampaign'],
-        cost: '$99/mo'
+        cost: 99
     },
     {
         feature: 'UNLIMITED SALES FUNNELS',
         replaces: ['ClickFunnels', 'Leadpages'],
-        cost: '$297/mo'
+        cost: 297
     },
     {
         feature: 'WEBSITE BUILDER',
         replaces: ['WordPress', 'Squarespace', 'Wix'],
-        cost: '$29/mo'
+        cost: 29
     },
     {
         feature: 'ECOMMERCE',
         replaces: ['Shopify', 'WooCommerce'],
-        cost: '$39/mo'
+        cost: 39
     },
     {
         feature: 'SURVEYS & FORMS',
         replaces: ['Jotform', 'Typeform', 'Wufoo'],
-        cost: '$79/mo'
+        cost: 79
     },
     {
         feature: 'EMAIL MARKETING',
         replaces: ['Mailchimp', 'Constant Contact', 'HubSpot'],
-        cost: '$99/mo'
+        cost: 99
     },
     {
         feature: '2-WAY SMS MARKETING',
         replaces: ['Skipio', 'Podium', 'Sendlane'],
-        cost: '$99/mo'
+        cost: 99
     },
     {
         feature: 'BOOKING & APPOINTMENTS',
         replaces: ['Calendly', 'Acuity Scheduling'],
-        cost: '$29/mo'
+        cost: 29
     },
     {
         feature: 'WORKFLOW AUTOMATIONS',
         replaces: ['Keap', 'ActiveCampaign', 'HubSpot'],
-        cost: '$169/mo'
+        cost: 169
     },
     {
         feature: 'AI VOICE AGENT',
         replaces: ['Air', 'Synthflow'],
-        cost: '$199/mo'
+        cost: 199
     },
     {
         feature: 'AI CONTENT & CHAT',
         replaces: ['Jasper', 'Drift'],
-        cost: '$99/mo'
+        cost: 99
     },
     {
         feature: 'AD MANAGEMENT',
         replaces: ['AdEspresso', 'Madgicx'],
-        cost: '$49/mo'
+        cost: 49
     },
     {
         feature: 'SEO & LOCAL LISTINGS',
         replaces: ['Yext', 'Brightlocal'],
-        cost: '$99/mo'
+        cost: 99
     },
     {
         feature: 'COURSES & PRODUCTS',
         replaces: ['Kajabi', 'Teachable'],
-        cost: '$99/mo'
+        cost: 99
     },
     {
         feature: 'COMMUNITIES',
         replaces: ['Skool', 'Mighty Networks', 'Circle'],
-        cost: '$89/mo'
+        cost: 89
     },
     {
         feature: 'CALL TRACKING',
         replaces: ['CallRail', 'CallTrackingMetrics'],
-        cost: '$49/mo'
+        cost: 49
     },
     {
         feature: 'REPUTATION MANAGEMENT',
         replaces: ['Birdeye', 'Podium'],
-        cost: '$159/mo'
+        cost: 159
     },
     {
         feature: 'TRACKING & ANALYTICS',
         replaces: ['AgencyAnalytics'],
-        cost: '$49/mo'
+        cost: 49
     },
     {
         feature: 'DOCUMENT SIGNING',
         replaces: ['DocuSign', 'PandaDoc'],
-        cost: '$47/mo'
+        cost: 47
     },
     {
         feature: 'GRAY-LABELED MOBILE APP',
         replaces: ['Unique to Velora'],
-        cost: '$49/mo'
+        cost: 49
     }
 ];
 
 export default function ComparisonSection() {
-    const totalCost = comparisonData.reduce((acc, curr) => {
-        return acc + parseInt(curr.cost.replace('$', '').replace('/mo', ''));
-    }, 0);
+    const [currencyOptions, setCurrencyOptions] = useState<Intl.NumberFormatOptions>({
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+    });
+
+    useEffect(() => {
+        try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+            let currencyCode = 'USD';
+            
+            if (tz.includes('Kolkata') || tz.includes('Calcutta') || tz.includes('India')) currencyCode = 'INR';
+            else if (tz.includes('Europe') || tz.includes('Berlin') || tz.includes('Paris') || tz.includes('Madrid') || tz.includes('Rome')) currencyCode = 'EUR';
+            else if (tz.includes('London')) currencyCode = 'GBP';
+            else if (tz.includes('Australia')) currencyCode = 'AUD';
+            else if (tz.includes('Toronto') || tz.includes('Vancouver')) currencyCode = 'CAD';
+            else if (tz.includes('Dubai')) currencyCode = 'AED';
+            else if (tz.includes('Singapore')) currencyCode = 'SGD';
+            else if (tz.includes('Tokyo')) currencyCode = 'JPY';
+            else if (tz.includes('Auckland')) currencyCode = 'NZD';
+            else if (tz.includes('Johannesburg')) currencyCode = 'ZAR';
+            else {
+                const locale = navigator.language || 'en-US';
+                const countryMatch = locale.match(/-([A-Z]{2})/i);
+                const country = countryMatch ? countryMatch[1].toUpperCase() : '';
+                const currencyMap: Record<string, string> = {
+                    'US': 'USD', 'GB': 'GBP', 'DE': 'EUR', 'FR': 'EUR', 'IT': 'EUR', 'ES': 'EUR',
+                    'IN': 'INR', 'JP': 'JPY', 'AU': 'AUD', 'CA': 'CAD', 'BR': 'BRL', 'ZA': 'ZAR'
+                };
+                if (country && currencyMap[country]) currencyCode = currencyMap[country];
+            }
+            
+            setCurrencyOptions({
+                style: 'currency',
+                currency: currencyCode,
+                maximumFractionDigits: 0
+            });
+        } catch (e) {
+            // fallback
+        }
+    }, []);
+
+    const formatCurrency = (amount: number) => {
+        try {
+            return new Intl.NumberFormat(undefined, currencyOptions).format(amount);
+        } catch (e) {
+            return "$" + amount.toLocaleString();
+        }
+    };
+
+    const totalCost = comparisonData.reduce((acc, curr) => acc + curr.cost, 0);
 
     return (
         <section className="py-12 sm:py-36 px-6 max-w-5xl mx-auto">
@@ -143,7 +194,7 @@ export default function ComparisonSection() {
                                 ))}
                             </div>
                             <div className="col-span-6 sm:col-span-1 text-center font-bold text-slate-500">
-                                {item.cost}
+                                {formatCurrency(item.cost)}/mo
                             </div>
                             <div className="col-span-6 sm:col-span-2 flex justify-center">
                                 <div className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 bg-blue-500 text-white rounded-full text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20">
@@ -158,7 +209,7 @@ export default function ComparisonSection() {
                 <div className="p-6 sm:p-8 bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-800">
                     <div className="text-center sm:text-left">
                         <div className="text-slate-400 font-bold uppercase tracking-wider text-sm mb-1">Overall Price of other tools</div>
-                        <div className="text-3xl font-black text-slate-300 line-through decoration-rose-500/70">${totalCost}/mo</div>
+                        <div className="text-3xl font-black text-slate-300 line-through decoration-rose-500/70">{formatCurrency(totalCost)}/mo</div>
                     </div>
                     
                     <div className="hidden sm:block w-px h-12 bg-slate-700"></div>
@@ -166,7 +217,7 @@ export default function ComparisonSection() {
                     <div className="text-center sm:text-right flex items-center gap-6">
                         <div>
                             <div className="text-blue-300 font-bold uppercase tracking-wider text-sm mb-1">Velora Price</div>
-                            <div className="text-4xl font-black text-white">$97<span className="text-lg text-blue-200 font-bold">/mo</span></div>
+                            <div className="text-4xl font-black text-white">{formatCurrency(97)}<span className="text-lg text-blue-200 font-bold">/mo</span></div>
                         </div>
                         <button 
                             onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
