@@ -18,7 +18,7 @@ export default function Header() {
 
             <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-apple-textMuted">
                 <a href="#pipeline" className="hover:text-apple-accent transition-colors">Pipeline</a>
-                <a href="#pillars" className="hover:text-apple-accent transition-colors">Modules</a>
+                <a href="#workspace" className="hover:text-apple-accent transition-colors">Workspace Module</a>
                 <a href="#view360" className="hover:text-apple-accent transition-colors">360° CRM</a>
                 <a href="#security" className="hover:text-apple-accent transition-colors">Security</a>
                 <a href="#pricing" className="hover:text-apple-accent transition-colors">Pricing</a>
@@ -45,7 +45,7 @@ export default function Header() {
         {isMobileMenuOpen && (
             <div className="md:hidden glass-nav border-b border-black/10 px-6 py-6 space-y-4">
                 <a href="#pipeline" className="block text-base font-medium text-apple-text hover:text-apple-accent" onClick={() => setIsMobileMenuOpen(false)}>Pipeline</a>
-                <a href="#pillars" className="block text-base font-medium text-apple-text hover:text-apple-accent" onClick={() => setIsMobileMenuOpen(false)}>Modules</a>
+                <a href="#workspace" className="block text-base font-medium text-apple-text hover:text-apple-accent" onClick={() => setIsMobileMenuOpen(false)}>Workspace Module</a>
                 <a href="#view360" className="block text-base font-medium text-apple-text hover:text-apple-accent" onClick={() => setIsMobileMenuOpen(false)}>360° View</a>
                 <a href="#security" className="block text-base font-medium text-apple-text hover:text-apple-accent" onClick={() => setIsMobileMenuOpen(false)}>Security</a>
                 <a href="#pricing" className="block text-base font-medium text-apple-text hover:text-apple-accent" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>

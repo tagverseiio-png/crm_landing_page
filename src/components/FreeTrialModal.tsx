@@ -11,7 +11,7 @@ export default function FreeTrialModal() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleClose();
+        setIsOpen(false);
         router.push('/thank-you');
     };
 
