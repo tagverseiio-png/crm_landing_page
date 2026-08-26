@@ -78,7 +78,7 @@ export default function PipelineSection() {
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/20 rounded-full blur-[80px]"></div>
                     <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-indigo-400/20 rounded-full blur-[80px]"></div>
 
-                    {steps.map(step => (
+                    {steps.map((step: any) => (
                         <div
                             key={step.id}
                             className={`absolute inset-0 sm:inset-16 sm:bottom-24 lg:inset-8 lg:bottom-24 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center ${activeStep === step.id
@@ -107,7 +107,7 @@ export default function PipelineSection() {
 
                 {/* Left Side: Scrollable Steps (Foreground on mobile) */}
                 <div className="col-start-1 row-start-1 lg:col-start-1 flex flex-col relative z-20 pb-[50vh] pt-[15vh] lg:pt-0 px-4 lg:px-0 gap-24 lg:gap-0 pointer-events-none lg:pointer-events-auto">
-                    {steps.map((step) => (
+                    {steps.map((step: any) => (
                         <div
                             key={step.id}
                             data-step={step.id}
@@ -135,7 +135,7 @@ export default function PipelineSection() {
                                     {step.desc}
                                 </p>
                                 <ul className="space-y-4">
-                                    {step.bullets.map((b, i) => (
+                                    {step.bullets.map((b: string, i: number) => (
                                         <li key={i} className="flex items-center gap-4 text-base font-semibold text-slate-800">
                                             <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
                                                 <CheckCircle className="w-4 h-4 text-emerald-600" />
