@@ -1,68 +1,369 @@
 "use client";
 
-import { Flame, ArrowRight } from 'lucide-react';
+import React from 'react';
 
 export default function CRM360Section() {
     return (
-        <section id="view360" className="py-12 sm:py-24 bg-white border-y border-gray-200/80 px-6">
-            <div className="max-w-7xl mx-auto w-full">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">Module 8 — 360° Client Profile</span>
-                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
-                        Every customer, one complete picture.
-                    </h2>
-                    <p className="text-lg text-apple-textMuted">
-                        Open any contact to inspect every connected deal, quote, invoice, communication log, and AI lead score in a single view.
-                    </p>
+        <section id="view360" className="bg-[#F6F7FA] font-['Inter',sans-serif] text-[#0B1220] antialiased relative overflow-hidden border-y border-gray-200/80">
+            <style dangerouslySetInnerHTML={{__html: `
+                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+                
+                .c360-wrap {
+                    max-width: 1080px;
+                    margin: 0 auto;
+                    padding: 96px 32px 112px;
+                    position: relative;
+                }
+                
+                .c360-grid-bg {
+                    position: absolute;
+                    inset: 0;
+                    background-image:
+                        linear-gradient(to right, rgba(11,18,32,0.035) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(11,18,32,0.035) 1px, transparent 1px);
+                    background-size: 56px 56px;
+                    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 75%);
+                    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 75%);
+                    pointer-events: none;
+                }
+                
+                .c360-eyebrow-row {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-bottom: 22px;
+                    opacity: 0;
+                    animation: c360RiseIn 0.7s cubic-bezier(.19,1,.22,1) 0.05s forwards;
+                }
+                .c360-eyebrow-num {
+                    font-family: 'IBM Plex Mono', monospace;
+                    font-size: 12px;
+                    color: #2554F5;
+                    background: rgba(37,84,245,0.16);
+                    padding: 4px 9px;
+                    border-radius: 6px;
+                    letter-spacing: 0.04em;
+                }
+                .c360-eyebrow {
+                    font-family: 'IBM Plex Mono', monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                    color: #5B6472;
+                }
+                
+                .c360-h1 {
+                    font-family: 'Space Grotesk', sans-serif;
+                    font-weight: 700;
+                    font-size: clamp(34px, 5vw, 54px);
+                    line-height: 1.08;
+                    letter-spacing: -0.02em;
+                    text-align: center;
+                    margin: 0 0 22px;
+                    color: #0B1220;
+                    opacity: 0;
+                    animation: c360RiseIn 0.7s cubic-bezier(.19,1,.22,1) 0.15s forwards;
+                }
+                .c360-h1 .c360-accent-word {
+                    color: #2554F5;
+                    position: relative;
+                    white-space: nowrap;
+                }
+                
+                .c360-subhead {
+                    text-align: center;
+                    font-size: 17px;
+                    line-height: 1.6;
+                    color: #5B6472;
+                    max-width: 560px;
+                    margin: 0 auto 64px;
+                    opacity: 0;
+                    animation: c360RiseIn 0.7s cubic-bezier(.19,1,.22,1) 0.25s forwards;
+                }
+                .c360-subhead b { color: #0B1220; font-weight: 600; }
+                
+                .c360-stage {
+                    position: relative;
+                    opacity: 0;
+                    animation: c360RiseIn 0.8s cubic-bezier(.19,1,.22,1) 0.35s forwards;
+                }
+                
+                .c360-sources {
+                    display: flex;
+                    justify-content: center;
+                    gap: 14px;
+                    margin-bottom: 0;
+                    position: relative;
+                    z-index: 2;
+                }
+                .c360-source-tag {
+                    display: flex;
+                    align-items: center;
+                    gap: 7px;
+                    background: #FFFFFF;
+                    border: 1px solid #E4E7EE;
+                    padding: 9px 14px;
+                    border-radius: 100px;
+                    font-size: 12.5px;
+                    font-weight: 600;
+                    color: #5B6472;
+                    box-shadow: 0 1px 2px rgba(11,18,32,0.04);
+                }
+                .c360-source-tag .c360-dot {
+                    width: 6px; height: 6px; border-radius: 50%;
+                    background: #2554F5;
+                    flex-shrink: 0;
+                }
+                .c360-source-tag:nth-child(1) .c360-dot { background: #2554F5; }
+                .c360-source-tag:nth-child(2) .c360-dot { background: #16A672; }
+                .c360-source-tag:nth-child(3) .c360-dot { background: #E0432C; }
+                .c360-source-tag:nth-child(4) .c360-dot { background: #9B59F6; }
+                
+                .c360-converge-lines {
+                    height: 46px;
+                    position: relative;
+                    max-width: 520px;
+                    margin: 0 auto;
+                }
+                .c360-converge-lines svg { width: 100%; height: 100%; display: block; }
+                .c360-converge-lines path {
+                    fill: none;
+                    stroke: #E4E7EE;
+                    stroke-width: 1.5;
+                    stroke-dasharray: 4;
+                }
+                
+                .c360-card {
+                    position: relative;
+                    z-index: 2;
+                    background: #FFFFFF;
+                    border: 1px solid #E4E7EE;
+                    border-radius: 20px;
+                    padding: 32px;
+                    box-shadow: 0 24px 48px -20px rgba(11,18,32,0.14), 0 0 0 1px rgba(11,18,32,0.02);
+                }
+                
+                .c360-card-top {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    gap: 20px;
+                    padding-bottom: 24px;
+                    border-bottom: 1px solid #E4E7EE;
+                    margin-bottom: 24px;
+                }
+                .c360-who { display: flex; gap: 14px; align-items: center; }
+                .c360-avatar {
+                    width: 48px; height: 48px;
+                    border-radius: 12px;
+                    background: linear-gradient(145deg, #2554F5, #1638B0);
+                    color: #fff;
+                    display: flex; align-items: center; justify-content: center;
+                    font-family: 'Space Grotesk', sans-serif;
+                    font-weight: 700;
+                    font-size: 16px;
+                    flex-shrink: 0;
+                    box-shadow: 0 6px 14px -4px rgba(37,84,245,0.5);
+                }
+                .c360-who-name { font-size: 17px; font-weight: 700; color: #0B1220; margin-bottom: 2px; }
+                .c360-who-sub { font-size: 13px; color: #8891A0; }
+                .c360-who-sub b { color: #5B6472; font-weight: 600; }
+                
+                .c360-badges { display: flex; gap: 8px; flex-shrink: 0; }
+                .c360-badge {
+                    font-size: 12px;
+                    font-weight: 700;
+                    padding: 6px 11px;
+                    border-radius: 100px;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    white-space: nowrap;
+                }
+                .c360-badge.c360-hot { background: #FDECEA; color: #E0432C; }
+                .c360-badge.c360-live { background: #E7F7F0; color: #16A672; }
+                .c360-badge .c360-pulse {
+                    width: 6px; height: 6px; border-radius: 50%;
+                    background: currentColor;
+                    animation: c360Pulse 1.8s ease-in-out infinite;
+                }
+                
+                .c360-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1.2fr;
+                    gap: 14px;
+                    margin-bottom: 20px;
+                }
+                .c360-cell {
+                    background: #FAFBFD;
+                    border: 1px solid #E4E7EE;
+                    border-radius: 12px;
+                    padding: 16px;
+                }
+                .c360-cell-label {
+                    font-family: 'IBM Plex Mono', monospace;
+                    font-size: 10.5px;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    color: #8891A0;
+                    margin-bottom: 9px;
+                }
+                .c360-cell-main { font-size: 14.5px; font-weight: 700; color: #0B1220; margin-bottom: 4px; }
+                .c360-cell-sub { font-size: 12.5px; color: #5B6472; }
+                .c360-cell-sub.c360-green { color: #16A672; font-weight: 600; }
+                .c360-cell-sub.c360-link { color: #2554F5; font-weight: 600; }
+                
+                .c360-activity-line {
+                    display: flex;
+                    gap: 8px;
+                    font-size: 12.5px;
+                    color: #5B6472;
+                    margin-bottom: 6px;
+                    line-height: 1.5;
+                }
+                .c360-activity-line:last-child { margin-bottom: 0; }
+                .c360-activity-line b { color: #0B1220; font-weight: 600; }
+                
+                .c360-insight {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 10px;
+                    background: linear-gradient(135deg, rgba(37,84,245,0.16), rgba(37,84,245,0.04));
+                    border: 1px solid rgba(37,84,245,0.18);
+                    border-radius: 12px;
+                    padding: 14px 16px;
+                    font-size: 13px;
+                    color: #1638B0;
+                    line-height: 1.5;
+                }
+                .c360-insight .c360-spark { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+                .c360-insight b { font-weight: 700; }
+                
+                .c360-cta-row {
+                    text-align: center;
+                    margin-top: 56px;
+                    opacity: 0;
+                    animation: c360RiseIn 0.7s cubic-bezier(.19,1,.22,1) 0.5s forwards;
+                }
+                .c360-cta {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 9px;
+                    background: #0B1220;
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 14.5px;
+                    font-weight: 600;
+                    padding: 14px 26px;
+                    border-radius: 100px;
+                    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+                    box-shadow: 0 10px 24px -10px rgba(11,18,32,0.35);
+                    cursor: pointer;
+                    border: none;
+                }
+                .c360-cta:hover {
+                    background: #1638B0;
+                    transform: translateY(-2px);
+                    box-shadow: 0 14px 28px -10px rgba(37,84,245,0.45);
+                }
+                .c360-cta svg { transition: transform 0.25s ease; }
+                .c360-cta:hover svg { transform: translateX(3px); }
+                
+                @keyframes c360RiseIn {
+                    from { opacity: 0; transform: translateY(14px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes c360Pulse {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.35; }
+                }
+                
+                @media (prefers-reduced-motion: reduce) {
+                    .c360-wrap * { animation: none !important; opacity: 1 !important; transform: none !important; }
+                }
+                
+                @media (max-width: 720px) {
+                    .c360-grid { grid-template-columns: 1fr; }
+                    .c360-card-top { flex-direction: column; gap: 16px; }
+                    .c360-sources { flex-wrap: wrap; }
+                    .c360-wrap { padding: 64px 20px 80px; }
+                }
+            `}} />
+
+            <div className="c360-wrap">
+                <div className="c360-grid-bg"></div>
+
+                <div className="c360-eyebrow-row">
+                    <span className="c360-eyebrow-num">08</span>
+                    <span className="c360-eyebrow">No more &quot;let me check and get back to you&quot;</span>
                 </div>
 
-                <div className="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-gray-200 max-w-5xl mx-auto shadow-apple-card">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
-                        <div className="flex items-center gap-4">
-                            <div className="w-14 h-14 rounded-2xl bg-apple-accent text-white font-bold text-xl flex items-center justify-center shadow-md">
-                                AC
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-slate-900">Acme Corporation</h3>
-                                <p className="text-sm text-apple-textMuted">Contact: Sarah Jenkins (VP Growth) · Tech Industry</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 font-bold text-xs flex items-center gap-1">
-                                <Flame className="w-3.5 h-3.5" /> Lead Score: HOT (92/100)
-                            </span>
-                            <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs">
-                                Active Client
-                            </span>
-                        </div>
+                <h1 className="c360-h1">Walk into any client call already <span className="c360-accent-word">knowing everything.</span></h1>
+
+                <p className="c360-subhead">The deal history, the unpaid invoice, the WhatsApp thread from last night — <b>they&apos;re already on the profile before you open it.</b> Nobody digs through four tools to answer one question.</p>
+
+                <div className="c360-stage">
+                    <div className="c360-sources">
+                        <div className="c360-source-tag"><span className="c360-dot"></span>Pipeline</div>
+                        <div className="c360-source-tag"><span className="c360-dot"></span>Billing</div>
+                        <div className="c360-source-tag"><span className="c360-dot"></span>Inbox</div>
+                        <div className="c360-source-tag"><span className="c360-dot"></span>Call Notes</div>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6 pt-6">
-                        <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
-                            <div className="text-xs font-bold text-slate-400 uppercase">Linked Deals</div>
-                            <div className="font-bold text-slate-800 text-base">Annual Retainer 2026</div>
-                            <div className="text-xs text-emerald-600 font-semibold">$48,000 / year · Probability: 95%</div>
+                    <div className="c360-converge-lines">
+                        <svg viewBox="0 0 520 46" preserveAspectRatio="none">
+                            <path d="M 65 0 C 65 20, 260 20, 260 40"/>
+                            <path d="M 195 0 C 195 20, 260 20, 260 40"/>
+                            <path d="M 325 0 C 325 20, 260 20, 260 40"/>
+                            <path d="M 455 0 C 455 20, 260 20, 260 40"/>
+                        </svg>
+                    </div>
+
+                    <div className="c360-card">
+                        <div className="c360-card-top">
+                            <div className="c360-who">
+                                <div className="c360-avatar">NR</div>
+                                <div>
+                                    <div className="c360-who-name">Northridge Retail Group</div>
+                                    <div className="c360-who-sub">Handled by <b>Devon Cole</b> · 3 years on the books</div>
+                                </div>
+                            </div>
+                            <div className="c360-badges">
+                                <div className="c360-badge c360-hot"><span className="c360-pulse"></span>At Risk</div>
+                                <div className="c360-badge c360-live"><span className="c360-pulse"></span>Renewal in 9 days</div>
+                            </div>
                         </div>
-                        <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
-                            <div className="text-xs font-bold text-slate-400 uppercase">Latest Invoices</div>
-                            <div className="font-bold text-slate-800 text-base">#INV-9902 ($4,000)</div>
-                            <div className="text-xs text-blue-600 font-semibold">Status: Paid via Stripe</div>
+
+                        <div className="c360-grid">
+                            <div className="c360-cell">
+                                <div className="c360-cell-label">Where the deal stands</div>
+                                <div className="c360-cell-main">Contract renewal — stage: Negotiation</div>
+                                <div className="c360-cell-sub c360-green">$62,000/yr · sitting 11 days</div>
+                            </div>
+                            <div className="c360-cell">
+                                <div className="c360-cell-label">Money owed</div>
+                                <div className="c360-cell-main">Invoice #INV-1187 · $6,200</div>
+                                <div className="c360-cell-sub" style={{ color: '#E0432C', fontWeight: 600 }}>9 days overdue</div>
+                            </div>
+                            <div className="c360-cell">
+                                <div className="c360-cell-label">What actually happened</div>
+                                <div className="c360-activity-line"><b>Mon</b> — Asked for a payment extension over email</div>
+                                <div className="c360-activity-line"><b>Fri</b> — Missed the scheduled renewal call</div>
+                            </div>
                         </div>
-                        <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
-                            <div className="text-xs font-bold text-slate-400 uppercase">Activity History</div>
-                            <div className="text-xs text-slate-700"><strong>Today:</strong> Quote #Q-8821 accepted</div>
-                            <div className="text-xs text-slate-500"><strong>Yesterday:</strong> WhatsApp chat reply sent</div>
+
+                        <div className="c360-insight">
+                            <span className="c360-spark">✦</span>
+                            <span><b>Why this matters:</b> An overdue invoice and a skipped call on a renewing account is a pattern worth a phone call today, not another automated reminder.</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex justify-center mt-12">
-                    <button 
-                        onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
-                        className="px-8 py-4 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-medium text-base transition-all duration-200 shadow-xl shadow-apple-accent/25 hover:scale-[1.02] flex items-center justify-center gap-2"
-                    >
-                        <span>Explore 360° profiles</span>
-                        <ArrowRight className="w-4 h-4" />
+                <div className="c360-cta-row">
+                    <button onClick={() => window.dispatchEvent(new Event('open-free-trial'))} className="c360-cta">
+                        See what your clients aren't telling you
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </button>
                 </div>
             </div>
