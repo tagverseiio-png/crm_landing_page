@@ -60,10 +60,13 @@ export default function PricingSection() {
 
   const getPrice = (plan: any, type: 'monthly' | 'yearly', defaultPrice: number) => {
       if (!plan) return defaultPrice;
-      const pricesObj = type === 'monthly' ? plan.monthlyPrices : plan.yearlyPrices;
-      const basePrice = type === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice;
+      const pricesObj = type === 'monthly' ? (plan.monthlyPrices || plan.MonthlyPrices || {}) : (plan.yearlyPrices || plan.YearlyPrices || {});
+      const basePrice = type === 'monthly' ? (plan.monthlyPrice || plan.MonthlyPrice) : (plan.yearlyPrice || plan.YearlyPrice);
       
-      return pricesObj?.[currencyOptions.currency as string] ?? basePrice ?? defaultPrice;
+      const currencyCode = (currencyOptions.currency as string).toUpperCase();
+      const exactPrice = Object.entries(pricesObj).find(([k]) => k.toUpperCase() === currencyCode)?.[1];
+      
+      return (exactPrice as number) ?? basePrice ?? defaultPrice;
   };
 
   if (loading) return <SectionSkeleton />;

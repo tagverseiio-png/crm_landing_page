@@ -62,7 +62,12 @@ export default function CRM360Section() {
 
     const getAmount = (cell: any, defaultAmount: number) => {
         if (!cell) return defaultAmount;
-        return cell.amounts?.[currencyOptions.currency as string] ?? cell.amount ?? defaultAmount;
+        const amountsObj = cell.amounts || cell.Amounts || {};
+        const currencyCode = (currencyOptions.currency as string).toUpperCase();
+        
+        const exactPrice = Object.entries(amountsObj).find(([k]) => k.toUpperCase() === currencyCode)?.[1];
+        
+        return (exactPrice as number) ?? cell.amount ?? cell.Amount ?? defaultAmount;
     };
 
     if (loading) return <SectionSkeleton />;

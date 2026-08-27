@@ -60,7 +60,14 @@ export default function ComparisonSection() {
     };
 
     const getCost = (item: any) => {
-        return item.costs?.[currencyOptions.currency as string] ?? item.cost ?? 0;
+        if (!item) return 0;
+        const costsObj = item.costs || item.Costs || {};
+        const currencyCode = (currencyOptions.currency as string).toUpperCase();
+        
+        // Find matching key case-insensitively
+        const exactPrice = Object.entries(costsObj).find(([k]) => k.toUpperCase() === currencyCode)?.[1];
+        
+        return (exactPrice as number) ?? item.cost ?? item.Cost ?? 0;
     };
 
     const totalCost = safeData.reduce((acc, curr) => acc + getCost(curr), 0);
