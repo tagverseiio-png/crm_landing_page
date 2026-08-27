@@ -58,6 +58,14 @@ export default function PricingSection() {
       }
   };
 
+  const getPrice = (plan: any, type: 'monthly' | 'yearly', defaultPrice: number) => {
+      if (!plan) return defaultPrice;
+      const pricesObj = type === 'monthly' ? plan.monthlyPrices : plan.yearlyPrices;
+      const basePrice = type === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice;
+      
+      return pricesObj?.[currencyOptions.currency as string] ?? basePrice ?? defaultPrice;
+  };
+
   if (loading) return <SectionSkeleton />;
 
   return (
@@ -97,7 +105,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(billing === 'monthly' ? (pricingData?.plans?.[0]?.monthlyPrice || 29) : (pricingData?.plans?.[0]?.yearlyPrice || 23))}
+                            {formatCurrency(getPrice(pricingData?.plans?.[0], billing, billing === 'monthly' ? 29 : 23))}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
@@ -127,7 +135,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(billing === 'monthly' ? (pricingData?.plans?.[1]?.monthlyPrice || 79) : (pricingData?.plans?.[1]?.yearlyPrice || 63))}
+                            {formatCurrency(getPrice(pricingData?.plans?.[1], billing, billing === 'monthly' ? 79 : 63))}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>
@@ -156,7 +164,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(billing === 'monthly' ? (pricingData?.plans?.[2]?.monthlyPrice || 199) : (pricingData?.plans?.[2]?.yearlyPrice || 159))}
+                            {formatCurrency(getPrice(pricingData?.plans?.[2], billing, billing === 'monthly' ? 199 : 159))}
                         </span>
                         <span className="text-sm text-apple-textMuted">/ month</span>
                     </div>

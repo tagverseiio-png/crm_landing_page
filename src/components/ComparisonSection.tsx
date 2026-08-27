@@ -59,7 +59,17 @@ export default function ComparisonSection() {
         }
     };
 
-    const totalCost = safeData.reduce((acc, curr) => acc + curr.cost, 0);
+    const getCost = (item: any) => {
+        return item.costs?.[currencyOptions.currency as string] ?? item.cost ?? 0;
+    };
+
+    const totalCost = safeData.reduce((acc, curr) => acc + getCost(curr), 0);
+
+    const getVeloraCost = (baseCost: number) => {
+        // Just in case velora price can also be object mapped someday, but for now hardcoded to baseCost unless we want to map it
+        // Or we could leave it as 97 if they didn't specify. Wait, let's just leave it as 97 as per original.
+        return baseCost;
+    };
 
     if (loading) return <SectionSkeleton />;
 
@@ -98,7 +108,7 @@ export default function ComparisonSection() {
                                 ))}
                             </div>
                             <div className="col-span-6 sm:col-span-1 text-center font-bold text-slate-500">
-                                {formatCurrency(item.cost)}/mo
+                                {formatCurrency(getCost(item))}/mo
                             </div>
                             <div className="col-span-6 sm:col-span-2 flex justify-center">
                                 <div className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 bg-blue-500 text-white rounded-full text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20">

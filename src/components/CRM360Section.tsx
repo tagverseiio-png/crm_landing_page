@@ -60,6 +60,11 @@ export default function CRM360Section() {
         }
     };
 
+    const getAmount = (cell: any, defaultAmount: number) => {
+        if (!cell) return defaultAmount;
+        return cell.amounts?.[currencyOptions.currency as string] ?? cell.amount ?? defaultAmount;
+    };
+
     if (loading) return <SectionSkeleton />;
 
     return (
@@ -397,11 +402,11 @@ export default function CRM360Section() {
                             <div className="c360-cell">
                                 <div className="c360-cell-label">{crmData?.cells?.[0]?.label || 'Loading...'}</div>
                                 <div className="c360-cell-main">{crmData?.cells?.[0]?.main || 'Loading...'}</div>
-                                <div className="c360-cell-sub c360-green">{formatCurrency(crmData?.cells?.[0]?.amount || 62000)}{crmData?.cells?.[0]?.sub || ''}</div>
+                                <div className="c360-cell-sub c360-green">{formatCurrency(getAmount(crmData?.cells?.[0], 62000))}{crmData?.cells?.[0]?.sub || ''}</div>
                             </div>
                             <div className="c360-cell">
                                 <div className="c360-cell-label">{crmData?.cells?.[1]?.label || 'Loading...'}</div>
-                                <div className="c360-cell-main">{crmData?.cells?.[1]?.main || 'Loading...'} · {formatCurrency(crmData?.cells?.[1]?.amount || 6200)}</div>
+                                <div className="c360-cell-main">{crmData?.cells?.[1]?.main || 'Loading...'} · {formatCurrency(getAmount(crmData?.cells?.[1], 6200))}</div>
                                 <div className="c360-cell-sub" style={{ color: '#E0432C', fontWeight: 600 }}>{crmData?.cells?.[1]?.sub || 'Loading...'}</div>
                             </div>
                             <div className="c360-cell">

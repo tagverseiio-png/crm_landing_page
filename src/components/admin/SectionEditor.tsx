@@ -200,13 +200,34 @@ function FieldRenderer({
   }
 
   if (typeof data === 'number') {
+    const fieldName = keyPath[keyPath.length - 1] || '';
+    const isPrice = fieldName === 'cost' || fieldName === 'monthlyPrice' || fieldName === 'yearlyPrice' || fieldName === 'amount';
+
     return (
-      <input
-        type="number"
-        value={data}
-        onChange={(e) => updateValue(keyPath, parseFloat(e.target.value) || 0)}
-        className="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/80 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all max-w-xs"
-      />
+      <div className="flex flex-col gap-2 w-full max-w-xs">
+        <input
+          type="number"
+          value={data}
+          onChange={(e) => updateValue(keyPath, parseFloat(e.target.value) || 0)}
+          className="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/80 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        />
+        {isPrice && (
+          <button
+            onClick={() => {
+              const targetKey = fieldName === 'amount' ? 'amounts' : fieldName === 'cost' ? 'costs' : fieldName === 'monthlyPrice' ? 'monthlyPrices' : 'yearlyPrices';
+              const parentPath = keyPath.slice(0, -1);
+              updateValue([...parentPath, targetKey], {
+                USD: data,
+                INR: Math.round(data * 83),
+                EUR: Math.round(data * 0.92)
+              });
+            }}
+            className="text-[10px] bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 py-1.5 px-3 rounded-lg font-bold uppercase tracking-wider transition-colors w-max"
+          >
+            Enable Multi-Currency
+          </button>
+        )}
+      </div>
     );
   }
 
