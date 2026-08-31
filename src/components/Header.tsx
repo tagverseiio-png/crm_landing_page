@@ -30,7 +30,7 @@ export default function Header() {
                     onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
                     className="text-sm font-medium bg-apple-accent hover:bg-apple-accentHover text-white px-5 py-2 rounded-full transition-all duration-200 shadow-sm hover:shadow hover:scale-[1.02]"
                 >
-                    Contact Us
+                    7 Days Free Trial
                 </button>
             </div>
 
@@ -58,7 +58,7 @@ export default function Header() {
                         }}
                         className="w-full text-center py-2.5 font-medium bg-apple-accent text-white rounded-full"
                     >
-                        Contact Us
+                        7 Days Free Trial
                     </button>
                 </div>
             </div>
