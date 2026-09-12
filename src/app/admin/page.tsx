@@ -10,7 +10,7 @@ import SectionEditor from '@/components/admin/SectionEditor';
 import SubmissionsViewer from '@/components/admin/SubmissionsViewer';
 import {
   LayoutDashboard, FileText, Layers, GitBranch, Grid3X3, Eye, Shield,
-  BarChart3, DollarSign, HelpCircle, Rocket, Inbox, LogOut, ChevronLeft
+  BarChart3, DollarSign, HelpCircle, Rocket, Inbox, LogOut, ChevronLeft, MessageSquare
 } from 'lucide-react';
 
 const SECTIONS = [
@@ -32,6 +32,7 @@ const SECTIONS = [
   { id: 'comparison', label: 'Comparison', icon: BarChart3, paths: [{ path: 'landing/comparison', label: 'Comparison' }] },
   { id: 'pricing', label: 'Pricing', icon: DollarSign, paths: [{ path: 'landing/pricing', label: 'Pricing' }] },
   { id: 'faq', label: 'FAQ', icon: HelpCircle, paths: [{ path: 'landing/faq', label: 'FAQ' }] },
+  { id: 'testimonials', label: 'Testimonials', icon: MessageSquare, paths: [{ path: 'landing/testimonials', label: 'Testimonials' }] },
   { id: 'onboarding', label: 'Onboarding', icon: Rocket, paths: [{ path: 'landing/onboarding', label: 'Onboarding' }] },
 ];
 

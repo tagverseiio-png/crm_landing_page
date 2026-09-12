@@ -255,34 +255,86 @@ const landingData = {
     pricing: {
         header: {
             eyebrow: "Simple, Transparent Pricing",
-            title: "Pick the plan that matches how far you want to take it.",
-            subtitle: "Start free today. Scale as your agency team and revenue pipeline grow."
+            title: "Plans that grow with your business.",
+            subtitle: "Start lean, scale when you're ready. No hidden fees, no per-feature upsells."
         },
         plans: [
             {
+                name: "Solo",
+                subtitle: "For freelancers & independent consultants",
+                monthlyPrice: 799,
+                yearlyPrice: 649,
+                monthlyPrices: { INR: 799, USD: 10, EUR: 9, GBP: 8, AUD: 15, CAD: 13, AED: 37, SGD: 13 },
+                yearlyPrices: { INR: 649, USD: 8, EUR: 7, GBP: 6, AUD: 12, CAD: 11, AED: 29, SGD: 11 },
+                perUser: false,
+                features: [
+                    "Leads, Contacts & Deals",
+                    "Quotes, Invoices & Contracts",
+                    "Calendar + WhatsApp & Email",
+                    "AI Chatbot (Optional Add-on)",
+                    "1 User Seat"
+                ],
+                ctaText: "Start Solo"
+            },
+            {
                 name: "Starter",
-                subtitle: "Solo founders & small teams",
-                monthlyPrice: 29,
-                yearlyPrice: 23,
-                features: ["Leads, Contacts & Deals", "Quotes & Invoicing", "Basic KPI Dashboard", "Up to 3 Team Members"],
-                ctaText: "Start Starter Pack"
+                subtitle: "For small teams getting structured",
+                monthlyPrice: 899,
+                yearlyPrice: 719,
+                monthlyPrices: { INR: 899, USD: 11, EUR: 10, GBP: 9, AUD: 17, CAD: 15, AED: 40, SGD: 15 },
+                yearlyPrices: { INR: 719, USD: 9, EUR: 8, GBP: 7, AUD: 13, CAD: 12, AED: 33, SGD: 12 },
+                perUser: true,
+                flatNote: "Or flat ₹3,999/mo for up to 5 users",
+                features: [
+                    "Everything in Solo",
+                    "Aggregate Pipeline View",
+                    "UPI-Native Payment Collection",
+                    "Task Manager & Scheduling",
+                    "Social Media & AI Chatbot (Basic)",
+                    "Up to 5 Team Members"
+                ],
+                ctaText: "Get Started"
             },
             {
                 name: "Growth",
-                subtitle: "Agencies actively selling",
-                monthlyPrice: 79,
-                yearlyPrice: 63,
+                subtitle: "The full toolkit for scaling businesses",
+                monthlyPrice: 1699,
+                yearlyPrice: 1349,
+                monthlyPrices: { INR: 1699, USD: 20, EUR: 19, GBP: 16, AUD: 31, CAD: 27, AED: 73, SGD: 27 },
+                yearlyPrices: { INR: 1349, USD: 16, EUR: 15, GBP: 13, AUD: 25, CAD: 22, AED: 59, SGD: 22 },
+                perUser: true,
                 popular: true,
-                features: ["Everything in Starter", "Pipeline Automation", "WhatsApp Cloud API", "Full Workspace & Tasks", "Up to 10 Team Members"],
-                ctaText: "Start your growth journey"
+                badge: "Most Popular",
+                flatNote: "Or flat ₹13,999/mo for up to 15 users",
+                features: [
+                    "Everything in Starter",
+                    "Full Funnel, Content Hub & Assets",
+                    "Campaign Manager & Full Scheduling",
+                    "Social Media Manager & Projects",
+                    "Analytics Dashboard, Reports & Connectors",
+                    "Up to 15 Team Members"
+                ],
+                ctaText: "Start Growing"
             },
             {
                 name: "Scale",
-                subtitle: "Multi-team operations",
-                monthlyPrice: 199,
-                yearlyPrice: 159,
-                features: ["Everything in Growth", "Ads Connectors (Meta & Google)", "Advanced Event Automations", "AI Lead Scoring Assistant", "Unlimited Team Seats"],
-                ctaText: "Contact Enterprise"
+                subtitle: "Automation & API depth for larger teams",
+                monthlyPrice: 52999,
+                yearlyPrice: 2249,
+                monthlyPrices: { INR: 52999, USD: 639, EUR: 589, GBP: 509, AUD: 979, CAD: 859, AED: 2349, SGD: 859 },
+                yearlyPrices: { INR: 2249, USD: 27, EUR: 25, GBP: 22, AUD: 42, CAD: 37, AED: 99, SGD: 37 },
+                perUser: true,
+                annualOnly: true,
+                flatNote: "Flat ₹52,999/mo for up to 40 users",
+                features: [
+                    "Everything in Growth",
+                    "Automation Engine & Webhooks",
+                    "API Gateway & Deep Connectors",
+                    "Full-Capability AI Chatbot",
+                    "Priority Support",
+                    "Up to 40 Team Members"
+                ],
+                ctaText: "Contact Sales"
             }
         ]
     },
@@ -293,6 +345,33 @@ const landingData = {
         { q: "What integrations does Velora offer?", a: "Native connections to WhatsApp, website webhooks, Meta Ads, Google Analytics, Stripe, and Clearbit — all from the deal view." },
         { q: "How does Velora capture and assign leads?", a: "Leads come in via website forms and WhatsApp, then get auto-assigned to reps by service type with automatic lead scoring." }
     ],
+    testimonials: {
+        header: {
+            eyebrow: "Testimonials",
+            title: "Loved by teams like yours",
+            subtitle: "Real feedback from real businesses that switched to Flora."
+        },
+        items: [
+            {
+                headline: "Flora completely changed the way we manage our leads.",
+                body: "Before Flora, we were handling enquiries through WhatsApp, spreadsheets, and notes — it was easy to miss follow-ups. Now everything is organised in one place, and our team can clearly see what needs to be done. It's made our daily sales process much smoother.",
+                attribution: "Founder, Photography & Creative Studio",
+                stars: 5
+            },
+            {
+                headline: "Simple, organised, and actually useful for our business.",
+                body: "We wanted a CRM our team could start using without spending weeks learning complicated software. Flora was intuitive from day one. Managing customers, tracking leads, and following up is far easier now, and we finally have a clear picture of our sales pipeline.",
+                attribution: "Business Owner, Service-Based Business",
+                stars: 5
+            },
+            {
+                headline: "We stopped losing leads to missed follow-ups.",
+                body: "Our biggest problem was keeping track of enquiries and remembering when to follow up. Flora gave us a proper system for managing them. The dashboard is easy to read, and having everything in one place has made a real difference to our workflow.",
+                attribution: "Founder, Small Business",
+                stars: 5
+            }
+        ]
+    },
     onboarding: {
         header: {
             title: "Live in five steps, not five days.",
@@ -321,3 +400,4 @@ async function seed() {
 }
 
 seed();
+                                                                                                                  

@@ -71,15 +71,17 @@ export default function PricingSection() {
 
   if (loading) return <SectionSkeleton />;
 
+  const plans: any[] = pricingData?.plans || [];
+
   return (
     <section id="pricing" className="py-12 sm:py-36 px-6 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">{pricingData?.header?.eyebrow || 'Loading...'}</span>
+            <span className="text-sm font-semibold tracking-wide uppercase text-apple-accent">{pricingData?.header?.eyebrow || 'Pricing'}</span>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-text mt-3 mb-6">
-                {pricingData?.header?.title || 'Loading...'}
+                {pricingData?.header?.title || 'Plans that grow with your business.'}
             </h2>
             <p className="text-lg text-apple-textMuted">
-                {pricingData?.header?.subtitle || 'Loading...'}
+                {pricingData?.header?.subtitle || "Start lean, scale when you're ready."}
             </p>
 
             <div className="inline-flex items-center gap-3 p-1.5 rounded-full bg-slate-100 border border-gray-200 mt-6">
@@ -93,99 +95,105 @@ export default function PricingSection() {
                     onClick={() => setBilling('yearly')} 
                     className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${billing === 'yearly' ? 'bg-white text-apple-text shadow-sm' : 'text-apple-textMuted hover:text-apple-text'}`}
                 >
-                    Annual <span className="text-emerald-600 font-bold">(Save 20%)</span>
+                    Annual <span className="text-emerald-600 font-bold">(Save ~20%)</span>
                 </button>
             </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-            {/* Starter Plan */}
-            <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-apple-card flex flex-col justify-between hover:shadow-apple-hover transition-all">
-                <div className="space-y-6">
-                    <div>
-                        <h3 className="text-2xl font-bold text-apple-text">{pricingData?.plans?.[0]?.name || 'Loading...'}</h3>
-                        <p className="text-xs text-apple-textMuted mt-1">{pricingData?.plans?.[0]?.description || 'Loading...'}</p>
-                    </div>
-                    <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(getPrice(pricingData?.plans?.[0], billing, billing === 'monthly' ? 29 : 23))}
-                        </span>
-                        <span className="text-sm text-apple-textMuted">/ month</span>
-                    </div>
-                    <ul className="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
-                        {(pricingData?.plans?.[0]?.features || []).map((feature: string, idx: number) => (
-                            <li key={idx} className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> {feature}</li>
-                        ))}
-                    </ul>
-                </div>
-                <button 
-                    onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
-                    className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all"
-                >
-                    {pricingData?.plans?.[0]?.ctaText || 'Start'}
-                </button>
-            </div>
+        <div className={`grid gap-6 items-stretch max-w-7xl mx-auto ${
+          plans.length <= 3 ? 'md:grid-cols-3 max-w-6xl' : 'md:grid-cols-2 lg:grid-cols-4'
+        }`}>
+            {plans.map((plan: any, idx: number) => {
+                const isPopular = plan.popular === true;
+                const isAnnualOnly = plan.annualOnly === true;
+                const isPerUser = plan.perUser === true;
+                const showMonthlyFlat = billing === 'monthly' && isAnnualOnly;
 
-            {/* Growth Plan */}
-            <div className="bg-white rounded-3xl p-8 border-2 border-apple-accent shadow-2xl relative flex flex-col justify-between transform md:-translate-y-2">
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-apple-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
-                    {pricingData?.plans?.[1]?.badge || 'Most Popular'}
-                </div>
-                <div className="space-y-6">
-                    <div>
-                        <h3 className="text-2xl font-bold text-apple-text">{pricingData?.plans?.[1]?.name || 'Loading...'}</h3>
-                        <p className="text-xs text-apple-textMuted mt-1">{pricingData?.plans?.[1]?.description || 'Loading...'}</p>
-                    </div>
-                    <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(getPrice(pricingData?.plans?.[1], billing, billing === 'monthly' ? 79 : 63))}
-                        </span>
-                        <span className="text-sm text-apple-textMuted">/ month</span>
-                    </div>
-                    <ul className="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
-                        {(pricingData?.plans?.[1]?.features || []).map((feature: string, idx: number) => (
-                            <li key={idx} className={`flex items-center gap-2 ${idx === 0 ? 'font-semibold' : ''}`}>
-                                <Check className={`w-4 h-4 ${idx === 0 ? 'text-apple-accent' : 'text-emerald-500'}`} /> {feature}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <button 
-                    onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
-                    className="w-full mt-8 py-3 rounded-full bg-apple-accent hover:bg-apple-accentHover text-white font-semibold text-sm transition-all shadow-md"
-                >
-                    {pricingData?.plans?.[1]?.ctaText || 'Start'}
-                </button>
-            </div>
+                // For annual-only plans, force yearly display
+                const effectiveBilling = isAnnualOnly ? 'yearly' : billing;
+                const price = getPrice(plan, effectiveBilling, 0);
 
-            {/* Scale Plan */}
-            <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-apple-card flex flex-col justify-between hover:shadow-apple-hover transition-all">
-                <div className="space-y-6">
-                    <div>
-                        <h3 className="text-2xl font-bold text-apple-text">{pricingData?.plans?.[2]?.name || 'Loading...'}</h3>
-                        <p className="text-xs text-apple-textMuted mt-1">{pricingData?.plans?.[2]?.description || 'Loading...'}</p>
+                return (
+                    <div
+                        key={idx}
+                        className={`rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 ${
+                            isPopular
+                                ? 'bg-white border-2 border-apple-accent shadow-2xl relative transform lg:-translate-y-2'
+                                : 'bg-white border border-gray-200 shadow-apple-card hover:shadow-apple-hover'
+                        }`}
+                    >
+                        {/* Popular badge */}
+                        {isPopular && (
+                            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-apple-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                                {plan.badge || 'Most Popular'}
+                            </div>
+                        )}
+
+                        <div className="space-y-5">
+                            {/* Plan name & subtitle */}
+                            <div>
+                                <h3 className="text-xl font-bold text-apple-text">{plan.name || 'Plan'}</h3>
+                                <p className="text-xs text-apple-textMuted mt-1">{plan.subtitle || plan.description || ''}</p>
+                            </div>
+
+                            {/* Price */}
+                            <div>
+                                {isAnnualOnly && billing === 'monthly' ? (
+                                    <div>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-3xl font-extrabold text-apple-text tracking-tight font-sans">
+                                                {formatCurrency(getPrice(plan, 'monthly', 0))}
+                                            </span>
+                                            <span className="text-sm text-apple-textMuted">/ month</span>
+                                        </div>
+                                        <p className="text-[11px] text-amber-600 font-semibold mt-1.5 bg-amber-50 border border-amber-100 rounded-lg px-2.5 py-1 inline-block">
+                                            Annual commitment only
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-3xl font-extrabold text-apple-text tracking-tight price-val font-sans">
+                                            {formatCurrency(price)}
+                                        </span>
+                                        <span className="text-sm text-apple-textMuted">
+                                            {isPerUser ? '/ user / month' : '/ month'}
+                                        </span>
+                                    </div>
+                                )}
+
+                                {/* Flat note */}
+                                {plan.flatNote && (
+                                    <p className="text-[11px] text-slate-500 mt-2 leading-snug">
+                                        {plan.flatNote}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Features */}
+                            <ul className="space-y-2.5 text-sm text-slate-700 pt-4 border-t border-gray-100">
+                                {(plan.features || []).map((feature: string, fIdx: number) => (
+                                    <li key={fIdx} className={`flex items-start gap-2 ${fIdx === 0 && idx > 0 ? 'font-semibold' : ''}`}>
+                                        <Check className={`w-4 h-4 mt-0.5 shrink-0 ${fIdx === 0 && idx > 0 ? 'text-apple-accent' : 'text-emerald-500'}`} />
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* CTA */}
+                        <button 
+                            onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
+                            className={`w-full mt-7 py-3 rounded-full font-semibold text-sm transition-all ${
+                                isPopular
+                                    ? 'bg-apple-accent hover:bg-apple-accentHover text-white shadow-md'
+                                    : 'bg-slate-100 hover:bg-slate-200 text-apple-text'
+                            }`}
+                        >
+                            {plan.ctaText || 'Get Started'}
+                        </button>
                     </div>
-                    <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-apple-text tracking-tight price-val font-sans">
-                            {formatCurrency(getPrice(pricingData?.plans?.[2], billing, billing === 'monthly' ? 199 : 159))}
-                        </span>
-                        <span className="text-sm text-apple-textMuted">/ month</span>
-                    </div>
-                    <ul className="space-y-3 text-sm text-slate-700 pt-4 border-t border-gray-100">
-                        {(pricingData?.plans?.[2]?.features || []).map((feature: string, idx: number) => (
-                            <li key={idx} className={`flex items-center gap-2 ${idx === 0 ? 'font-semibold' : ''}`}>
-                                <Check className={`w-4 h-4 ${idx === 0 ? 'text-apple-accent' : 'text-emerald-500'}`} /> {feature}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <button 
-                    onClick={() => window.dispatchEvent(new Event('open-free-trial'))}
-                    className="w-full mt-8 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-apple-text font-semibold text-sm transition-all"
-                >
-                    {pricingData?.plans?.[2]?.ctaText || 'Start'}
-                </button>
-            </div>
+                );
+            })}
         </div>
     </section>
   );

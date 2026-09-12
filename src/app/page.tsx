@@ -9,6 +9,7 @@ import CRM360Section from '@/components/CRM360Section';
 import SecuritySection from '@/components/SecuritySection';
 import PricingSection from '@/components/PricingSection';
 import FAQSection from '@/components/FAQSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import ComparisonSection from '@/components/ComparisonSection';
 import IntegrationsMarquee from '@/components/IntegrationsMarquee';
 import SectionSkeleton from '@/components/SectionSkeleton';
@@ -323,6 +324,7 @@ export default function Home() {
             <SecuritySection />
             <ComparisonSection />
             <PricingSection />
+            <TestimonialsSection />
             <FAQSection />
             <IntegrationsMarquee />
 
